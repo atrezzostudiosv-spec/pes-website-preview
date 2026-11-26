@@ -1,0 +1,23 @@
+name: PES Home 02 visual QA
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install playwright==1.56.0
+      - run: python -m playwright install chromium
+      - run: python qa/pes-home-02.py
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pes-home-02-captures
+          path: qa-evidence/
