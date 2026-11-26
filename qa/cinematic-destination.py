@@ -1,7 +1,7 @@
 import base64,json,threading,subprocess,math
 from pathlib import Path
 from http.server import ThreadingHTTPServer,SimpleHTTPRequestHandler
-from playwright.sync_api import sync_playwright,devices
+from playwright.sync_api import sync_playwright
 from PIL import Image,ImageDraw
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'cinematic-qa';OUT.mkdir(exist_ok=True)
 VIDEOS=OUT/'videos';VIDEOS.mkdir(exist_ok=True)

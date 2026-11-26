@@ -1,5 +1,9 @@
 name: PES Home 03B cinematic continuous-scroll QA
 on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['assets/pes-cinematic-interlude.*','qa/cinematic-destination.py','.github/workflows/pes-cinematic.yml']
   pull_request:
     branches: [main]
     paths: ['index.html','assets/pes-cinematic-interlude.*','qa/cinematic-destination.py','.github/workflows/pes-cinematic.yml']
