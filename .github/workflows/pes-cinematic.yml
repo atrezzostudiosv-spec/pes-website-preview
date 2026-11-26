@@ -3,10 +3,10 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['assets/pes-cinematic-interlude.*','qa/cinematic-destination.py','.github/workflows/pes-cinematic.yml']
+    paths: ['assets/pes-cinematic-interlude.*','assets/mount-component.js','qa/cinematic-destination.py','.github/workflows/pes-cinematic.yml']
   pull_request:
     branches: [main]
-    paths: ['index.html','assets/pes-cinematic-interlude.*','qa/cinematic-destination.py','.github/workflows/pes-cinematic.yml']
+    paths: ['index.html','assets/pes-cinematic-interlude.*','assets/mount-component.js','qa/cinematic-destination.py','.github/workflows/pes-cinematic.yml']
 permissions:
   contents: read
 jobs:

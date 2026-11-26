@@ -1,12 +1,23 @@
-// Mount every registered component independently; shared ES modules load only once.
-for (const root of document.querySelectorAll("[data-atz-id]:not([data-pes-motion])")) {
-  const id = root.dataset.atzId;
-  const { mount } = await import(`./vendor/${id}.js`);
-  const instance = mount(root);
-  if (id === "ATZ-SEC-004") {
-    const viewport = matchMedia("(max-width: 820px)");
-    const syncViewport = () => instance.setReduced(viewport.matches);
-    syncViewport();
-    viewport.addEventListener("change", syncViewport);
+// One shared readiness barrier for native ATREZZO components and downstream scroll measurement.
+// Dynamic imports must finish before any dependent ScrollTrigger reads document geometry.
+export const nativeComponentsReady = (async () => {
+  const mounted = [];
+  for (const root of document.querySelectorAll("[data-atz-id]:not([data-pes-motion])")) {
+    const id = root.dataset.atzId;
+    try {
+      const { mount } = await import(`./vendor/${id}.js`);
+      const instance = mount(root);
+      if (id === "ATZ-SEC-004") {
+        const viewport = matchMedia("(max-width: 820px)");
+        const syncViewport = () => instance.setReduced(viewport.matches);
+        syncViewport();
+        viewport.addEventListener("change", syncViewport);
+      }
+      mounted.push({id, root, instance});
+    } catch (error) {
+      // Leave the component's original static fallback intact; do not block other sections.
+      console.error("PES native component mount failed:", id, error);
+    }
   }
-}
+  return mounted;
+})();

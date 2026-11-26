@@ -16,7 +16,7 @@ def go(p,url):
     assert p.goto(url,wait_until='load',timeout=45000).ok
     p.evaluate('document.fonts.ready')
 def state(p):
-    return p.evaluate("""()=>{const r=document.querySelector('.pes-cinematic-interlude'),g=r.querySelector('.grid'),t=r.querySelector('.content__title'),h=t.querySelector('h2'),service=document.querySelector('.art-atlas'),pin=ScrollTrigger.getById('pes-cinematic-pin')||ScrollTrigger.getAll().find(x=>x.pin===r),entry=ScrollTrigger.getById('pes-cinematic-entry'),exit=ScrollTrigger.getById('pes-cinematic-exit'),box=e=>{const b=e.getBoundingClientRect();return {x:b.x,y:b.y,w:b.width,h:b.height,bottom:b.bottom}};return {y:scrollY,vh:innerHeight,root:box(r),services:box(service),header:box(document.querySelector('.site-header')),pin:pin&&{start:pin.start,end:pin.end,p:pin.progress},entry:entry?.progress,exit:exit?.progress,alpha:[...g.children].map(e=>+getComputedStyle(e).opacity),scale:+gsap.getProperty(g,'scaleX'),skew:+gsap.getProperty(g,'skewY'),title:+getComputedStyle(t).opacity,titleBox:box(t),black:+(getComputedStyle(r).getPropertyValue('--pes-cinematic-black')||0),overflow:document.documentElement.scrollWidth>innerWidth,weights:[getComputedStyle(h).fontWeight,getComputedStyle(h.querySelector('strong')).fontWeight],servicesBg:getComputedStyle(service).backgroundColor,triggerCount:ScrollTrigger.getAll().filter(x=>x.vars.id?.startsWith('pes-cinematic-')).length}}""")
+    return p.evaluate("""()=>{const r=document.querySelector('.pes-cinematic-interlude'),g=r.querySelector('.grid'),t=r.querySelector('.content__title'),h=t.querySelector('h2'),service=document.querySelector('.art-atlas'),pin=ScrollTrigger.getById('pes-cinematic-pin')||ScrollTrigger.getAll().find(x=>x.pin===r),entry=ScrollTrigger.getById('pes-cinematic-entry'),exit=ScrollTrigger.getById('pes-cinematic-exit'),box=e=>{const b=e.getBoundingClientRect();return {x:b.x,y:b.y,w:b.width,h:b.height,bottom:b.bottom}};return {y:scrollY,vh:innerHeight,root:box(r),services:box(service),header:box(document.querySelector('.site-header')),pin:pin&&{start:pin.start,end:pin.end,p:pin.progress},spacer:box(r.closest('.pin-spacer')||r),hillside:box(document.querySelector('.pes-featured-split')),hillsideReady:document.querySelector('.pes-featured-split').classList.contains('ats-enhanced'),entryStart:entry?.start,entryEnd:entry?.end,exitStart:exit?.start,entry:entry?.progress,exit:exit?.progress,alpha:[...g.children].map(e=>+getComputedStyle(e).opacity),scale:+gsap.getProperty(g,'scaleX'),skew:+gsap.getProperty(g,'skewY'),title:+getComputedStyle(t).opacity,titleBox:box(t),black:+(getComputedStyle(r).getPropertyValue('--pes-cinematic-black')||0),overflow:document.documentElement.scrollWidth>innerWidth,weights:[getComputedStyle(h).fontWeight,getComputedStyle(h.querySelector('strong')).fontWeight],servicesBg:getComputedStyle(service).backgroundColor,triggerCount:ScrollTrigger.getAll().filter(x=>x.vars.id?.startsWith('pes-cinematic-')).length}}""")
 def scroll_to(p,y):
     p.evaluate("(y)=>window.scrollTo({top:y,behavior:'instant'})",y);p.wait_for_timeout(250)
 def travel(p,target,duration=4500):
@@ -35,6 +35,11 @@ def record(b,name,w,h,old=False):
         s=state(p);pin=s['pin'];vh=s['root']['h']
         if not old:
             assert s['triggerCount']==3 and s['weights']==['300','700'] and not s['overflow'],s
+            assert s['hillsideReady'],s
+            assert abs(pin['start']-(s['spacer']['y']+s['y']))<3,s
+            assert abs(s['hillside']['bottom']-s['spacer']['y'])<3,s
+            assert abs(s['entryEnd']-pin['start'])<3,s
+            assert abs(s['exitStart']-(pin['end']+vh-s['vh']))<4,s
             assert abs(pin['end']-pin['start']-vh*(1 if w<=700 else 1.5))<5,s
             assert s['servicesBg']=='rgb(0, 0, 0)',s
             assert p.locator(SEL+' .grid__img').count()==9
@@ -49,11 +54,17 @@ def record(b,name,w,h,old=False):
         reverse=travel(p,pin['start']-vh*.92,6200);p.wait_for_timeout(200);back=state(p)
         if not old:
             assert min(atpin['alpha'])>.97 and atpin['scale']<.8 and atpin['black']<.02,atpin
+            assert abs(atpin['root']['y'])<3,atpin
+            assert abs(mid['root']['y'])<3,mid
+            assert abs(last['root']['y'])<3,last
             assert mid['scale']>atpin['scale']+.1 and mid['title']>.95,mid
             assert last['scale']>.99 and last['black']<.02 and last['title']>.95,last
             assert .35<ex['black']<.85 and ex['services']['y']<vh*.6,ex
+            assert abs(ex['root']['y']+vh*.55)<4,ex
+            assert abs(ex['root']['bottom']-ex['services']['y'])<3,ex
             assert end['black']>.98,end
             assert back['scale']<.8 and back['black']<.02 and max(back['alpha'])>=.54,back
+            assert abs(back['root']['y']-vh*.92)<4,back
             assert any(min(t['alpha'])<max(t['alpha'])-.05 for t in down),down
             assert all(min(t['alpha'])>=.54 for t in down+middle+hold+exit+reverse)
             assert not errors,errors
@@ -84,7 +95,7 @@ with sync_playwright() as pw:
         for reduce in [False,True]:fallback(b,w,reduce)
     b.close()
     b=pw.webkit.launch(headless=True)
-    for w,h in [(375,844),(390,844)]:record(b,'webkit',w,h)
+    for w,h in [(375,844),(390,844),(1440,900)]:record(b,'webkit',w,h)
     b.close()
 (OUT/'results.json').write_text(json.dumps({'results':results,'failures':failures},indent=2))
 files=[OUT/f'{tag}-{phase}.jpg' for tag in ['v10-chromium-1440','v11-chromium-1440','v11-chromium-390','v11-webkit-390'] for phase in ['approach','entry','middle','hold','exit','services']]
