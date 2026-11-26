@@ -1,5 +1,5 @@
 # PES — Global Motion System V1.0
-Pilot: Home / Our Specialty only. No layout changes authorized.
+Permanent global Design System standard. User approved extension to all existing and future PES pages. No layout changes authorized.
 
 Original resources (unmodified Git blobs):
 - motion/ATZ-MOT-001.js — 25be335089dbfcc3e8ebac45305947c9f20a3c2c
@@ -11,4 +11,12 @@ Original resources (unmodified Git blobs):
 
 Reference demos: https://atrezzostudiosv-spec.github.io/atrezzo-repositorio/catalog/preview.html?id=ATZ-MOT-001 and https://atrezzostudiosv-spec.github.io/atrezzo-repositorio/catalog/preview.html?id=ATZ-MOT-013.
 
-The PES adapter coordinates independently mounted groups and two title segments; the original H2 remains the layout/accessibility source. Entry offsets 0/120/320/440 ms; original character stagger 5 ms and duration 1200 ms; original group stagger 120 ms and duration 700 ms. No new animation formulas. Native scroll, one-shot, static without JS or reduced motion, keyboard focus cancels pending movement. Only explicitly mounted sections opt in. For future editorial sections adapt the content hooks; no global automatic scan. Visual approval in PES pending.
+The PES adapter coordinates independently mounted groups and two title segments; the original H2 remains the layout/accessibility source. Entry offsets 0/120/320/440 ms; original character stagger 5 ms and duration 1200 ms; original group stagger 120 ms and duration 700 ms. No new animation formulas. Native scroll, one-shot, static without JS or reduced motion, keyboard focus cancels pending movement. Our Specialty keeps its approved adapter. Other editorial regions opt in using data-pes-editorial and the shared global entry.
+
+## Mandatory development protocol
+Every existing and future customer-facing page loads assets/pes-motion-global.css and assets/pes-motion-global.js once (correct relative path). Mark each editorial region data-pes-editorial. Mark exceptions data-pes-motion-off with a documented reason. The system is not a blanket animation of every node.
+- One protagonist H1/H2 per region uses MOT-001; original semantic heading is restored, with original typography and line breaks. Longer headings may use group entry. MOT-013 applies to eligible nearby text groups and editorial CTAs, at most three elements per cascade, using original WAAPI effects retargeted onto the unmodified layout. Existing green rules attached to labels appear with their label; Specialty's separate green rule retains its approved sequence. Do not add a new line where the design has none.
+- Keep cinematic Hero, ATZ-SEC-004 and SS03 engines unchanged; exclude menus, forms, critical notices, historical job text and long lists. No motion stacking, no new libraries, no pinning, no scroll interception. Keep original brand and content.
+- Native scroll entry once, keyboard focus and reduced motion fail open. Content and links work without JS. Test desktop/mobile, exact layout, reverse and fast scroll, focus, reduced motion, no-JS, console and component coexistence. Do not certify production without visual review.
+
+Current rollout: 16 navigable pages. Technical/visual QA tracked separately.

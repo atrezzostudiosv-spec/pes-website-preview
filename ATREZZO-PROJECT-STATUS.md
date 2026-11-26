@@ -1,0 +1,2 @@
+# PES project status
+Global Motion System V1.0 is a permanent design-system requirement. All 16 existing navigable pages opt into editorial motion. Our Specialty approved composition and cinematic components are preserved. See docs/PES-GLOBAL-MOTION-V1.md. Sitewide browser QA is required; visual approval in destination remains separate. Legacy Filmstrip reference QA is manually runnable only, since its component is no longer present on Home.
