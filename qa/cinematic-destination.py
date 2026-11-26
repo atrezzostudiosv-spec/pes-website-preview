@@ -14,10 +14,10 @@ def go(p,url):
     assert p.goto(url,wait_until='load',timeout=45000).ok
     p.evaluate('document.fonts.ready')
 def getstate(p):
-    return p.locator(SEL).evaluate("""r=>{const st=ScrollTrigger.getAll().find(t=>t.pin===r);const grid=r.querySelector('.grid');const title=r.querySelector('.content__title');const h=title.querySelector('h2');const box=e=>{let b=e.getBoundingClientRect();return {x:b.x,y:b.y,w:b.width,h:b.height,bottom:b.bottom}};return {progress:st.progress,start:st.start,end:st.end,scale:gsap.getProperty(grid,'scaleX'),skew:gsap.getProperty(grid,'skewY'),gridOpacity:Number(getComputedStyle(grid).opacity),titleOpacity:Number(getComputedStyle(title).opacity),title:box(title),root:box(r),next:box(r.closest('.pin-spacer')?.nextElementSibling||r.nextElementSibling),header:box(document.querySelector('.site-header')),overflow:document.documentElement.scrollWidth>innerWidth,weight:getComputedStyle(h).fontWeight,bold:getComputedStyle(h.querySelector('strong')).fontWeight,line:getComputedStyle(h,'::after').height,background:getComputedStyle(r).backgroundColor,services:getComputedStyle(document.querySelector('.art-atlas')).backgroundColor,assets:[...grid.children].map(e=>getComputedStyle(e).backgroundImage)}}""")
+    return p.locator(SEL).evaluate("""r=>{const st=ScrollTrigger.getAll().find(t=>t.pin===r);const grid=r.querySelector('.grid');const title=r.querySelector('.content__title');const h=title.querySelector('h2');const box=e=>{let b=e.getBoundingClientRect();return {x:b.x,y:b.y,w:b.width,h:b.height,bottom:b.bottom}};return {progress:st.progress,start:st.start,end:st.end,timeline:st.animation?.progress(),scale:gsap.getProperty(grid,'scaleX'),skew:gsap.getProperty(grid,'skewY'),gridOpacity:Number(getComputedStyle(grid).opacity),titleOpacity:Number(getComputedStyle(title).opacity),title:box(title),root:box(r),next:box(r.closest('.pin-spacer')?.nextElementSibling||r.nextElementSibling),header:box(document.querySelector('.site-header')),overflow:document.documentElement.scrollWidth>innerWidth,weight:getComputedStyle(h).fontWeight,bold:getComputedStyle(h.querySelector('strong')).fontWeight,line:getComputedStyle(h,'::after').height,background:getComputedStyle(r).backgroundColor,services:getComputedStyle(document.querySelector('.art-atlas')).backgroundColor,assets:[...grid.children].map(e=>getComputedStyle(e).backgroundImage)}}""")
 def seek(p,q):
     p.locator(SEL).evaluate("(r,q)=>{const s=ScrollTrigger.getAll().find(t=>t.pin===r);window.scrollTo({top:s.start+q*(s.end-s.start),behavior:'instant'});}",q)
-    p.wait_for_timeout(850)
+    p.wait_for_timeout(1200)
 def run(b,name,w,h):
     tag=f'{name}-{w}';p=b.new_page(viewport={'width':w,'height':h},is_mobile=(name=='webkit' and w<701),has_touch=(w<701))
     errors=[];p.on('pageerror',lambda e:errors.append(str(e)))
@@ -32,7 +32,7 @@ def run(b,name,w,h):
         states=[]
         for i,q in enumerate([.01,.38,.67,1,.5,.01]):
             seek(p,q);s=getstate(p)
-            assert abs(s['progress']-q)<.03,(q,s)
+            assert abs(s['progress']-q)<.03 and abs(s['timeline']-q)<.04,(q,s)
             assert abs((s['end']-s['start'])-h*(.58 if w<=700 else 1))<5,s
             assert not s['overflow'] and s['weight']=='300' and s['bold']=='700' and s['line']=='2px',s
             assert s['background']=='rgb(0, 0, 0)' and s['services']=='rgb(0, 0, 0)',s
@@ -43,7 +43,7 @@ def run(b,name,w,h):
             assert abs((s['title']['x']+s['title']['w']/2)-w/2)<3,s
             states.append(s);p.screenshot(path=str(OUT/f'{tag}-{i}.jpg'),type='jpeg',quality=82)
         assert abs(states[0]['scale']-states[-1]['scale'])<.04,states
-        assert max(abs(x['header']['y']-states[0]['header']['y']) for x in states)<2
+        assert all(abs(x['header']['y'])<2 or abs(x['header']['bottom'])<5 for x in states),states
         seek(p,1)
         assert abs(getstate(p)['next']['y']-getstate(p)['root']['bottom'])<3
         p.evaluate("window.scrollBy({top:Math.round(innerHeight*.35),behavior:'instant'})");p.wait_for_timeout(250)

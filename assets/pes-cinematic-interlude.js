@@ -21,18 +21,17 @@ function mount(){
    const gridImages=grid.querySelectorAll('.grid__img');
    const title=scope.querySelector('.content__title');
    // Original edge stagger, group scale/skew and reversible scrub.
-   const tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{
-    trigger:root,start:'top top',end:()=>'+='+Math.round(window.innerHeight*(compact ? .58 : 1)),
-    pin:root,scrub:.5,invalidateOnRefresh:true,anticipatePin:1
-   }});
-   tl.from(gridImages,{stagger:{amount:.03,from:'edges',grid:[3,3]},scale:compact ? .88 : .7,autoAlpha:0})
-     .from(grid,{scale:compact ? .88 : .7,skewY:compact ? 2 : 5},0);
+   const tl=gsap.timeline({paused:true,defaults:{ease:'none'}});
+   tl.fromTo(gridImages,{scale:compact ? .88 : .7,autoAlpha:0},{scale:1,autoAlpha:1,stagger:{amount:.03,from:'edges',grid:[3,3]},duration:.5},0)
+     .fromTo(grid,{scale:compact ? .88 : .7,skewY:compact ? 2 : 5},{scale:1,skewY:0,duration:.5},0);
    // The title has a single coordinated entrance and remains spatially stable.
-   tl.from(title,{opacity:0,duration:.22},.08);
+   tl.fromTo(title,{opacity:0},{opacity:1,duration:.22},.08);
    const zoomEnd=tl.duration();
    // Final fade is part of the same scrub timeline, not a separate effect.
    tl.to(grid,{opacity:0,duration:.22},zoomEnd)
      .to(title,{opacity:0,duration:.18},zoomEnd+.02);
+   // Bind the completed timeline; avoid invalidating from() start values during refresh.
+   ScrollTrigger.create({animation:tl,trigger:root,start:'top top',end:()=>'+='+Math.round(window.innerHeight*(compact ? .58 : 1)),pin:root,scrub:.5,anticipatePin:1});
   };
   instance=mountScene(root,'[data-grid-sixth]',animate,{gsap,ScrollTrigger,mobileMax:0});
   if(instance.mode!=='animated')root.classList.remove('pes-cinematic-animated');

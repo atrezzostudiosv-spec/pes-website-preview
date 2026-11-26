@@ -10,9 +10,9 @@
 .pes-site .pes-cinematic-interlude .content__title-main{font-family:var(--pes-font);font-size:clamp(44px,6.8vw,106px);font-weight:300;line-height:1.04;letter-spacing:-.055em;margin:0;color:white;text-wrap:balance}
 .pes-site .pes-cinematic-interlude .content__title-main strong{font-weight:700}
 .pes-site .pes-cinematic-interlude .content__title-main::after{content:"";display:block;width:48px;height:2px;background:#A2FD02;margin:22px auto 0}
-.pes-site .pes-cinematic-interlude + .art-atlas{background:#000}
+.pes-site .pes-cinematic-interlude + .art-atlas,.pes-site .pin-spacer:has(>.pes-cinematic-interlude) + .art-atlas{background:#000}
 @media(max-width:700px){
- .pes-site .pes-cinematic-interlude{height:78svh;min-height:0}
+ .pes-site .pes-cinematic-interlude{height:100svh;min-height:0}
  .pes-site .pes-cinematic-interlude .grid{gap:5px;aspect-ratio:auto}
  .pes-site .pes-cinematic-interlude.pes-cinematic-animated .grid--zoomed{grid-template-columns:repeat(3,62%);grid-template-rows:repeat(3,46%);gap:8px;aspect-ratio:auto}
  .pes-site .pes-cinematic-interlude .content__title-main{font-size:clamp(35px,10vw,56px)}
