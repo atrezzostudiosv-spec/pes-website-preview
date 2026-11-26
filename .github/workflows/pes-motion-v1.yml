@@ -1,0 +1,31 @@
+name: PES Global Motion V1 QA
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'assets/pes-*'
+      - 'assets/vendor/pes-motion/**'
+      - 'index.html'
+      - 'qa/motion-v1.py'
+      - '.github/workflows/pes-motion-v1.yml'
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install playwright==1.56.0
+      - run: python -m playwright install --with-deps chromium
+      - run: python qa/motion-v1.py
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pes-motion-v1-evidence
+          path: motion-qa/

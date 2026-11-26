@@ -13,6 +13,7 @@ export function mountEditorialMotion(section) {
   if(!label || !heading || !copy || !bold || !br) return;
   const instances=[],timers=[],originalNodes=[...heading.childNodes];
   let observer, titleObserver, finished=false, overlay, source, ruleRoot;
+  const titleInstances=[];
   const oldLabel=heading.getAttribute('aria-label');
   const make=(tag,cls)=>{const e=document.createElement(tag);e.className=cls;return e;};
   const root=(tag,id,cls)=>{const e=make(tag,cls);e.dataset.atzId=id;e.dataset.pesMotion='';return e;};
@@ -23,6 +24,7 @@ export function mountEditorialMotion(section) {
   };
   const showTitle=()=>{
     titleObserver?.disconnect();
+    titleInstances.splice(0).reverse().forEach(x=>{try{x.destroy();}catch{}});
     if(overlay){overlay.remove();overlay=null;}
     heading.classList.remove('pes-motion-title-active');
     if(source){heading.prepend(...originalNodes);source.remove();source=null;}
@@ -45,7 +47,7 @@ export function mountEditorialMotion(section) {
     const copyRoot=group('div',[...copy.children],r=>copy.append(r));
     // Keep the approved H2 as the layout and accessibility source.
     source=make('span','pes-motion-source');source.append(...originalNodes);heading.append(source);
-    heading.setAttribute('aria-label',source.textContent.replace(/behindthe/,'behind the').trim());
+    heading.setAttribute('aria-label',originalNodes.map(n=>n===br?' ':n.textContent).join('').trim());
     overlay=make('span','pes-motion-overlay');overlay.setAttribute('aria-hidden','true');overlay.dataset.pending='';
     const segment=(value,heavy)=>{
       const r=root('span','ATZ-MOT-001','atz-motion-v1 pes-motion-segment');
@@ -61,7 +63,7 @@ export function mountEditorialMotion(section) {
     section.addEventListener('focusin',finish);media.addEventListener('change',onMedia);
     const playTitle=()=>{
       const targets=lines.map(r=>r.querySelector('[data-am-text]'));
-      lines.forEach(r=>instances.push(reveal(r)));
+      lines.forEach(r=>titleInstances.push(reveal(r)));
       delete overlay.dataset.pending;
       const complete=()=>{
         if(targets.every(t=>t.classList.contains('am-inview'))){
