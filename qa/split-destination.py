@@ -39,7 +39,8 @@ def compare(b,w,h):
             p.locator(SEL+' img').evaluate("e=>e.decode()")
             a,c=state(ref),state(p)
             assert a['height']==c['height'] and a['stage']==c['stage'],(a,c)
-            assert abs(a['p']-c['p'])<.005 and a['clip']==c['clip'] and a['alpha']==c['alpha'] and a['x']==c['x'],(q,a,c)
+            # Browser scroll offsets are quantized to device pixels; compare numerical output at the measured progress.
+            assert abs(a['p']-c['p'])<.005 and abs(float(a['clip'].rstrip('%'))-float(c['clip'].rstrip('%')))<=.3 and abs(float(a['alpha'])-float(c['alpha']))<=.02 and abs(float(a['x'].removesuffix('px'))-float(c['x'].removesuffix('px')))<=.6,(q,a,c)
             assert c['sticky']=='sticky' and c['imageLoaded'] and not c['overflow']
             assert c['background']=='rgb(0, 0, 0)' and c['filter']=='none'
             if w<=780:assert c['clipCss']=='inset(0px)',c
