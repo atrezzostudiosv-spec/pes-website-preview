@@ -32,7 +32,7 @@ def compare(b,w,h):
         p.wait_for_function("document.querySelector('[data-atz-id=ATZ-SEC-004]')?.__atrezzoScrollSections02")
         assert p.locator(SEL+' [data-am-text],'+SEL+' [data-pes-editorial]').count()==0
         assert p.locator(SEL).evaluate("e=>e.previousElementSibling?.matches('section.pes-specialty')||e.previousElementSibling?.matches('script')||e.previousElementSibling?.classList.contains('pes-specialty')")
-        assert p.locator(SEL).evaluate("e=>e.nextElementSibling.classList.contains('art-atlas')")
+        assert p.locator(SEL).evaluate("e=>{const n=e.nextElementSibling;return n.matches('.art-atlas,.pes-cinematic-interlude')||!!n.querySelector('.pes-cinematic-interlude')}")
         for i,q in enumerate([0,.25,.5,.75,1,.5,0]):
             seek(ref,q);seek(p,q)
             ref.locator(SEL+' img').evaluate("e=>e.decode().catch(()=>{})")

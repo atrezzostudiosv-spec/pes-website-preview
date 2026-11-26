@@ -1,0 +1,162 @@
+{
+  "scope": "PES authorized review preview only; production rights/photographer credits remain to be confirmed",
+  "source_repository": "atrezzostudiosv-spec/client-premiumenergysolutionsinc-com-4ef9893178",
+  "source_branch": "atrezzo-production-readiness",
+  "source_manifest": "review/media/manifest.json",
+  "central_image": "PES-002",
+  "images": [
+    {
+      "id": "PES-003",
+      "kind": "photo",
+      "url": "https://images.squarespace-cdn.com/content/v1/5c7f909090f904a653a294e1/1652958580653-81BQOT9S2RC07DTMJAZF/Hillside+Finish+2-31.jpg",
+      "source": [
+        "https://www.premiumenergysolutionsinc.com/"
+      ],
+      "file": "PES-003.jpg",
+      "sha256": "432b4e2143fc7fe7ba0ad7534bae5747634f226be0577fdeabef8e81f98dadbb",
+      "download_sha256": "aeda4f19037e150191cab2c2f36795c780d6f3572aaa5c28c254d59ff99cca9a",
+      "width": 1500,
+      "height": 1001,
+      "state": "private_review_only",
+      "slot": 1,
+      "description": "Sculptural ceiling luminaires in living space",
+      "git_blob": "b0218e44d387f78bbc7ca75cd369b753b460b8cf"
+    },
+    {
+      "id": "PES-017",
+      "kind": "photo",
+      "url": "https://images.squarespace-cdn.com/content/v1/5c7f909090f904a653a294e1/1652959190586-191RWTXA3VZJFDWSZVL9/Hillside+Finish+2-47.jpg",
+      "source": [
+        "https://www.premiumenergysolutionsinc.com/"
+      ],
+      "file": "PES-017.jpg",
+      "sha256": "79fe252677802160877822f087d7a2ad582c2d8881d6790b268904cfd8ebacc8",
+      "download_sha256": "23f96ce513d01f45892fd4b7fd709f4076261e2fcd6cd16a448a4a21a24f3ca2",
+      "width": 1500,
+      "height": 1001,
+      "state": "private_review_only",
+      "slot": 2,
+      "description": "Illuminated exterior and courtyard at night",
+      "git_blob": "0c03c02bedf1db2a919f87558965b32b0c86ccca"
+    },
+    {
+      "id": "PES-008",
+      "kind": "photo",
+      "url": "https://images.squarespace-cdn.com/content/v1/5c7f909090f904a653a294e1/1652958700336-ZCR2D9VDRG3U2MOVQKW4/Hillside-JesterJungco-37.jpg",
+      "source": [
+        "https://www.premiumenergysolutionsinc.com/"
+      ],
+      "file": "PES-008.jpg",
+      "sha256": "5bddbe231deb21c4a3c0cfc0bce8d2bb3cb084d56d9ca3208e59fe6b44d9811e",
+      "download_sha256": "4c7441ba5e1e96c1d9960855713d30a303672e3aaa003c9476613c626b11482c",
+      "width": 1500,
+      "height": 1001,
+      "state": "private_review_only",
+      "slot": 3,
+      "description": "Geometric linear lighting in private cinema",
+      "git_blob": "d7c2cecfa136909fdc7eedf9df714e179503896c"
+    },
+    {
+      "id": "PES-012",
+      "kind": "photo",
+      "url": "https://images.squarespace-cdn.com/content/v1/5c7f909090f904a653a294e1/1652958806856-8L1JMTB2AZNSINDFNAQS/Hillside-JesterJungco-26.jpg",
+      "source": [
+        "https://www.premiumenergysolutionsinc.com/"
+      ],
+      "file": "PES-012.jpg",
+      "sha256": "12b4ea06a41ce6efe7de1a5e25536f6df270d1325c2d105533c1668c29e06694",
+      "download_sha256": "ce33d7f58818be90d8d75b57a8eb3adaa5d5265fe8c73fa83b9a4f188d6345f6",
+      "width": 1500,
+      "height": 1001,
+      "state": "private_review_only",
+      "slot": 4,
+      "description": "Illuminated bedroom cabinetry and timber ceiling",
+      "git_blob": "3292dfefed3339ee7b8ca38b950bf84d1c958ba2"
+    },
+    {
+      "id": "PES-002",
+      "kind": "photo",
+      "url": "https://images.squarespace-cdn.com/content/v1/5c7f909090f904a653a294e1/1652958661339-CQTRJJ2IU0L5J3EUHUVF/Hillside-JesterJungco-4.jpg",
+      "source": [
+        "https://www.premiumenergysolutionsinc.com/"
+      ],
+      "file": "PES-002.jpg",
+      "sha256": "6def122a7a50c20deb9c7b08e46cf5fcd91f9d4306d1ceeff0f2421729870959",
+      "download_sha256": "c929fc8686814907aef024226d772f76ed5852c3c613bb24ac81adf7de4d4081",
+      "width": 1500,
+      "height": 1001,
+      "state": "private_review_only",
+      "slot": 5,
+      "description": "Dusk living room with illuminated timber ceiling and city view",
+      "git_blob": "398f447b0eec242bab77881e5b72c184d88138b1"
+    },
+    {
+      "id": "PES-011",
+      "kind": "photo",
+      "url": "https://images.squarespace-cdn.com/content/v1/5c7f909090f904a653a294e1/1652958733723-15Q7TBGOB959EC67ZQ9S/Hillside-JesterJungco-33.jpg",
+      "source": [
+        "https://www.premiumenergysolutionsinc.com/"
+      ],
+      "file": "PES-011.jpg",
+      "sha256": "de3ce943b9fb47b3951abeefeb165485f16a83ea934746b57e661681d1b5fc1f",
+      "download_sha256": "a6e793858e5ed7da906dfb19ef32d4155d6ebc1366c02a3d747a2702f4a265ba",
+      "width": 1500,
+      "height": 1001,
+      "state": "private_review_only",
+      "slot": 6,
+      "description": "Linear lighting and terrace outlook",
+      "git_blob": "ae0d1cafd13fb02098bb0747d2c109c186f640c7"
+    },
+    {
+      "id": "PES-007",
+      "kind": "photo",
+      "url": "https://images.squarespace-cdn.com/content/v1/5c7f909090f904a653a294e1/1652958662639-WBMW7KPIEXZ8XWQ26N9U/Hillside-JesterJungco-8.jpg",
+      "source": [
+        "https://www.premiumenergysolutionsinc.com/"
+      ],
+      "file": "PES-007.jpg",
+      "sha256": "f4c457fe04d73e121048e0279fa680ca9aedc60bd421a28e8ddb3031ce7c6b97",
+      "download_sha256": "8e94f679f7cf38f0c26d3cc3e9f13a476b8d656ca3f0f8e2968f3dea78e21e0c",
+      "width": 1500,
+      "height": 1001,
+      "state": "private_review_only",
+      "slot": 7,
+      "description": "Integrated lighting around covered terrace",
+      "git_blob": "cc7defcd88d2fe354b0d37916b976d472027f4fb"
+    },
+    {
+      "id": "PES-033",
+      "kind": "photo",
+      "url": "https://images.squarespace-cdn.com/content/v1/5c7f909090f904a653a294e1/1653319763006-P5ABMFKPBLN1FKBZR84Q/Hillside+Finish+2-11.jpg",
+      "source": [
+        "https://www.premiumenergysolutionsinc.com/system-lighting-upgrade"
+      ],
+      "file": "PES-033.jpg",
+      "sha256": "f7f4afef5d7270f8fc14ce5858ab250fcd0e6c5ac5b305226dcb76dc40b1e5c5",
+      "download_sha256": "a35c29af7207ba699e1f68a505555814967dfd73ecb26e6c132a6dfbf120b666",
+      "width": 1500,
+      "height": 1001,
+      "state": "private_review_only",
+      "slot": 8,
+      "description": "Electrical distribution cabinets",
+      "git_blob": "9eb64de08f4de1ba36a3170cd43abf917970aac6"
+    },
+    {
+      "id": "PES-014",
+      "kind": "photo",
+      "url": "https://images.squarespace-cdn.com/content/v1/5c7f909090f904a653a294e1/1652958754742-TYPMY23RWGKNWFKD307F/Hillside-JesterJungco-21.jpg",
+      "source": [
+        "https://www.premiumenergysolutionsinc.com/"
+      ],
+      "file": "PES-014.jpg",
+      "sha256": "b560a777f385af1e74c51f37afa13a162406b3ba60bfaba0141716d97a195b5c",
+      "download_sha256": "29597d8bbbe7316f0a4ed80ba18d3ef3a9b55703d9cb9b8611d6a88179aa4035",
+      "width": 1500,
+      "height": 1001,
+      "state": "private_review_only",
+      "slot": 9,
+      "description": "Integrated bathroom and mirror lighting",
+      "git_blob": "36b6cd80a94142c8ae7db77b87261fe67da72298"
+    }
+  ]
+}

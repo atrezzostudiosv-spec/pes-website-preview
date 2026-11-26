@@ -41,6 +41,7 @@ def test(b,path,w):
             # Restore baseline HTML only in this static comparison browser, never on disk.
             feature=old.locator('.project-feature').evaluate("e=>e.outerHTML")
             static.locator('.pes-featured-split').evaluate("(e,html)=>e.outerHTML=html",feature)
+            static.locator('.pes-cinematic-interlude').evaluate_all('els=>els.forEach(e=>e.remove())')
         check(snap(old),snap(static))
         load(p,BASE+path)
         p.wait_for_function("document.querySelector('[data-pes-editorial]')?.dataset.pesEditorialReady==='true'")
