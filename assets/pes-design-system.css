@@ -210,3 +210,6 @@ body.pes-site{font-weight:var(--pes-weight-regular)}
  .pes-site :is(.cap-opening,.cap-ev,.art-scene,.art-scene.right):before{background:var(--pes-gradient-bottom)}
  .pes-site .hero-film h1.pes-editorial-rule::after{bottom:-12px}
 }
+
+/* The split scene's paragraph uses a vendor font shorthand; override family only. */
+.pes-site .ss03 .ss03__text{font-family:var(--pes-font);font-weight:var(--pes-weight-regular)}
