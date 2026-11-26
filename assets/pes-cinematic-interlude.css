@@ -1,4 +1,4 @@
-/* PES cinematic variant only; original library CSS is preserved. */
+/* PES cinematic refinement V1.1; original library CSS is preserved. */
 .pes-site .pes-cinematic-interlude{--atz-surface:#000;--atz-color:#fff;--atz-gap:12px;background:#000;color:#fff;font-family:var(--pes-font);margin:0;overflow:hidden;min-height:100svh;height:100svh}
 .pes-site .pes-cinematic-interlude .grid{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:8px;aspect-ratio:auto;width:100%;height:100%}
 .pes-site .pes-cinematic-interlude.pes-cinematic-animated .grid--zoomed{gap:2rem;grid-template-columns:repeat(3,70%);grid-template-rows:repeat(3,60%);aspect-ratio:2/1}
@@ -14,10 +14,14 @@
 @media(max-width:700px){
  .pes-site .pes-cinematic-interlude{height:100svh;min-height:0}
  .pes-site .pes-cinematic-interlude .grid{gap:5px;aspect-ratio:auto}
- .pes-site .pes-cinematic-interlude.pes-cinematic-animated .grid--zoomed{grid-template-columns:repeat(3,62%);grid-template-rows:repeat(3,46%);gap:8px;aspect-ratio:auto}
+ .pes-site .pes-cinematic-interlude.pes-cinematic-animated .grid--zoomed{grid-template-columns:repeat(3,52%);grid-template-rows:repeat(3,43%);gap:6px;aspect-ratio:auto}
  .pes-site .pes-cinematic-interlude .content__title-main{font-size:clamp(35px,10vw,56px)}
  .pes-site .pes-cinematic-interlude .content__title-main::after{margin-top:16px}
 }
 @media(prefers-reduced-motion:reduce){
  .pes-site .pes-cinematic-interlude .grid,.pes-site .pes-cinematic-interlude .grid__img,.pes-site .pes-cinematic-interlude .content__title{opacity:1!important;visibility:visible!important;transform:none!important}
 }
+
+/* Exit overlay fades the whole composition as the next section enters. */
+.pes-site .pes-cinematic-interlude::after{content:"";position:absolute;inset:0;z-index:4;background:#000;opacity:var(--pes-cinematic-black,0);pointer-events:none}
+@media(prefers-reduced-motion:reduce){.pes-site .pes-cinematic-interlude::after{opacity:0!important}}

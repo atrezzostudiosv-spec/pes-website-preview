@@ -1,42 +1,62 @@
-/* ATZ-SCR-007 — PES Cinematic Variant V1.0.
- * Original Codrops/ATREZZO files preserved under vendor/atz-scr-007-original.
- * Explicit client variation: shorter scroll, mobile scale and final black fade.
+/* ATZ-SCR-007 — PES Cinematic Refinement V1.1.
+ * Original reference and lifecycle preserved in vendor. This instance uses its own
+ * GSAP context because entry, pin and exit have distinct scroll ranges.
  */
-import {mountScene} from './vendor/atz-scr-007-original/runtime/lifecycle.js';
 const root=document.querySelector('[data-pes-cinematic="ATZ-SCR-007"]');
-const media=matchMedia('(max-width:700px)');
+const compact=matchMedia('(max-width:700px)');
 const reduce=matchMedia('(prefers-reduced-motion: reduce)');
-let instance;
-function mount(){
- if(!root)return;
- instance?.destroy();instance=undefined;
- root.classList.remove('pes-cinematic-animated');
- const gsap=window.gsap,ScrollTrigger=window.ScrollTrigger;
- if(reduce.matches||!gsap||!ScrollTrigger)return;
- root.classList.add('pes-cinematic-animated');
- try{
-  const compact=media.matches;
-  const animate=(scope,gsap)=>{
-   const grid=scope.querySelector('[data-grid-sixth]');
-   const gridImages=grid.querySelectorAll('.grid__img');
-   const title=scope.querySelector('.content__title');
-   // Original edge stagger, group scale/skew and reversible scrub.
-   const tl=gsap.timeline({paused:true,defaults:{ease:'none'}});
-   tl.fromTo(gridImages,{scale:compact ? .88 : .7,autoAlpha:0},{scale:1,autoAlpha:1,stagger:{amount:.03,from:'edges',grid:[3,3]},duration:.5},0)
-     .fromTo(grid,{scale:compact ? .88 : .7,skewY:compact ? 2 : 5},{scale:1,skewY:0,duration:.5},0);
-   // The title has a single coordinated entrance and remains spatially stable.
-   tl.fromTo(title,{opacity:0},{opacity:1,duration:.22},.08);
-   const zoomEnd=tl.duration();
-   // Final fade is part of the same scrub timeline, not a separate effect.
-   tl.to(grid,{opacity:0,duration:.22},zoomEnd)
-     .to(title,{opacity:0,duration:.18},zoomEnd+.02);
-   // Bind the completed timeline; avoid invalidating from() start values during refresh.
-   ScrollTrigger.create({animation:tl,trigger:root,start:'top top',end:()=>'+='+Math.round(window.innerHeight*(compact ? .58 : 1)),pin:root,scrub:.5,anticipatePin:1});
-  };
-  instance=mountScene(root,'[data-grid-sixth]',animate,{gsap,ScrollTrigger,mobileMax:0});
-  if(instance.mode!=='animated')root.classList.remove('pes-cinematic-animated');
- }catch(e){root.classList.remove('pes-cinematic-animated');instance?.destroy();console.warn('PES cinematic static fallback',e);}
+let context, mounted=false, initializing=false;
+function unmount(){
+ context?.revert();context=undefined;mounted=false;
+ root?.classList.remove('pes-cinematic-animated');
 }
-media.addEventListener('change',mount);reduce.addEventListener('change',mount);
-window.addEventListener('load',()=>{if(!instance)mount();else window.ScrollTrigger?.refresh();},{once:true});
-if(document.readyState==='complete')mount();else if(window.gsap&&window.ScrollTrigger)mount();
+function mount(){
+ if(!root||initializing)return;
+ initializing=true;
+ try{
+  unmount();
+  const {gsap,ScrollTrigger}=window;
+  if(reduce.matches||!gsap||!ScrollTrigger)return;
+  gsap.registerPlugin(ScrollTrigger);
+  const mobile=compact.matches;
+  const grid=root.querySelector('[data-grid-sixth]');
+  const tiles=[...grid.querySelectorAll('.grid__img')];
+  const title=root.querySelector('.content__title');
+  const services=root.nextElementSibling;
+  if(tiles.length!==9||!title||!services?.classList.contains('art-atlas'))return;
+  root.classList.add('pes-cinematic-animated');
+  // Stable small viewport height: browser toolbar movement cannot shorten the pin.
+  const distance=()=>Math.round(root.clientHeight*(mobile?1:1.5));
+  context=gsap.context(()=>{
+   // ENTRY: alpha only. At least 55% visible from the first pixel of the section.
+   // Original edge stagger order, but expanded across the preceding viewport.
+   const entry=gsap.timeline({paused:true,defaults:{ease:'none'}});
+   entry.fromTo(tiles,{opacity:.55},{opacity:1,duration:.52,stagger:{amount:.36,from:'edges',grid:[3,3]}},0);
+   ScrollTrigger.create({id:'pes-cinematic-entry',animation:entry,trigger:root,start:'top bottom',end:'top top',scrub:true});
+   // PIN: only scale/skew and independent title opacity; no tile alpha animation.
+   const motion=gsap.timeline({paused:true,defaults:{ease:'none'}});
+   const scale=mobile ? .72 : .70;
+   motion.fromTo(tiles,{scale},{scale:1,duration:.62,stagger:{amount:.12,from:'edges',grid:[3,3]}},0)
+    .fromTo(grid,{scale,skewY:mobile ? 3 : 5},{scale:1,skewY:0,duration:.74},0)
+    .fromTo(title,{opacity:0},{opacity:1,duration:.18},.04);
+   // Deliberate hold after completing the zoom. No black fade while pinned.
+   motion.to({hold:0},{hold:1,duration:.26},.74);
+   ScrollTrigger.create({id:'pes-cinematic-pin',animation:motion,trigger:root,start:'top top',end:()=>'+='+distance(),pin:root,scrub:true,anticipatePin:1});
+   // EXIT: neutral black overlay, independent of tile/title properties.
+   // The services section physically enters the viewport while the mosaic exits.
+   const exit=gsap.fromTo(root,{'--pes-cinematic-black':0},{'--pes-cinematic-black':1,ease:'none',paused:true});
+   ScrollTrigger.create({id:'pes-cinematic-exit',animation:exit,trigger:services,start:'top bottom',end:'top 15%',scrub:true});
+  },root);
+  mounted=true;
+  ScrollTrigger.refresh();
+ }catch(e){unmount();console.warn('PES cinematic static fallback',e);}
+ finally{initializing=false;}
+}
+function ready(){if(!mounted)mount();else window.ScrollTrigger?.refresh();}
+compact.addEventListener('change',mount);
+reduce.addEventListener('change',mount);
+window.addEventListener('pageshow',ready);
+window.addEventListener('load',ready,{once:true});
+if(document.readyState==='complete')ready();
+else if(window.gsap&&window.ScrollTrigger)mount();
+document.fonts?.ready.then(()=>{if(mounted)window.ScrollTrigger?.refresh();});
