@@ -230,3 +230,38 @@ body.pes-site{font-weight:var(--pes-weight-regular)}
 @media(max-width:520px){
  .pes-site [data-atz-id="ATZ-SEC-005"] .ats2-film-title{font-size:clamp(29px,8.4vw,42px);line-height:39.06px}
 }
+
+/* HOME / 02 — Our Specialty. Scope: this section only. */
+.pes-site .pes-specialty{background:var(--pes-white);color:var(--pes-black);padding:clamp(64px,6.5vw,116px) 0}
+.pes-site .pes-specialty .pes-specialty-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(32px,4vw,72px);align-items:center}
+.pes-site .pes-specialty .pes-specialty-label{display:flex;align-items:center;gap:12px;margin:0 0 clamp(20px,2vw,32px);font-size:11px;font-weight:var(--pes-weight-semibold);letter-spacing:.16em;line-height:1.5}
+.pes-site .pes-specialty .pes-specialty-label::before{content:"";width:22px;height:2px;background:var(--pes-green);flex:none}
+.pes-site .pes-specialty h2{font-size:clamp(28px,4.55vw,71.5px);font-weight:var(--pes-weight-light);letter-spacing:-.055em;line-height:1.12;max-width:none}
+.pes-site .pes-specialty h2 strong{font-weight:var(--pes-weight-bold)}
+.pes-site .pes-specialty h2::after{content:"";display:block;width:64px;height:2px;background:var(--pes-green);margin-top:clamp(20px,2vw,30px)}
+.pes-site .pes-specialty-copy{max-width:520px}
+.pes-site .pes-specialty-copy p{font-size:clamp(16px,1.23vw,18px);font-weight:var(--pes-weight-regular);line-height:1.75;margin:0}
+.pes-site .pes-specialty-copy p+p{margin-top:18px}
+.pes-site .pes-specialty-link{display:inline-flex;align-items:baseline;gap:14px;margin-top:clamp(26px,3vw,42px);padding-bottom:8px;border-bottom:1px solid var(--pes-green);font-size:14px;font-weight:var(--pes-weight-medium);line-height:1.5;max-width:100%;color:var(--pes-black)}
+.pes-site .pes-specialty-link span{flex:none;font-size:18px;line-height:1}
+.pes-site .pes-specialty-link:hover{border-bottom-color:var(--pes-black);text-decoration:none}
+.pes-site .pes-specialty-link:focus-visible{outline:2px solid var(--pes-black);outline-offset:5px;box-shadow:none}
+@media(max-width:900px){
+ .pes-site .pes-specialty{padding:clamp(52px,7vw,78px) 0}
+ .pes-site .pes-specialty .pes-specialty-grid{grid-template-columns:minmax(0,1fr);gap:26px;align-items:start}
+ .pes-site .pes-specialty h2{font-size:clamp(28px,4.55vw,54px)}
+ .pes-site .pes-specialty-copy{max-width:620px}
+}
+@media(max-width:480px){
+ .pes-site .pes-specialty h2::after{width:54px;margin-top:24px}
+ .pes-site .pes-specialty .pes-specialty-label{margin-bottom:20px}
+ .pes-site .pes-specialty-link{font-size:13px}
+}
+@media(prefers-reduced-motion:no-preference){
+ .pes-site .pes-specialty [data-specialty-reveal].pes-specialty-enter{animation:pes-specialty-enter 650ms cubic-bezier(.22,.61,.36,1) both}
+ .pes-site .pes-specialty-copy.pes-specialty-enter{animation-delay:70ms}
+ @keyframes pes-specialty-enter{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+}
+@media(prefers-reduced-motion:reduce){.pes-site .pes-specialty [data-specialty-reveal]{animation:none!important;opacity:1;transform:none}}
+
+@media(max-width:520px){.pes-site .pes-specialty h2{font-size:clamp(23px,5.46vw,28.5px)}}
