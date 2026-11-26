@@ -1,4 +1,4 @@
-/* PES V1.3 — original ATZ-SCR-007, unchanged.
+/* PES V1.4 — original ATZ-SCR-007, unchanged.
  * Only readiness, geometry refresh and independent transition layers are client code.
  */
 import {nativeComponentsReady} from './mount-component.js';
@@ -6,29 +6,37 @@ import {mount as mountOriginal} from './vendor/atz-scr-007-original/scroll/ATZ-S
 const root=document.querySelector('[data-pes-cinematic="ATZ-SCR-007"]');
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
 const frame=()=>new Promise(resolve=>requestAnimationFrame(resolve));
-let instance,pin,readyPromise,observer,geometry='',refreshFrame=0,paintFrame=0;
+let instance,pin,readyPromise,observer,geometry='',refreshFrame=0,paintFrame=0,restoreUpdate;
 const clamp=n=>Math.min(1,Math.max(0,n));
 const backdrop=root?.querySelector('.pes-cinematic-backdrop');
 const veil=root?.querySelector('.pes-cinematic-veil');
-// A separate composited backdrop prevents a blank approach before the original
-// zero-alpha tiles begin. The veil fades ONLY as the pinned scene leaves.
-// Neither layer writes to the grid, its tiles, title or the original timeline.
+const entryVeil=root?.querySelector('.pes-cinematic-entry-veil');
+const smooth=n=>{const x=clamp(n);return x*x*(3-2*x);};
+// The entrance veil hides the stationary scene before pinning. Release it against
+// the actual scrubbed timeline, not the raw scroll target. The exit veil remains
+// independent. No writes to tile transforms, alpha, scale, title, or timing.
 function paint(){
  paintFrame=0;
- if(!instance||instance.mode!=='animated'||!pin||!backdrop||!veil)return;
- const p=clamp((scrollY-pin.start)/Math.max(1,pin.end-pin.start));
+ if(!instance||instance.mode!=='animated'||!pin||!backdrop||!veil||!entryVeil)return;
+ const p=clamp(pin.animation.progress());
  const exit=clamp((scrollY-pin.end)/Math.max(1,root.clientHeight*.85));
- backdrop.style.opacity=String(1-clamp(p/.30));
+ // Keep a dark gradient until motion is already occurring; fully release by
+ // 32% of the original timeline. Smoothstep avoids a visible start/stop edge.
+ entryVeil.style.opacity=String(1-smooth((p-.015)/.305));
+ backdrop.style.opacity=String(1-smooth(p/.30));
  veil.style.opacity=String(exit);
 }
 function queuePaint(){
  if(!paintFrame)paintFrame=requestAnimationFrame(paint);
 }
 function unmount(){
+ restoreUpdate?.();restoreUpdate=undefined;
+ if(paintFrame)cancelAnimationFrame(paintFrame);paintFrame=0;
  instance?.destroy();instance=undefined;pin=undefined;
  root?.classList.remove('pes-cinematic-animated');
  if(backdrop)backdrop.style.opacity='0';
  if(veil)veil.style.opacity='0';
+ if(entryVeil)entryVeil.style.opacity='0';
 }
 function mount(){
  if(!root||instance||reduced.matches||!window.gsap||!window.ScrollTrigger)return;
@@ -41,7 +49,14 @@ function mount(){
   instance=mountOriginal(root,{gsap:window.gsap,ScrollTrigger:window.ScrollTrigger,mobileMax:0});
   pin=window.ScrollTrigger.getAll().find(t=>t.pin===root);
   if(instance.mode!=='animated'||!pin){unmount();return;}
-  queuePaint();
+  // Listen to rendered animation updates, including the .5 s scrub tail
+  // after a wheel/touch gesture stops. Preserve any existing callback.
+  const timeline=pin.animation;
+  const previous=timeline.eventCallback('onUpdate');
+  const params=timeline.vars.onUpdateParams;
+  timeline.eventCallback('onUpdate',function(...args){previous?.apply(this,args);queuePaint();},params);
+  restoreUpdate=()=>timeline.eventCallback('onUpdate',previous||null,params);
+  paint();
  }catch(error){unmount();console.warn('PES original cinematic static fallback',error);}
 }
 function upstream(){

@@ -1,4 +1,4 @@
-/* PES V1.3 visual adaptation only; original animation and library CSS remain intact. */
+/* PES V1.4 visual adaptation only; original animation and library CSS remain intact. */
 .pes-site .pes-cinematic-interlude{--atz-surface:#000;--atz-color:#fff;--atz-gap:12px;background:#000;color:#fff;font-family:var(--pes-font);margin:0;overflow:hidden;min-height:100svh;height:100svh}
 .pes-site .pes-cinematic-interlude .grid{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:8px;aspect-ratio:auto;width:100%;height:100%}
 .pes-site .pes-cinematic-interlude.pes-cinematic-animated .grid--zoomed{gap:clamp(16px,1.55vw,28px);grid-template-columns:repeat(3,54%);grid-template-rows:repeat(3,60%);aspect-ratio:2/1}
@@ -29,3 +29,8 @@
 .pes-site .pes-cinematic-interlude .pes-cinematic-veil{z-index:4;background:#000}
 .pes-site .pes-cinematic-interlude.pes-cinematic-animated .pes-cinematic-backdrop,.pes-site .pes-cinematic-interlude.pes-cinematic-animated .pes-cinematic-veil{will-change:opacity}
 @media(prefers-reduced-motion:reduce){.pes-site .pes-cinematic-interlude .pes-cinematic-backdrop,.pes-site .pes-cinematic-interlude .pes-cinematic-veil{display:none!important}}
+
+/* Entry-only gradient: mostly black during approach, removed by actual original timeline progress. */
+.pes-site .pes-cinematic-interlude .pes-cinematic-entry-veil{position:absolute;inset:0;z-index:3;pointer-events:none;opacity:0;background:linear-gradient(180deg,#000 0%,rgba(0,0,0,.99) 30%,rgba(0,0,0,.95) 68%,rgba(0,0,0,.88) 100%)}
+.pes-site .pes-cinematic-interlude.pes-cinematic-animated .pes-cinematic-entry-veil{opacity:1;will-change:opacity}
+@media(prefers-reduced-motion:reduce){.pes-site .pes-cinematic-interlude .pes-cinematic-entry-veil{display:none!important}}

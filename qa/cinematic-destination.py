@@ -16,14 +16,14 @@ def go(p,url):
     assert p.goto(url,wait_until='load',timeout=45000).ok
     p.evaluate('document.fonts.ready')
 def state(p):
-    return p.evaluate("""()=>{const r=document.querySelector('.pes-cinematic-interlude'),g=r.querySelector('.grid'),t=r.querySelector('.content__title'),h=t.querySelector('h2'),service=document.querySelector('.art-atlas'),pin=ScrollTrigger.getById('pes-cinematic-pin')||ScrollTrigger.getAll().find(x=>x.pin===r),entry=ScrollTrigger.getById('pes-cinematic-entry'),exit=ScrollTrigger.getById('pes-cinematic-exit'),box=e=>{const b=e.getBoundingClientRect();return {x:b.x,y:b.y,w:b.width,h:b.height,bottom:b.bottom}};return {y:scrollY,vh:innerHeight,root:box(r),services:box(service),header:box(document.querySelector('.site-header')),pin:pin&&{start:pin.start,end:pin.end,p:pin.progress,scrub:pin.vars.scrub,startRule:pin.vars.start,endRule:pin.vars.end,gridTrigger:pin.trigger===g},spacer:box(r.closest('.pin-spacer')||r),hillside:box(document.querySelector('.pes-featured-split')),hillsideReady:document.querySelector('.pes-featured-split').classList.contains('ats-enhanced'),entryStart:entry?.start,entryEnd:entry?.end,exitStart:exit?.start,entry:entry?.progress,exit:exit?.progress,alpha:[...g.children].map(e=>+getComputedStyle(e).opacity),scale:+gsap.getProperty(g,'scaleX'),skew:+gsap.getProperty(g,'skewY'),title:+getComputedStyle(t).opacity,titleBox:box(t),black:r.querySelector('.pes-cinematic-veil')?+getComputedStyle(r.querySelector('.pes-cinematic-veil')).opacity:+(getComputedStyle(r).getPropertyValue('--pes-cinematic-black')||0),backdrop:r.querySelector('.pes-cinematic-backdrop')?+getComputedStyle(r.querySelector('.pes-cinematic-backdrop')).opacity:0,overflow:document.documentElement.scrollWidth>innerWidth,weights:[getComputedStyle(h).fontWeight,getComputedStyle(h.querySelector('strong')).fontWeight],servicesBg:getComputedStyle(service).backgroundColor,triggerCount:ScrollTrigger.getAll().filter(x=>x.pin===r||x.trigger===r||r.contains(x.trigger)).length,centerWidth:g.children[4].offsetWidth}}""")
+    return p.evaluate("""()=>{const r=document.querySelector('.pes-cinematic-interlude'),g=r.querySelector('.grid'),t=r.querySelector('.content__title'),h=t.querySelector('h2'),service=document.querySelector('.art-atlas'),pin=ScrollTrigger.getById('pes-cinematic-pin')||ScrollTrigger.getAll().find(x=>x.pin===r),entry=ScrollTrigger.getById('pes-cinematic-entry'),exit=ScrollTrigger.getById('pes-cinematic-exit'),box=e=>{const b=e.getBoundingClientRect();return {x:b.x,y:b.y,w:b.width,h:b.height,bottom:b.bottom}};return {y:scrollY,vh:innerHeight,root:box(r),services:box(service),header:box(document.querySelector('.site-header')),pin:pin&&{start:pin.start,end:pin.end,p:pin.progress,rendered:pin.animation.progress(),scrub:pin.vars.scrub,startRule:pin.vars.start,endRule:pin.vars.end,gridTrigger:pin.trigger===g},spacer:box(r.closest('.pin-spacer')||r),hillside:box(document.querySelector('.pes-featured-split')),hillsideReady:document.querySelector('.pes-featured-split').classList.contains('ats-enhanced'),entryStart:entry?.start,entryEnd:entry?.end,exitStart:exit?.start,entry:entry?.progress,exit:exit?.progress,alpha:[...g.children].map(e=>+getComputedStyle(e).opacity),scale:+gsap.getProperty(g,'scaleX'),skew:+gsap.getProperty(g,'skewY'),title:+getComputedStyle(t).opacity,titleBox:box(t),black:r.querySelector('.pes-cinematic-veil')?+getComputedStyle(r.querySelector('.pes-cinematic-veil')).opacity:+(getComputedStyle(r).getPropertyValue('--pes-cinematic-black')||0),backdrop:r.querySelector('.pes-cinematic-backdrop')?+getComputedStyle(r.querySelector('.pes-cinematic-backdrop')).opacity:0,entryVeil:r.querySelector('.pes-cinematic-entry-veil')?+getComputedStyle(r.querySelector('.pes-cinematic-entry-veil')).opacity:0,overflow:document.documentElement.scrollWidth>innerWidth,weights:[getComputedStyle(h).fontWeight,getComputedStyle(h.querySelector('strong')).fontWeight],servicesBg:getComputedStyle(service).backgroundColor,triggerCount:ScrollTrigger.getAll().filter(x=>x.pin===r||x.trigger===r||r.contains(x.trigger)).length,centerWidth:g.children[4].offsetWidth}}""")
 def scroll_to(p,y):
     p.evaluate("(y)=>window.scrollTo({top:y,behavior:'instant'})",y);p.wait_for_timeout(250)
 def travel(p,target,duration=4500):
     # Continuous native scroll position updated at each animation frame, no progress seeks.
-    return p.evaluate("""async ({target,duration})=>{const y=scrollY,t0=performance.now(),out=[];let last=0;await new Promise(resolve=>{function frame(t){const q=Math.min(1,(t-t0)/duration);window.scrollTo({top:y+(target-y)*q,behavior:'instant'});if(t-last>85){const r=document.querySelector('.pes-cinematic-interlude'),g=r.querySelector('.grid'),pin=ScrollTrigger.getById('pes-cinematic-pin')||ScrollTrigger.getAll().find(x=>x.pin===r),s=document.querySelector('.art-atlas');out.push({y:scrollY,top:r.getBoundingClientRect().top,services:s.getBoundingClientRect().top,alpha:[...g.children].map(e=>+getComputedStyle(e).opacity),scale:+gsap.getProperty(g,'scaleX'),black:r.querySelector('.pes-cinematic-veil')?+getComputedStyle(r.querySelector('.pes-cinematic-veil')).opacity:+(getComputedStyle(r).getPropertyValue('--pes-cinematic-black')||0),p:pin?.progress,dt:t-last});last=t;}if(q<1)requestAnimationFrame(frame);else resolve();}requestAnimationFrame(frame)});return out;}""",{'target':target,'duration':duration})
+    return p.evaluate("""async ({target,duration})=>{const y=scrollY,t0=performance.now(),out=[];let last=0;await new Promise(resolve=>{function frame(t){const q=Math.min(1,(t-t0)/duration);window.scrollTo({top:y+(target-y)*q,behavior:'instant'});if(t-last>85){const r=document.querySelector('.pes-cinematic-interlude'),g=r.querySelector('.grid'),pin=ScrollTrigger.getById('pes-cinematic-pin')||ScrollTrigger.getAll().find(x=>x.pin===r),s=document.querySelector('.art-atlas');out.push({y:scrollY,top:r.getBoundingClientRect().top,services:s.getBoundingClientRect().top,alpha:[...g.children].map(e=>+getComputedStyle(e).opacity),scale:+gsap.getProperty(g,'scaleX'),black:r.querySelector('.pes-cinematic-veil')?+getComputedStyle(r.querySelector('.pes-cinematic-veil')).opacity:+(getComputedStyle(r).getPropertyValue('--pes-cinematic-black')||0),p:pin?.progress,rendered:pin?.animation?.progress(),entryVeil:r.querySelector('.pes-cinematic-entry-veil')?+getComputedStyle(r.querySelector('.pes-cinematic-entry-veil')).opacity:0,dt:t-last});last=t;}if(q<1)requestAnimationFrame(frame);else resolve();}requestAnimationFrame(frame)});return out;}""",{'target':target,'duration':duration})
 def record(b,name,w,h,old=False):
-    tag=('v12-' if old else 'v13-')+name+'-'+str(w)
+    tag=('v12-' if old else 'v14-')+name+'-'+str(w)
     options={'viewport':{'width':w,'height':h},'device_scale_factor':1,'has_touch':w<=700}
     if w<=700:options.update({'is_mobile':True,'user_agent':('Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1' if name=='webkit' else 'Mozilla/5.0 (Linux; Android 15; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36')})
     capture=(w in [390,1440])
@@ -46,8 +46,17 @@ def record(b,name,w,h,old=False):
             assert p.locator(SEL+' .grid__img').count()==9
             assert p.locator(SEL).evaluate("""async r=>{const u=[...r.querySelectorAll('.grid__img')].map(e=>getComputedStyle(e).backgroundImage.slice(5,-2));return (await Promise.all(u.map(async x=>{const i=new Image();i.src=x;await i.decode();return i.naturalWidth>0}))).every(Boolean)}""")
         scroll_to(p,pin['start']-vh*.92)
+        approach=state(p)
         p.screenshot(path=str(OUT/(tag+'-approach.jpg')),type='jpeg',quality=83)
         down=travel(p,pin['start'],2200);p.wait_for_timeout(800);atpin=state(p);p.screenshot(path=str(OUT/(tag+'-entry.jpg')),type='jpeg',quality=83)
+        # Measure a stopped scroll during the original scrub tail; the veil must
+        # continue following rendered animation even after the scroll event ends.
+        early=None
+        if not old:
+            p.evaluate("(y)=>window.scrollTo({top:y,behavior:'instant'})",pin['start']+(pin['end']-pin['start'])*.16)
+            p.wait_for_timeout(900);early=state(p)
+            assert .13<early['pin']['rendered']<.19 and .2<early['entryVeil']<.8 and early['scale']>atpin['scale'],early
+            p.screenshot(path=str(OUT/(tag+'-early-motion.jpg')),type='jpeg',quality=83)
         middle=travel(p,pin['start']+(pin['end']-pin['start'])*.55,2000);p.wait_for_timeout(800);mid=state(p);p.screenshot(path=str(OUT/(tag+'-middle.jpg')),type='jpeg',quality=83)
         hold=travel(p,pin['end']-5,2000);p.wait_for_timeout(800);last=state(p);p.screenshot(path=str(OUT/(tag+'-hold.jpg')),type='jpeg',quality=83)
         exit=travel(p,pin['end']+vh*.55,1600);p.wait_for_timeout(250);ex=state(p);p.screenshot(path=str(OUT/(tag+'-exit.jpg')),type='jpeg',quality=83)
@@ -55,6 +64,8 @@ def record(b,name,w,h,old=False):
         reverse=travel(p,pin['start']-vh*.92,6200);p.wait_for_timeout(800);back=state(p)
         if not old:
             assert max(atpin['alpha'])<.15 and .68<atpin['scale']<.8 and atpin['black']<.02 and atpin['backdrop']>.90,atpin
+            assert approach['entryVeil']>.98 and atpin['entryVeil']>.98 and back['entryVeil']>.98,(approach,atpin,back)
+            assert mid['entryVeil']<.02 and last['entryVeil']<.02,(mid,last)
             assert abs(atpin['root']['y'])<3,atpin
             assert abs(mid['root']['y'])<3,mid
             assert abs(last['root']['y'])<3,last
@@ -70,7 +81,7 @@ def record(b,name,w,h,old=False):
             assert all(0<=a<=1 for t in down+middle+hold+exit+reverse for a in t['alpha'])
             assert not errors,errors
             assert not any(x['overflow'] for x in [atpin,mid,last,ex,end,back])
-        results.append({'name':tag,'initial':s,'entry':atpin,'middle':mid,'hold':last,'exit':ex,'end':end,'reverse':back,'samples':{'down':down,'middle':middle,'hold':hold,'exit':exit,'tail':tail,'reverse':reverse}})
+        results.append({'name':tag,'initial':s,'approach':approach,'early_motion':early,'entry':atpin,'middle':mid,'hold':last,'exit':ex,'end':end,'reverse':back,'samples':{'down':down,'middle':middle,'hold':hold,'exit':exit,'tail':tail,'reverse':reverse}})
     except Exception as e:
         failures.append({'name':tag,'error':str(e)});print('FAIL',tag,str(e)[:3000],flush=True)
         p.screenshot(path=str(OUT/(tag+'-failure.jpg')),type='jpeg',quality=83)
@@ -81,7 +92,7 @@ def fallback(b,w,reduce):
     p=b.new_page(viewport={'width':w,'height':844},java_script_enabled=reduce,reduced_motion='reduce' if reduce else 'no-preference')
     try:
         go(p,BASE);p.locator(SEL).scroll_into_view_if_needed()
-        assert p.locator(SEL).evaluate("e=>!e.classList.contains('pes-cinematic-animated')&&getComputedStyle(e.querySelector('.grid')).opacity==='1'&&getComputedStyle(e.querySelector('.content__title')).opacity==='1'")
+        assert p.locator(SEL).evaluate("e=>!e.classList.contains('pes-cinematic-animated')&&getComputedStyle(e.querySelector('.grid')).opacity==='1'&&getComputedStyle(e.querySelector('.content__title')).opacity==='1'&&getComputedStyle(e.querySelector('.pes-cinematic-entry-veil')).opacity==='0'")
         assert p.locator(SEL+' .grid__img').count()==9
         assert not p.evaluate('document.documentElement.scrollWidth>innerWidth')
         results.append({'fallback':reduce,'width':w})
@@ -104,7 +115,7 @@ with sync_playwright() as pw:
     for w,h in [(375,844),(390,844),(1440,900)]:record(b,'webkit',w,h)
     b.close()
 (OUT/'results.json').write_text(json.dumps({'results':results,'failures':failures},indent=2))
-files=[OUT/f'{tag}-{phase}.jpg' for tag in ['v12-chromium-1440','v13-chromium-1440','v13-chromium-390','v13-webkit-390'] for phase in ['approach','entry','middle','hold','exit','services']]
+files=[OUT/f'{tag}-{phase}.jpg' for tag in ['v12-chromium-1440','v14-chromium-1440','v14-chromium-390','v14-webkit-390'] for phase in ['approach','entry','middle','hold','exit','services']]
 sheet=Image.new('RGB',(1200,4*230),(18,18,18));d=ImageDraw.Draw(sheet)
 for k,f in enumerate(files):
     if not f.exists():continue
