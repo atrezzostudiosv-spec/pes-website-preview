@@ -35,7 +35,13 @@ def test(b,path,w):
     p=b.new_page(viewport=v)
     errors=[];p.on('pageerror',lambda e:errors.append(str(e)));p.on('console',lambda m:errors.append(m.text) if 'PES group fallback' in m.text or 'PES heading fallback' in m.text else None)
     try:
-        load(old,OLD+path);load(static,BASE+path);check(snap(old),snap(static))
+        load(old,OLD+path);load(static,BASE+path)
+        if path=='' and static.locator('.pes-featured-split').count():
+            # Home 03 is an intentional, independently tested component replacement.
+            # Restore baseline HTML only in this static comparison browser, never on disk.
+            feature=old.locator('.project-feature').evaluate("e=>e.outerHTML")
+            static.locator('.pes-featured-split').evaluate("(e,html)=>e.outerHTML=html",feature)
+        check(snap(old),snap(static))
         load(p,BASE+path)
         p.wait_for_function("document.querySelector('[data-pes-editorial]')?.dataset.pesEditorialReady==='true'")
         assert p.locator('[data-pes-editorial]').count()>0

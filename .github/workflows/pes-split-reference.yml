@@ -1,0 +1,30 @@
+name: PES Home 03 Split reference QA
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'assets/vendor/ATZ-SEC-002.js'
+      - 'assets/vendor/ats1*'
+      - 'assets/pes-featured-split.css'
+      - 'qa/split-destination.py'
+      - '.github/workflows/pes-split-reference.yml'
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install playwright==1.56.0
+      - run: python -m playwright install chromium
+      - run: python qa/split-destination.py
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pes-split-reference-evidence
+          path: split-qa/
