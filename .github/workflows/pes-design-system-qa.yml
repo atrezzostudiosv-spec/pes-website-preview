@@ -8,17 +8,19 @@ permissions:
 jobs:
   browser:
     runs-on: ubuntu-24.04
-    timeout-minutes: 12
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - run: pip install playwright==1.56.0
       - run: python -m playwright install chromium
-      - run: python qa/pes-design-system.py
+      - run: python qa/pes-design-system-followup.py
       - if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: pes-design-system-browser-evidence
-          path: qa-evidence/
+          name: pes-design-system-followup-evidence
+          path: qa-followup/
