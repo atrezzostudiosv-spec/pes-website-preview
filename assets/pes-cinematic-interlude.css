@@ -6,6 +6,7 @@
 .pes-site .pes-cinematic-interlude .grid__img:nth-child(5){position:relative}
 .pes-site .pes-cinematic-interlude .grid__img:nth-child(5)::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(0,0,0,.65),rgba(0,0,0,.24) 68%,transparent 100%);pointer-events:none}
 .pes-site .pes-cinematic-interlude .content__title{grid-area:main;z-index:2;align-items:center;justify-content:center;text-align:center;width:100%;max-width:100%;padding:0 16px}
+.pes-site .pes-cinematic-interlude .content__title::before{content:"";position:absolute;inset:-45px 0;background:radial-gradient(ellipse at center,rgba(0,0,0,.46),transparent 74%);z-index:-1;pointer-events:none}
 .pes-site .pes-cinematic-interlude .content__title-main{font-family:var(--pes-font);font-size:clamp(44px,6.8vw,106px);font-weight:300;line-height:1.04;letter-spacing:-.055em;margin:0;color:white;text-wrap:balance}
 .pes-site .pes-cinematic-interlude .content__title-main strong{font-weight:700}
 .pes-site .pes-cinematic-interlude .content__title-main::after{content:"";display:block;width:48px;height:2px;background:#A2FD02;margin:22px auto 0}

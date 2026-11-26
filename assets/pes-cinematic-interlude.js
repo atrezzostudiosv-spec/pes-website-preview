@@ -22,11 +22,11 @@ function mount(){
    const title=scope.querySelector('.content__title');
    // Original edge stagger, group scale/skew and reversible scrub.
    const tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{
-    trigger:root,start:'top top',end:()=>'+='+Math.round(window.innerHeight*(compact?.58:1)),
+    trigger:root,start:'top top',end:()=>'+='+Math.round(window.innerHeight*(compact ? .58 : 1)),
     pin:root,scrub:.5,invalidateOnRefresh:true,anticipatePin:1
    }});
-   tl.from(gridImages,{stagger:{amount:.03,from:'edges',grid:[3,3]},scale:compact?.88:.7,autoAlpha:0})
-     .from(grid,{scale:compact?.88:.7,skewY:compact?2:5},0);
+   tl.from(gridImages,{stagger:{amount:.03,from:'edges',grid:[3,3]},scale:compact ? .88 : .7,autoAlpha:0})
+     .from(grid,{scale:compact ? .88 : .7,skewY:compact ? 2 : 5},0);
    // The title has a single coordinated entrance and remains spatially stable.
    tl.from(title,{opacity:0,duration:.22},.08);
    const zoomEnd=tl.duration();
