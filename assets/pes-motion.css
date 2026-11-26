@@ -1,0 +1,20 @@
+/* PES integration only: keep the approved static layout; vendor formulas untouched. */
+.pes-site .pes-specialty .pes-motion-group{display:block;overflow:visible;color:inherit;font-family:inherit}
+.pes-site .pes-specialty .pes-motion-group p{max-width:none}
+.pes-site .pes-specialty .pes-motion-group .pes-specialty-label{max-width:none}
+.pes-site .pes-specialty h2.pes-motion-title-active{position:relative}
+.pes-site .pes-specialty .pes-motion-title-active .pes-motion-source{opacity:0}
+.pes-site .pes-specialty .pes-motion-overlay{position:absolute;inset:0 0 auto;display:block;pointer-events:none}
+.pes-site .pes-specialty .pes-motion-segment{display:inline;position:static;isolation:auto;background:transparent;color:inherit;font-family:inherit}
+.pes-site .pes-specialty .pes-motion-segment .pes-motion-text{font:inherit;letter-spacing:inherit}
+.pes-site .pes-specialty .pes-motion-segment strong.pes-motion-text{font-weight:var(--pes-weight-bold)}
+.pes-site .pes-specialty h2.pes-motion-rule-real::after{content:none}
+.pes-site .pes-specialty .pes-motion-rule-group{margin-top:clamp(20px,2vw,30px)}
+.pes-site .pes-specialty .pes-motion-rule-group .pes-motion-units{display:block}
+.pes-site .pes-specialty .pes-motion-rule{display:block;width:64px;height:2px;background:var(--pes-green)}
+.pes-site .pes-specialty [data-pes-motion][data-pending],.pes-site .pes-specialty .pes-motion-overlay[data-pending]{opacity:0}
+@media(max-width:480px){.pes-site .pes-specialty .pes-motion-rule-group{margin-top:24px}.pes-site .pes-specialty .pes-motion-rule{width:54px}}
+@media(prefers-reduced-motion:reduce){
+ .pes-site .pes-specialty .pes-motion-title-active .pes-motion-source,.pes-site .pes-specialty [data-pending]{opacity:1}
+ .pes-site .pes-specialty .pes-motion-overlay{display:none}
+}

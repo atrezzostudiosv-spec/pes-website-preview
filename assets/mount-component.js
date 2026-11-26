@@ -1,5 +1,5 @@
 // Mount every registered component independently; shared ES modules load only once.
-for (const root of document.querySelectorAll("[data-atz-id]")) {
+for (const root of document.querySelectorAll("[data-atz-id]:not([data-pes-motion])")) {
   const id = root.dataset.atzId;
   const { mount } = await import(`./vendor/${id}.js`);
   const instance = mount(root);
