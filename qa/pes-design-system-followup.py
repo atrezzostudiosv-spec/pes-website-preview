@@ -36,7 +36,7 @@ def menu(b,kind,url,w):
         return v
     finally:p.close()
 def live(b):
-    p=open_page(b,LIVE+'?ds=0d72d87',1440)
+    p=open_page(b,LIVE+'?ds=2d470ed',1440)
     try:
         p.wait_for_function("document.querySelector('.site-header .logo-light')?.naturalWidth===720",timeout=10000)
         assert p.locator('body').evaluate("(e)=>e.classList.contains('pes-site') && getComputedStyle(e).fontFamily.includes('Montserrat')")
@@ -76,3 +76,15 @@ with sync_playwright() as p:
 (OUT/'results.json').write_text(json.dumps({'results':results,'failures':failures},indent=2))
 print(json.dumps({'results':results,'failures':failures},indent=2),flush=True)
 if failures:raise SystemExit(1)
+
+# Verify final font-family override on the actual split scene.
+with sync_playwright() as p:
+    b=p.chromium.launch(headless=True)
+    for url in [LOCAL+'capabilities/lighting-design/', LIVE+'capabilities/lighting-design/?ds=2d470ed']:
+        page=open_page(b,url,1440)
+        nodes=page.locator('.ss03__text')
+        assert nodes.count()>0
+        assert all('Montserrat' in x for x in nodes.evaluate_all('(nodes)=>nodes.map(e=>getComputedStyle(e).fontFamily)'))
+        page.close()
+    b.close()
+print("Final split scene Montserrat family verified.",flush=True)
