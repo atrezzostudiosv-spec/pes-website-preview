@@ -3,3 +3,6 @@ Approved direction: white, compact, Montserrat 300, six marks in original order 
 Motion: original ATZ-MOT-013 (opacity 0→1, translateY 20px→0, 700ms, 120ms stagger; once when grid enters viewport). Accessible static fallback without JS / reduced motion.
 Assets: six marks cropped from the user's 2026-11-27 screenshot of the original PES Featured Brands. Combined WebP preview atlas (180×492, six 180×82 cells) retains order, proportions and existing colours; not brand master files. Replace with individual original high-resolution brand files before final production approval. Second mark is a power-symbol graphic; company name not yet verified; no invented partnership claims.
 No changes to Hillside, mosaic, Services, Handoff, Let's Connect or footer code. Updated only Handoff adjacency assertion to acknowledge new section.
+
+## V1.1 — Black closing continuity
+User changed the approved palette to pure black background and white title/marks, retaining the green rule, original six-brand layout, dimensions and ATZ-MOT-013 stagger. Use grayscale + inversion + brightness/contrast on the existing opaque white-background preview atlas, so white backgrounds become black and dark marks become white. The source atlas is unchanged. These are provisional monochrome treatments, not verified official reversed brand assets. Home closing and footer untouched.

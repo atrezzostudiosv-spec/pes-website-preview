@@ -1,10 +1,10 @@
-/* Home 06 — white editorial interlude, compact, native ATREZZO motion. */
+/* Home 06 — black editorial interlude, compact, native ATREZZO motion. */
 .pes-site.home .pes-featured-brands{
- background:#fff;color:#000;padding:clamp(58px,5.6vw,90px) clamp(24px,6vw,100px) clamp(62px,6vw,96px);
+ background:#000;color:#fff;padding:clamp(58px,5.6vw,90px) clamp(24px,6vw,100px) clamp(62px,6vw,96px);
  text-align:center;scroll-margin-top:var(--pes-header-height,88px);
 }
 .pes-site.home .pes-featured-brands h2{
- margin:0;font-family:var(--pes-font);font-size:clamp(30px,3.05vw,44px);font-weight:300;line-height:1.2;letter-spacing:-.035em;color:#111;
+ margin:0;font-family:var(--pes-font);font-size:clamp(30px,3.05vw,44px);font-weight:300;line-height:1.2;letter-spacing:-.035em;color:#fff;
 }
 .pes-site.home .pes-featured-brands h2::after{
  content:"";display:block;width:36px;height:2px;margin:19px auto 0;background:var(--pes-green);
@@ -17,6 +17,8 @@
 .pes-site.home .pes-brand-mark{
  display:block;width:100%;max-width:156px;aspect-ratio:180 / 82;background-image:url("brand/pes-featured-brands-preview.webp");
  background-size:100% 600%;background-repeat:no-repeat;background-position:50% 0%;
+ /* Invert the opaque white atlas before lifting the marks; do not flatten it to a white rectangle. */
+ filter:grayscale(1) invert(1) brightness(1.8) contrast(1.12);
 }
 .pes-site.home .pes-brand-grid li:nth-child(2) .pes-brand-mark{background-position:50% 20%}
 .pes-site.home .pes-brand-grid li:nth-child(3) .pes-brand-mark{background-position:50% 40%}

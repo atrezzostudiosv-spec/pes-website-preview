@@ -18,11 +18,12 @@ with sync_playwright() as p:
    section=page.locator('#pes-featured-brands');grid=section.locator('[data-group]')
    assert section.get_by_role('heading',name='Featured Brands').count()==1
    assert section.locator('[role=img]').count()==6
-   data=section.evaluate("""e=>({color:getComputedStyle(e).backgroundColor,weight:getComputedStyle(e.querySelector('h2')).fontWeight,columns:getComputedStyle(e.querySelector('ul')).gridTemplateColumns.split(' ').length,marks:[...e.querySelectorAll('.pes-brand-mark')].map(x=>({w:x.offsetWidth,h:x.offsetHeight,pos:getComputedStyle(x).backgroundPosition})),next:e.nextElementSibling.matches('.ui.close.dark'),previous:e.previousElementSibling.querySelector('#ats2-handoff')!==null})""")
-   assert data['color']=='rgb(255, 255, 255)' and data['weight']=='300'
+   data=section.evaluate("""e=>({color:getComputedStyle(e).backgroundColor,weight:getComputedStyle(e.querySelector('h2')).fontWeight,titleColor:getComputedStyle(e.querySelector('h2')).color,columns:getComputedStyle(e.querySelector('ul')).gridTemplateColumns.split(' ').length,marks:[...e.querySelectorAll('.pes-brand-mark')].map(x=>({w:x.offsetWidth,h:x.offsetHeight,pos:getComputedStyle(x).backgroundPosition,filter:getComputedStyle(x).filter})),next:e.nextElementSibling.matches('.ui.close.dark'),previous:e.previousElementSibling.querySelector('#ats2-handoff')!==null})""")
+   assert data['color']=='rgb(0, 0, 0)' and data['titleColor']=='rgb(255, 255, 255)' and data['weight']=='300'
    assert data['columns']==(3 if w<768 else 6) and data['next'] and data['previous'],data
    assert all(0<m['w']<=156 and m['h']>0 for m in data['marks'])
    assert len(set(m['pos'] for m in data['marks']))==6
+   assert all('grayscale(1)' in m['filter'] and 'invert(1)' in m['filter'] for m in data['marks'])
    assert page.evaluate("""async()=>{let i=new Image();i.src='assets/brand/pes-featured-brands-preview.webp';await i.decode();return i.naturalWidth===180&&i.naturalHeight===492}""")
    if mode=='normal':
     page.wait_for_function("document.querySelector('#pes-featured-brands').dataset.tyReady==='true'")
