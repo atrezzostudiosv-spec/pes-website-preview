@@ -1,99 +1,102 @@
-/* ATZ-SCR-007 — PES Cinematic Refinement V1.2.
- * Original reference and lifecycle preserved in vendor. This instance uses its own
- * GSAP context because entry, pin and exit have distinct scroll ranges.
+/* PES V1.4 — original ATZ-SCR-007, unchanged.
+ * Only readiness, geometry refresh and independent transition layers are client code.
  */
 import {nativeComponentsReady} from './mount-component.js';
+import {mount as mountOriginal} from './vendor/atz-scr-007-original/scroll/ATZ-SCR-007.js';
 const root=document.querySelector('[data-pes-cinematic="ATZ-SCR-007"]');
-const compact=matchMedia('(max-width:700px)');
-const reduce=matchMedia('(prefers-reduced-motion: reduce)');
-let context, mounted=false, initializing=false, readyPromise, refreshFrame=0;
-let geometryObserver, lastGeometry='';
+const reduced=matchMedia('(prefers-reduced-motion: reduce)');
 const frame=()=>new Promise(resolve=>requestAnimationFrame(resolve));
+let instance,pin,readyPromise,observer,geometry='',refreshFrame=0,paintFrame=0,restoreUpdate;
+const clamp=n=>Math.min(1,Math.max(0,n));
+const backdrop=root?.querySelector('.pes-cinematic-backdrop');
+const veil=root?.querySelector('.pes-cinematic-veil');
+const entryVeil=root?.querySelector('.pes-cinematic-entry-veil');
+const smooth=n=>{const x=clamp(n);return x*x*(3-2*x);};
+// The entrance veil hides the stationary scene before pinning. Release it against
+// the actual scrubbed timeline, not the raw scroll target. The exit veil remains
+// independent. No writes to tile transforms, alpha, scale, title, or timing.
+function paint(){
+ paintFrame=0;
+ if(!instance||instance.mode!=='animated'||!pin||!backdrop||!veil||!entryVeil)return;
+ const p=clamp(pin.animation.progress());
+ const exit=clamp((scrollY-pin.end)/Math.max(1,root.clientHeight*.85));
+ // Keep a dark gradient until motion is already occurring; fully release by
+ // 32% of the original timeline. Smoothstep avoids a visible start/stop edge.
+ entryVeil.style.opacity=String(1-smooth((p-.015)/.305));
+ backdrop.style.opacity=String(1-smooth(p/.30));
+ veil.style.opacity=String(exit);
+}
+function queuePaint(){
+ if(!paintFrame)paintFrame=requestAnimationFrame(paint);
+}
 function unmount(){
- context?.revert();context=undefined;mounted=false;
+ restoreUpdate?.();restoreUpdate=undefined;
+ if(paintFrame)cancelAnimationFrame(paintFrame);paintFrame=0;
+ instance?.destroy();instance=undefined;pin=undefined;
  root?.classList.remove('pes-cinematic-animated');
+ if(backdrop)backdrop.style.opacity='0';
+ if(veil)veil.style.opacity='0';
+ if(entryVeil)entryVeil.style.opacity='0';
 }
 function mount(){
- if(!root||initializing)return;
- initializing=true;
+ if(!root||instance||reduced.matches||!window.gsap||!window.ScrollTrigger)return;
+ const grid=root.querySelector('[data-grid-sixth]');
+ if(!grid||grid.querySelectorAll('.grid__img').length!==9)return;
  try{
-  unmount();
-  const {gsap,ScrollTrigger}=window;
-  if(reduce.matches||!gsap||!ScrollTrigger)return;
-  gsap.registerPlugin(ScrollTrigger);
-  const mobile=compact.matches;
-  const grid=root.querySelector('[data-grid-sixth]');
-  const tiles=[...grid.querySelectorAll('.grid__img')];
-  const title=root.querySelector('.content__title');
-  const services=root.nextElementSibling;
-  if(tiles.length!==9||!title||!services?.classList.contains('art-atlas'))return;
   root.classList.add('pes-cinematic-animated');
-  // Stable small viewport height: browser toolbar movement cannot shorten the pin.
-  const distance=()=>Math.round(root.clientHeight*(mobile?1:1.5));
-  context=gsap.context(()=>{
-   // ENTRY: edge stagger and distinct directional movement before pinning.
-   // Keep images visible at entry and keep scale/skew owned solely by PIN.
-   // Original edge stagger order, but expanded across the preceding viewport.
-   const entry=gsap.timeline({paused:true,defaults:{ease:'none'}});
-   entry.fromTo(tiles,{opacity:.55,xPercent:i=>(i%3-1)*(mobile?7:10),yPercent:i=>(Math.floor(i/3)-1)*(mobile?7:10)},{opacity:1,xPercent:0,yPercent:0,duration:.64,stagger:{amount:.36,from:'edges',grid:[3,3]}},0);
-   ScrollTrigger.create({id:'pes-cinematic-entry',animation:entry,trigger:root,start:'top bottom',end:'top top',scrub:true});
-   // PIN: only scale/skew and independent title opacity; no tile alpha/position animation.
-   const motion=gsap.timeline({paused:true,defaults:{ease:'none'}});
-   const scale=mobile ? .72 : .70;
-   motion.fromTo(tiles,{scale},{scale:1,duration:.62,stagger:{amount:.12,from:'edges',grid:[3,3]}},0)
-    .fromTo(grid,{scale,skewY:mobile ? 3 : 5},{scale:1,skewY:0,duration:.74},0)
-    .fromTo(title,{opacity:0},{opacity:1,duration:.18},.04);
-   // Deliberate hold after completing the zoom. No black fade while pinned.
-   motion.to({hold:0},{hold:1,duration:.26},.74);
-   ScrollTrigger.create({id:'pes-cinematic-pin',animation:motion,trigger:root,start:'top top',end:()=>'+='+distance(),pin:root,scrub:true,anticipatePin:1});
-   // EXIT: neutral black overlay, independent of tile/title properties.
-   // The services section physically enters the viewport while the mosaic exits.
-   const exit=gsap.fromTo(root,{'--pes-cinematic-black':0},{'--pes-cinematic-black':1,ease:'none',paused:true});
-   ScrollTrigger.create({id:'pes-cinematic-exit',animation:exit,trigger:services,start:'top bottom',end:'top 15%',scrub:true});
-  },root);
-  mounted=true;
-  ScrollTrigger.refresh();
- }catch(e){unmount();console.warn('PES cinematic static fallback',e);}
- finally{initializing=false;}
+  // Invoke the byte-identical original module. Explicitly enable it on mobile
+  // via its documented lifecycle option; do not change the animation parameters.
+  instance=mountOriginal(root,{gsap:window.gsap,ScrollTrigger:window.ScrollTrigger,mobileMax:0});
+  pin=window.ScrollTrigger.getAll().find(t=>t.pin===root);
+  if(instance.mode!=='animated'||!pin){unmount();return;}
+  // Listen to rendered animation updates, including the .5 s scrub tail
+  // after a wheel/touch gesture stops. Preserve any existing callback.
+  const timeline=pin.animation;
+  const previous=timeline.eventCallback('onUpdate');
+  const params=timeline.vars.onUpdateParams;
+  timeline.eventCallback('onUpdate',function(...args){previous?.apply(this,args);queuePaint();},params);
+  restoreUpdate=()=>timeline.eventCallback('onUpdate',previous||null,params);
+  paint();
+ }catch(error){unmount();console.warn('PES original cinematic static fallback',error);}
 }
-// Observe only upstream layout, never a pin-spacer or a GSAP-animated child.
-function upstreamGeometry(){
+function upstream(){
  const nodes=[document.querySelector('.hero-film'),document.querySelector('.pes-specialty'),document.querySelector('.pes-featured-split')].filter(Boolean);
- return {nodes, signature:nodes.map(n=>[n.offsetWidth,n.offsetHeight,n.offsetTop].join(':')).join('|')};
+ return {nodes,signature:nodes.map(n=>[n.offsetWidth,n.offsetHeight,n.offsetTop].join(':')).join('|')};
 }
 function scheduleRefresh(force=false){
- if(!mounted)return;
- const signature=upstreamGeometry().signature;
- if(!force&&signature===lastGeometry)return;
- lastGeometry=signature;
+ if(!pin)return;
+ const signature=upstream().signature;
+ if(!force&&signature===geometry)return;
+ geometry=signature;
  if(refreshFrame)return;
  refreshFrame=requestAnimationFrame(()=>{
   refreshFrame=0;
-  if(mounted)window.ScrollTrigger?.refresh();
+  if(pin){window.ScrollTrigger.refresh();queuePaint();}
  });
 }
 function observeUpstream(){
- if(geometryObserver||!('ResizeObserver' in window))return;
- const {nodes,signature}=upstreamGeometry();
- lastGeometry=signature;
- geometryObserver=new ResizeObserver(()=>scheduleRefresh());
- nodes.forEach(n=>geometryObserver.observe(n));
+ if(observer||!('ResizeObserver' in window))return;
+ const {nodes,signature}=upstream();geometry=signature;
+ observer=new ResizeObserver(()=>scheduleRefresh());
+ nodes.forEach(n=>observer.observe(n));
 }
-async function ready(remount=false){
- // Wait on the actual native mount promises, not the load event or an arbitrary delay.
+async function ready(){
  if(!readyPromise)readyPromise=(async()=>{
-   await nativeComponentsReady;
-   if(document.fonts?.ready)await document.fonts.ready;
-   // Flush layout and the native engines' first scheduled render.
-   await frame();await frame();
+  await nativeComponentsReady;
+  if(document.fonts?.ready)await document.fonts.ready;
+  await frame();await frame();
  })();
  await readyPromise;
- if(remount||!mounted)mount();else scheduleRefresh(true);
+ if(reduced.matches){unmount();return;}
+ if(!instance)mount();else scheduleRefresh(true);
  observeUpstream();
 }
-compact.addEventListener('change',()=>ready(true));
-reduce.addEventListener('change',()=>ready(true));
-window.addEventListener('pageshow',()=>ready());
-window.addEventListener('load',()=>ready(),{once:true});
-window.addEventListener('resize',()=>scheduleRefresh(true),{passive:true});
-ready().catch(error=>{unmount();console.error('PES cinematic readiness failed',error);});
+if(root){
+ reduced.addEventListener('change',()=>{unmount();ready();});
+ window.addEventListener('scroll',queuePaint,{passive:true});
+ window.addEventListener('pageshow',()=>ready());
+ window.addEventListener('load',()=>ready(),{once:true});
+ // ScrollTrigger owns resize handling. Avoid a second refresh on every mobile
+ // toolbar resize; upstream ResizeObserver handles actual geometry changes.
+ ready().catch(error=>{unmount();console.error('PES cinematic readiness failed',error);});
+}

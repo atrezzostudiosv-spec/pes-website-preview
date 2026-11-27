@@ -125,21 +125,21 @@
       "git_blob": "cc7defcd88d2fe354b0d37916b976d472027f4fb"
     },
     {
-      "id": "PES-033",
+      "id": "PES-016",
       "kind": "photo",
-      "url": "https://images.squarespace-cdn.com/content/v1/5c7f909090f904a653a294e1/1653319763006-P5ABMFKPBLN1FKBZR84Q/Hillside+Finish+2-11.jpg",
+      "url": "https://images.squarespace-cdn.com/content/v1/5c7f909090f904a653a294e1/1652958785585-AP7QZQGDHIL3YKS2S93R/Hillside+Finish+2-40.jpg",
       "source": [
-        "https://www.premiumenergysolutionsinc.com/system-lighting-upgrade"
+        "https://www.premiumenergysolutionsinc.com/"
       ],
-      "file": "PES-033.jpg",
-      "sha256": "f7f4afef5d7270f8fc14ce5858ab250fcd0e6c5ac5b305226dcb76dc40b1e5c5",
-      "download_sha256": "a35c29af7207ba699e1f68a505555814967dfd73ecb26e6c132a6dfbf120b666",
+      "file": "PES-016.jpg",
+      "sha256": "556108329f4b2fb6b8d98fe164fb8514b5f3afb0ef7da2465f409cdeabfd0420",
+      "download_sha256": "d3f3287b8a91c94fd146a2459a64dd29cf1b059cd540ac02d63702d86ead7bc4",
       "width": 1500,
       "height": 1001,
       "state": "private_review_only",
       "slot": 8,
-      "description": "Electrical distribution cabinets",
-      "git_blob": "9eb64de08f4de1ba36a3170cd43abf917970aac6"
+      "description": "Hillside home office with integrated linear ceiling lighting",
+      "git_blob": "925b111ed0a8f2a07b28f1903bb89c00d88c0b84"
     },
     {
       "id": "PES-014",
