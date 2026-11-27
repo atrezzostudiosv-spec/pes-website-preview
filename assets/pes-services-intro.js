@@ -12,7 +12,9 @@ export function mountServicesIntro(region){
  const label=region.querySelector('.eyebrow'),rule=region.querySelector('.pes-services-intro-rule'),copy=region.querySelector(':scope > p');
  if(lines.length!==2||!label||!rule||!copy)return;
  const groups=[label,rule,copy],instances=[],timers=[];
- let observer,overlay,done=false;
+ let observer,overlay,done=false,measuredLayout;
+ const signature=()=>[heading.clientWidth,...lines.map(l=>{const c=getComputedStyle(l);return [l.clientWidth,l.clientHeight,c.fontSize,c.fontWeight,c.letterSpacing].join(':');})].join('|');
+ const onResize=()=>{if(measuredLayout&&signature()!==measuredLayout)finish();};
  const make=(tag,cls)=>{const e=document.createElement(tag);if(cls)e.className=cls;return e;};
  const later=(ms,fn)=>timers.push(setTimeout(()=>{if(!done)try{fn();}catch(error){finish();console.warn('PES services intro fallback',error);}},ms));
  function finish(){
@@ -20,7 +22,7 @@ export function mountServicesIntro(region){
   instances.reverse().forEach(i=>{try{i.destroy();}catch{}});
   overlay?.remove();groups.forEach(e=>{delete e.dataset.pesServicesPending;e.dataset.pesMotionDone='true';});
   heading.dataset.pesMotionDone='true';region.dataset.pesServicesMotion='complete';
-  window.removeEventListener('resize',finish);window.removeEventListener('pagehide',finish);media.removeEventListener('change',onMedia);
+  window.removeEventListener('resize',onResize);window.removeEventListener('pagehide',finish);media.removeEventListener('change',onMedia);
  }
  const onMedia=()=>{if(media.matches)finish();};
  // Retarget original MOT-013 keyframes onto the unwrapped static DOM elements.
@@ -34,6 +36,7 @@ export function mountServicesIntro(region){
   }finally{staging.remove();}
  }
  function revealTitle(){
+  measuredLayout=signature();
   const base=heading.getBoundingClientRect();
   overlay=make('span','pes-services-title-overlay');overlay.setAttribute('aria-hidden','true');
   const specs=lines.map(line=>{
@@ -73,7 +76,7 @@ export function mountServicesIntro(region){
    catch(error){finish();console.warn('PES services intro fallback',error);}
   },{rootMargin:'0px 0px -15% 0px',threshold:0});
   observer.observe(label);
-  window.addEventListener('resize',finish,{passive:true});window.addEventListener('pagehide',finish);media.addEventListener('change',onMedia);
+  window.addEventListener('resize',onResize,{passive:true});window.addEventListener('pagehide',finish);media.addEventListener('change',onMedia);
  }catch(error){finish();console.warn('PES services intro fallback',error);}
  return {destroy:finish};
 }

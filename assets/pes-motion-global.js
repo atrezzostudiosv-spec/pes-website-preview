@@ -1,6 +1,6 @@
 /* PES global editorial opt-in. Only coordination; vendor animation formulas stay intact. */
 import {mountEditorialMotion} from './pes-editorial-motion.js';
-import {mountServicesIntro} from './pes-services-intro.js';
+import {mountServicesIntro} from './pes-services-intro.js?v=responsive-1';
 import {mount as textReveal} from './vendor/pes-motion/motion/ATZ-MOT-001.js';
 import {mount as groupStagger} from './vendor/pes-motion/typography/ATZ-MOT-013.js';
 const media=matchMedia('(prefers-reduced-motion: reduce)');

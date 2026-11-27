@@ -10,6 +10,9 @@ assert blob(ROOT/'assets/atz-sec-015/engine.original.js')=='d81debdcc6448ec37aee
 assert blob(ROOT/'assets/atz-sec-015/component.css')=='835956afd7c453774bd4bd06712a1d14ccff7595'
 assert blob(ROOT/'assets/vendor/ats2-engine.js')=='dbc50858a0e026a0941587b1885a99eaa6ab2111'
 assert blob(ROOT/'assets/vendor/ATZ-SEC-004.js')=='b8cd6629e23e528a16363b61d9f31730124b1786'
+original=(ROOT/'assets/atz-sec-015/engine.original.js').read_text()
+adapted=(ROOT/'assets/atz-sec-015/engine.pes.js').read_text()
+assert adapted==original.replace("const media=matchMedia('(min-height:700px) and (prefers-reduced-motion:no-preference)');","const media=matchMedia('(min-height:700px) and (prefers-reduced-motion:no-preference), (max-width:767px) and (orientation:portrait) and (prefers-reduced-motion:no-preference)');")
 pages=[p for p in ROOT.rglob('index.html') if 'assets' not in p.relative_to(ROOT).parts]
 assert len(pages)==16
 for p in pages:assert not re.search(r'launching\s+soon',p.read_text(),re.I),p
@@ -38,7 +41,7 @@ def test(b,name,w,h,mode='animated'):
             assert p.request.get(BASE+'capabilities/'+slug+'/').ok
             image=sec.locator('.collection-photo').nth(i).get_attribute('src')
             assert p.request.get(BASE+image).ok
-        if mode=='animated':
+        if mode in ['animated','short']:
             p.wait_for_function("document.querySelector('[data-pes-services-intro]').dataset.pesServicesMotion")
             intro=sec.locator('[data-pes-services-intro]')
             intro.evaluate("e=>window.scrollTo({top:e.getBoundingClientRect().top+scrollY-100,behavior:'instant'})")
@@ -117,19 +120,59 @@ def test(b,name,w,h,mode='animated'):
         if mode in ['nojs','reduced']:
             assert p.locator('#ats2-handoff').evaluate("e=>!e.closest('.ats2-scope').classList.contains('ats2-enhanced')")
             assert p.locator('#ats2-handoff .ats2-handoff-pane').count()==2
-        if mode=='short':
-            p.wait_for_function("document.querySelector('#ats2-handoff').closest('.ats2-scope').classList.contains('ats2-enhanced')")
         assert not p.evaluate('document.documentElement.scrollWidth>innerWidth')
         assert not errors,errors
         results.append({'browser':name,'width':w,'height':h,'mode':mode})
     finally:p.close()
+def dynamic_mobile(b,w,h):
+    ctx=b.new_context(viewport={'width':w,'height':h},is_mobile=True,has_touch=True,device_scale_factor=1)
+    p=ctx.new_page();errors=[];p.on('pageerror',lambda e:errors.append(str(e)))
+    try:
+        assert p.goto(BASE,wait_until='load',timeout=45000).ok
+        p.evaluate('document.fonts.ready')
+        p.wait_for_function("window.ScrollTrigger && ScrollTrigger.getAll().some(t=>t.pin===document.querySelector('.pes-cinematic-interlude'))")
+        intro=p.locator('#pes-services [data-pes-services-intro]')
+        p.wait_for_function("document.querySelector('#pes-services [data-pes-services-intro]').dataset.pesServicesMotion==='waiting'")
+        p.set_viewport_size({'width':w,'height':h-100});p.wait_for_timeout(350)
+        assert intro.get_attribute('data-pes-services-motion')=='waiting'
+        intro.evaluate("e=>window.scrollTo({top:e.getBoundingClientRect().top+scrollY-80,behavior:'instant'})")
+        p.wait_for_function("document.querySelectorAll('#pes-services .pes-services-title-overlay .am-char').length>0")
+        p.set_viewport_size({'width':w,'height':h-60})
+        assert intro.get_attribute('data-pes-services-motion')=='playing'
+        p.wait_for_function("document.querySelector('#pes-services [data-pes-services-intro]').dataset.pesServicesMotion==='complete'")
+        observations=[]
+        for height in [h,h-100,h-160,h-60,h]:
+            p.set_viewport_size({'width':w,'height':height});p.wait_for_timeout(400)
+            sec=p.locator('#pes-services')
+            assert sec.evaluate("e=>e.classList.contains('is-cinema-active')")
+            track=p.locator('#pes-services [data-collection-track]')
+            track.evaluate("e=>window.scrollTo({top:e.getBoundingClientRect().top+scrollY+(e.offsetHeight-e.querySelector('[data-collection-stage]').offsetHeight)*.47,behavior:'instant'})")
+            p.wait_for_timeout(450)
+            data=sec.evaluate("""e=>{const p=e.querySelector('[data-collection-panel][aria-hidden=false]'),c=e.querySelector('.collection-bottom'),r=p.querySelector('.collection-overlay').getBoundingClientRect(),b=c.getBoundingClientRect(),s=e.querySelector('[data-collection-stage]').getBoundingClientRect();return {counter:e.querySelector('[data-collection-counter]').textContent,top:s.top,copyTop:r.top,copyBottom:r.bottom,controlsTop:b.top,controlsBottom:b.bottom,stageBottom:s.bottom}}""")
+            assert data['counter']=='03 / 05' and abs(data['top'])<5 and data['copyTop']>=0 and data['copyBottom']<=data['controlsTop']+1 and data['controlsBottom']<=data['stageBottom']+1,data
+            p.screenshot(path=str(OUT/f'dynamic-{w}-{height}-services.jpg'),type='jpeg',quality=80)
+            scene=p.locator('#ats2-handoff')
+            for progress in [.5,1,.2]:
+                scene.evaluate("(e,p)=>window.scrollTo({top:e.getBoundingClientRect().top+scrollY+(e.offsetHeight-innerHeight)*p,behavior:'instant'})",progress)
+                p.wait_for_timeout(260)
+                a=scene.evaluate("""e=>({active:e.closest('.ats2-scope').classList.contains('ats2-enhanced'),p:+e.dataset.ats2Progress,wipe:parseFloat(e.style.getPropertyValue('--ats2-wipe'))})""")
+                assert a['active'] and abs(a['p']-progress)<.04,a
+                if progress==.5:assert 0<a['wipe']<100,a
+            observations.append({'height':height,'services':data,'handoff':a})
+        p.emulate_media(reduced_motion='reduce')
+        p.wait_for_function("!document.querySelector('#pes-services').classList.contains('is-cinema-active')&&!document.querySelector('#ats2-handoff').closest('.ats2-scope').classList.contains('ats2-enhanced')")
+        assert not errors,errors
+        results.append({'browser':'webkit','width':w,'height':h,'dynamic':observations})
+    finally:ctx.close()
 with sync_playwright() as pw:
     for name in ['chromium','webkit']:
         b=getattr(pw,name).launch(headless=True)
-        for w,h in [(375,844),(390,844),(768,900),(1024,768),(1440,900),(1920,1080)] if name=='chromium' else [(390,844),(1440,900)]:
+        for w,h in [(375,667),(375,812),(390,844),(768,900),(1024,768),(1440,900),(1920,1080)] if name=='chromium' else [(375,812),(390,844),(430,932),(1440,900)]:
             test(b,name,w,h)
         for mode in ['nojs','reduced','short']:
             test(b,name,390,650 if mode=='short' else 844,mode)
+        if name=='webkit':
+            for w,h in [(375,667),(375,812),(390,844),(430,932)]:dynamic_mobile(b,w,h)
         b.close()
 (OUT/'results.json').write_text(json.dumps(results,indent=2))
 print('TOTAL',len(results),'FAILURES 0',flush=True)
