@@ -13,6 +13,8 @@
   <link rel="stylesheet" href="assets/atz-sec-016/component.css">
   <link rel="stylesheet" href="assets/pes-design-system.css">
   <link rel="stylesheet" href="assets/pes-featured-brands.css?v=1">
+  <link rel="stylesheet" href="assets/pes-home-close.css?v=1">
+  <script type="module" src="assets/pes-home-close.js?v=1"></script>
   <script type="module" src="assets/pes-featured-brands.js?v=1"></script>
   <script defer src="assets/atz-sec-016/engine.original.js"></script>
   <script defer src="assets/atz-sec-016/pes-mount.js"></script>
@@ -151,24 +153,39 @@
     <li><span class="pes-brand-mark" role="img" aria-label="Infratech Comfort"></span></li>
   </ul>
 </section>
-<section class="ui close dark" data-pes-editorial>
-  <div class="wrap split">
-    <div><span class="eyebrow">LET’S CONNECT</span><h2>A project starts with a conversation.</h2><p>For builders, design professionals and homeowners planning electrical work in Los Angeles.</p></div>
-    <div class="right"><a class="button" href="contact/">Discuss Your Project <span class="arrow" aria-hidden="true">↗</span></a><a class="phone" href="tel:+12135873257">213-587-3257</a></div>
+<!-- Home 07 — cinematic contact close; native scroll, static accessible fallback. -->
+<section id="pes-connect" class="ui close dark pes-connect" aria-labelledby="pes-connect-title" data-pes-motion-off>
+  <div class="pes-connect-stage">
+    <div class="pes-connect-image" aria-hidden="true"><img src="assets/media/PES-030.jpg" alt="" width="1500" height="1124" loading="lazy" decoding="async"></div>
+    <div class="pes-connect-shade" aria-hidden="true"></div>
+    <div class="wrap split pes-connect-content">
+      <div><span class="eyebrow">LET’S CONNECT</span><h2 id="pes-connect-title">A project starts with <strong>a conversation.</strong></h2><p>For builders, design professionals and homeowners planning electrical work in Los Angeles.</p></div>
+      <div class="right"><a class="button" href="contact/">Discuss Your Project <span class="arrow" aria-hidden="true">↗</span></a><a class="phone" href="tel:+12135873257">213-587-3257</a></div>
+    </div>
   </div>
 </section>
   </div>
 </main>
-  <footer class="ui footer"><div class="wrap">
-<a href="./" aria-label="PES home"><img class="logo" src="assets/media/PES-000.webp" alt="Premium Energy Solutions, Inc." width="600" height="233"></a>
-<nav class="footlinks" aria-label="Footer navigation"><a href="./" aria-current="page">HOME</a>
-<a href="about/">WHY US</a>
-<a href="portfolio/">PROJECTS</a>
-<a href="capabilities/">SERVICES</a>
-<a href="careers/">CAREERS</a>
-<a href="contact/">CONTACT</a></nav>
-<small>Premium Energy Solutions, Inc. · Los Angeles, California</small>
-</div></footer>
+<!-- Home 08 — integrated black footer, subtle PES-green light seam. -->
+<footer id="pes-footer" class="ui footer pes-footer">
+  <div class="pes-footer-light" aria-hidden="true"></div>
+  <div class="wrap pes-footer-grid">
+    <div class="pes-footer-identity">
+      <a href="./" aria-label="PES home"><img class="logo" src="assets/brand/pes-neon-logo.webp" alt="Premium Energy Solutions, Inc." width="720" height="269" loading="lazy"></a>
+      <p>Premium Energy Solutions, Inc.<br>Los Angeles, California</p>
+    </div>
+    <nav class="pes-footer-nav" aria-label="Footer navigation">
+      <span class="pes-footer-label">EXPLORE</span>
+      <div class="pes-footer-links"><a href="./" aria-current="page">Home</a><a href="about/">Why Us</a><a href="portfolio/">Projects</a><a href="capabilities/">Services</a><a href="careers/">Careers</a><a href="contact/">Contact</a></div>
+    </nav>
+    <div class="pes-footer-contact">
+      <span class="pes-footer-label">CONNECT</span>
+      <a href="tel:+12135873257">213-587-3257</a>
+      <a href="https://www.instagram.com/pes.la/">Instagram <span aria-hidden="true">↗</span></a>
+    </div>
+    <small>Premium Energy Solutions, Inc. · Los Angeles, California</small>
+  </div>
+</footer>
 
   <script type="module" src="assets/mount-component.js?v=hillside-hold-2"></script>
 

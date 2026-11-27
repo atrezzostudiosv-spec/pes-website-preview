@@ -1,0 +1,5 @@
+# PES Home 07–08 — Cinematic closing V1.0
+User approved an impactful photograph, native scroll-linked zoom, black left gradient, seamless black footer and thin neon-green separator.
+Selection: PES-030.jpg, original Hillside night aerial, 1500 × 1124, inspected visually; unused in prior Home. No editing, retouching, or invented imagery.
+Close: preserve contact copy/telephone/contact destination; Montserrat 300/700, green 2px accent. Sticky stage while image scales 1→1.24 desktop / 1→1.16 mobile; 75svh / 65svh travel. Bottom gradient joins black footer. Text and CTA remain stable. No scroll interception; short viewports and reduced motion are static. Footer: approved neon logo, existing navigation, confirmed contact/Instagram links, two-pixel PES-green seam and single 1.9-second light sweep when visible. No pulsing or flicker.
+Only Home changes; previous sections and component engines untouched. Original brand crops remain provisional and separate. Footer of internal pages not changed in this pass. Visual validation pending.

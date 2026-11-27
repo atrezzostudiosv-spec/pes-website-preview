@@ -1,0 +1,25 @@
+name: PES Home 07-08 closing QA
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['index.html','assets/pes-home-close.*','qa/home-close.py','.github/workflows/pes-home-close.yml']
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install playwright==1.56.0
+      - run: python -m playwright install --with-deps chromium webkit
+      - run: python qa/home-close.py
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: home-close-evidence
+          path: home-close-qa/
