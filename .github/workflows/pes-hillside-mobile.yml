@@ -1,0 +1,25 @@
+name: PES Hillside mobile text QA
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['assets/pes-featured-split.css','qa/hillside-mobile.py','.github/workflows/pes-hillside-mobile.yml']
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install playwright==1.56.0
+      - run: python -m playwright install --with-deps chromium webkit
+      - run: python qa/hillside-mobile.py
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hillside-mobile-text-evidence
+          path: hillside-mobile-qa/

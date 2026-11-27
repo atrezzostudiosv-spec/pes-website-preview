@@ -26,6 +26,6 @@
 /* Mobile-only text response: smooth abrupt changes from native fast scroll.
  * Keep original scroll progress, image geometry and desktop unchanged. */
 @media(max-width:780px) and (pointer:coarse) and (prefers-reduced-motion:no-preference){
- .pes-site .pes-featured-split.ats-enhanced .ats-split-copy{transition:opacity 220ms ease-out,transform 220ms ease-out}
+ .pes-site .pes-featured-split.ats-enhanced .ats-split-copy{transition:opacity 620ms cubic-bezier(.35,0,.25,1),transform 620ms cubic-bezier(.35,0,.25,1)}
  .pes-site .pes-featured-split.ats-enhanced .ats-split-copy:focus-within{transition:none}
 }
