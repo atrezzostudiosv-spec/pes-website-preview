@@ -1,0 +1,8 @@
+# PES — Why Us V1 (2026-11-27)
+## Scope
+First review candidate for the existing /about/ route. Retain the four existing content components (art-scene, statement, art-tech, close), existing photos, native editorial reveal adapter (ATZ-MOT-001 and ATZ-MOT-013), global header/footer and relative links. New CSS is page-scoped; no Home changes, no new dependencies or pinned scroll. Hero uses Montserrat 300/700 and a green rule; white collaboration interlude; black photographic technical section; restrained contact close. Photo PES-030 comes from original Why Us; PES-036 is the original technical photo already used here. No new images or retouching.
+## Content basis
+Original https://www.premiumenergysolutionsinc.com/why-us and recovered client blueprint (atrezzostudiosv-spec/client-premiumenergysolutionsinc-com-4ef9893178, branch atrezzo-production-readiness, blueprint.json /about/). Rewrite in first person, preserve luxury/custom residential and commercial electrical expertise, Los Angeles area, collaboration, long-term relationships, ethical practices, electrical design/installation and lighting technology. No new claims.
+Source asserts establishment in 2007, licensed/bonded/insured, guarantee, leadership and competitive rates. Current credentials and guarantee terms not independently verified; hold those statements for Ed’s confirmation before publication rather than show an internal review note in page body. Existing noindex unchanged. Public-release rights/photographer credit gate inherited from original media manifest.
+## QA
+Chromium/WebKit six viewport sizes, normal and fallback, correct media decode, responsive geometry, text weight, links, header/footer and native reveal. Visual approval remains pending.

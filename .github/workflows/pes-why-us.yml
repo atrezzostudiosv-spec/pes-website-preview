@@ -1,0 +1,25 @@
+name: PES Why Us QA
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['about/index.html','assets/pes-why-us.css','qa/why-us.py','.github/workflows/pes-why-us.yml']
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install playwright==1.56.0
+      - run: python -m playwright install --with-deps chromium webkit
+      - run: python qa/why-us.py
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: why-us-evidence
+          path: why-us-qa/
