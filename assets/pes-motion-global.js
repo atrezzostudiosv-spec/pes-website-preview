@@ -86,7 +86,7 @@ function stopAll(){[...active].forEach(f=>f());}
 function start(){
  if(media.matches||!('IntersectionObserver' in window)||!Element.prototype.animate)return;
  const special=document.querySelector('.pes-specialty');if(special)mountEditorialMotion(special);
- const services=document.querySelector('[data-pes-services-intro]');if(services)mountServicesIntro(services);
+ document.querySelectorAll('[data-pes-services-intro]').forEach(mountServicesIntro);
  document.querySelectorAll('[data-pes-editorial]').forEach(mountRegion);
 }
 document.addEventListener('focusin',e=>{const region=e.target.closest('[data-pes-editorial]');if(region)[...(regionTasks.get(region)||[])].forEach(f=>f());});

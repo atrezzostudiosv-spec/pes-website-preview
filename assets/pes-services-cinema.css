@@ -1,61 +1,61 @@
 /* PES visual adaptation of ATZ-SEC-015. Source engine/component CSS remain exact. */
-.pes-site .pes-services-cinema{--sans:var(--pes-font);--gutter:clamp(24px,5vw,92px);background:#000;color:#fff;font-family:var(--pes-font);position:relative}
-.pes-site .pes-services-cinema .collection-intro,.pes-site .pes-services-cinema .collection-fallback-link{margin-inline:var(--gutter)}
-.pes-site .pes-services-cinema .collection-intro{background:#000;padding-top:clamp(70px,8vw,120px);padding-bottom:clamp(45px,5vw,80px)}
-.pes-site .pes-services-cinema .eyebrow{font-size:11px;letter-spacing:.19em;text-transform:uppercase;font-weight:500;color:#A2FD02;line-height:1.5}
-.pes-site .pes-services-cinema .collection-intro h2{font-weight:300;color:#fff}
-.pes-site .pes-services-cinema .collection-intro h2 strong,.pes-site .pes-services-cinema .collection-overlay h3 strong{font-weight:700}
-.pes-site .pes-services-cinema .collection-intro h2::after{content:none}
-.pes-site .pes-services-cinema .collection-intro>p{color:#d4d4d4;line-height:1.7;font-weight:400}
-.pes-site .pes-services-cinema .collection-scroll-track,.pes-site .pes-services-cinema .collection-stage{background:#000}
-.pes-site .pes-services-cinema .collection-photo{max-width:none}
-.pes-site .pes-services-cinema .collection-scrim{background:linear-gradient(180deg,rgba(0,0,0,.73),rgba(0,0,0,.12) 30%,rgba(0,0,0,.48) 61%,rgba(0,0,0,.94) 100%),linear-gradient(90deg,rgba(0,0,0,.85) 0%,rgba(0,0,0,.55) 32%,rgba(0,0,0,.18) 52%,transparent 72%)}
-.pes-site .pes-services-cinema .collection-overlay h3{font-weight:300;max-width:950px}
-.pes-site .pes-services-cinema .collection-overlay .eyebrow{color:#A2FD02}
-.pes-site .pes-services-cinema .collection-image-index,.pes-site .pes-services-cinema .collection-image-counter{top:clamp(88px,12svh,120px)}
-.pes-site .pes-services-cinema .collection-meta{font-family:var(--pes-font);line-height:1.5;color:#eee}
-.pes-site .pes-services-cinema .collection-tabs{grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(10px,1.7vw,30px)}
-.pes-site .pes-services-cinema .collection-tab-title{overflow-wrap:anywhere}
-.pes-site .pes-services-cinema .collection-tab-rule:after{background:#A2FD02}
-.pes-site .pes-services-cinema .collection-tab{cursor:pointer}
-.pes-site .pes-services-cinema .pes-service-short-label{display:none}
-.pes-site .pes-services-cinema .collection-text-plus{color:#A2FD02}
-.pes-site .pes-services-cinema .collection-text-link:hover,.pes-site .pes-services-cinema .collection-text-link:focus-visible{color:#A2FD02}
-.pes-site .pes-services-cinema :is(a,button):focus-visible{outline:2px solid #A2FD02;outline-offset:4px}
-.pes-site .pes-services-cinema .collection-fallback-link a{color:#fff;display:inline-flex;align-items:center;gap:24px;text-decoration:none;border-bottom:1px solid #A2FD02;padding-bottom:10px}
-.pes-site .pes-services-cinema .collection-fallback-link svg{width:17px;height:17px}
-.pes-site .pes-services-cinema.is-cinema-active .collection-scroll-track{height:540svh}
-.pes-site .pes-services-cinema.is-cinema-active .collection-bottom{bottom:clamp(24px,5svh,54px)}
-.pes-site .pes-services-cinema.is-cinema-active .collection-overlay{bottom:clamp(172px,25svh,260px)}
-.pes-site .pes-services-cinema:not(.is-cinema-active) .collection-stage{background:#000}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro){--sans:var(--pes-font);--gutter:clamp(24px,5vw,92px);background:#000;color:#fff;font-family:var(--pes-font);position:relative}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-intro,.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-fallback-link{margin-inline:var(--gutter)}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-intro{background:#000;padding-top:clamp(70px,8vw,120px);padding-bottom:clamp(45px,5vw,80px)}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .eyebrow{font-size:11px;letter-spacing:.19em;text-transform:uppercase;font-weight:500;color:#A2FD02;line-height:1.5}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-intro h2{font-weight:300;color:#fff}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-intro h2 strong,.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-overlay h3 strong{font-weight:700}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-intro h2::after{content:none}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-intro>p{color:#d4d4d4;line-height:1.7;font-weight:400}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-scroll-track,.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-stage{background:#000}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-photo{max-width:none}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-scrim{background:linear-gradient(180deg,rgba(0,0,0,.73),rgba(0,0,0,.12) 30%,rgba(0,0,0,.48) 61%,rgba(0,0,0,.94) 100%),linear-gradient(90deg,rgba(0,0,0,.85) 0%,rgba(0,0,0,.55) 32%,rgba(0,0,0,.18) 52%,transparent 72%)}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-overlay h3{font-weight:300;max-width:950px}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-overlay .eyebrow{color:#A2FD02}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-image-index,.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-image-counter{top:clamp(88px,12svh,120px)}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-meta{font-family:var(--pes-font);line-height:1.5;color:#eee}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-tabs{grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(10px,1.7vw,30px)}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-tab-title{overflow-wrap:anywhere}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-tab-rule:after{background:#A2FD02}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-tab{cursor:pointer}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .pes-service-short-label{display:none}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-text-plus{color:#A2FD02}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-text-link:hover,.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-text-link:focus-visible{color:#A2FD02}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) :is(a,button):focus-visible{outline:2px solid #A2FD02;outline-offset:4px}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-fallback-link a{color:#fff;display:inline-flex;align-items:center;gap:24px;text-decoration:none;border-bottom:1px solid #A2FD02;padding-bottom:10px}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-fallback-link svg{width:17px;height:17px}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro).is-cinema-active .collection-scroll-track{height:540svh}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro).is-cinema-active .collection-bottom{bottom:clamp(24px,5svh,54px)}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro).is-cinema-active .collection-overlay{bottom:clamp(172px,25svh,260px)}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro):not(.is-cinema-active) .collection-stage{background:#000}
 @media(max-width:767px){
- .pes-site .pes-services-cinema .collection-intro{padding-top:65px;padding-bottom:40px}
- .pes-site .pes-services-cinema .collection-image-index,.pes-site .pes-services-cinema .collection-image-counter{top:85px}
- .pes-site .pes-services-cinema .collection-tabs{gap:8px}
- .pes-site .pes-services-cinema .pes-service-full-label{display:none}
- .pes-site .pes-services-cinema .pes-service-short-label{display:inline}
- .pes-site .pes-services-cinema .collection-tab .collection-tab-title{font-size:clamp(10px,2.8vw,13px);white-space:nowrap}
- .pes-site .pes-services-cinema .collection-tab{min-height:44px}
- .pes-site .pes-services-cinema.is-cinema-active .collection-overlay{bottom:clamp(178px,25svh,235px)}
- .pes-site .pes-services-cinema .collection-overlay h3{font-size:clamp(29px,8vw,43px);max-width:100%}
- .pes-site .pes-services-cinema .collection-bottom-top{flex-wrap:nowrap;gap:8px}
+ .pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-intro{padding-top:65px;padding-bottom:40px}
+ .pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-image-index,.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-image-counter{top:85px}
+ .pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-tabs{gap:8px}
+ .pes-site :is(.pes-services-cinema,.pes-difference-intro) .pes-service-full-label{display:none}
+ .pes-site :is(.pes-services-cinema,.pes-difference-intro) .pes-service-short-label{display:inline}
+ .pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-tab .collection-tab-title{font-size:clamp(10px,2.8vw,13px);white-space:nowrap}
+ .pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-tab{min-height:44px}
+ .pes-site :is(.pes-services-cinema,.pes-difference-intro).is-cinema-active .collection-overlay{bottom:clamp(178px,25svh,235px)}
+ .pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-overlay h3{font-size:clamp(29px,8vw,43px);max-width:100%}
+ .pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-bottom-top{flex-wrap:nowrap;gap:8px}
 }
 
 /* V1.1 — static line geometry and source-measured character overlay. */
-.pes-site .pes-services-cinema .collection-intro{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.55fr);align-items:end}
-.pes-site .pes-services-cinema .collection-intro>p{justify-self:end;width:100%}
-.pes-site .pes-services-cinema .pes-services-intro-heading{min-width:0}
-.pes-site .pes-services-cinema .collection-intro h2{position:relative;text-wrap:initial;max-width:none}
-.pes-site .pes-services-cinema .pes-services-title-line{display:block;white-space:nowrap;font-kerning:normal}
-.pes-site .pes-services-cinema .pes-services-intro-rule{display:block;width:52px;height:2px;background:#A2FD02;margin-top:25px}
-.pes-site .pes-services-cinema .pes-services-title-overlay{position:absolute;inset:0;pointer-events:none;color:inherit}
-.pes-site .pes-services-cinema .pes-services-title-segment.atz-motion-v1{position:absolute;display:block;isolation:auto;background:transparent;color:inherit;min-height:0;font:inherit;letter-spacing:inherit}
-.pes-site .pes-services-cinema .pes-services-title-segment [data-am-text]{position:relative;display:block;width:100%;height:100%;font:inherit;letter-spacing:inherit}
-.pes-site .pes-services-cinema .pes-services-title-segment [data-am-text] .am-word{display:inline}
-.pes-site .pes-services-cinema .pes-services-title-segment [data-am-text][data-am-ready] .am-char{position:absolute;top:0;white-space:nowrap}
-.pes-site .pes-services-cinema [data-pes-services-intro][data-pes-services-motion="waiting"] .pes-services-title-line,
-.pes-site .pes-services-cinema [data-pes-services-intro][data-pes-services-motion="playing"] .pes-services-title-line{opacity:0}
-.pes-site .pes-services-cinema [data-pes-services-pending]{opacity:0}
-.pes-site .pes-services-cinema .collection-bottom-top{justify-content:flex-start}
-@media(max-width:767px){.pes-site .pes-services-cinema .collection-intro{display:block}.pes-site .pes-services-cinema .collection-intro h2{font-size:clamp(32px,9.8vw,54px)}}
-@media(prefers-reduced-motion:reduce){.pes-site .pes-services-cinema .pes-services-title-line,.pes-site .pes-services-cinema [data-pes-services-pending]{opacity:1!important}.pes-site .pes-services-cinema .pes-services-title-overlay{display:none!important}}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-intro{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.55fr);align-items:end}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-intro>p{justify-self:end;width:100%}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .pes-services-intro-heading{min-width:0}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-intro h2{position:relative;text-wrap:initial;max-width:none}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .pes-services-title-line{display:block;white-space:nowrap;font-kerning:normal}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .pes-services-intro-rule{display:block;width:52px;height:2px;background:#A2FD02;margin-top:25px}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .pes-services-title-overlay{position:absolute;inset:0;pointer-events:none;color:inherit}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .pes-services-title-segment.atz-motion-v1{position:absolute;display:block;isolation:auto;background:transparent;color:inherit;min-height:0;font:inherit;letter-spacing:inherit}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .pes-services-title-segment [data-am-text]{position:relative;display:block;width:100%;height:100%;font:inherit;letter-spacing:inherit}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .pes-services-title-segment [data-am-text] .am-word{display:inline}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .pes-services-title-segment [data-am-text][data-am-ready] .am-char{position:absolute;top:0;white-space:nowrap}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) [data-pes-services-intro][data-pes-services-motion="waiting"] .pes-services-title-line,
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) [data-pes-services-intro][data-pes-services-motion="playing"] .pes-services-title-line{opacity:0}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) [data-pes-services-pending]{opacity:0}
+.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-bottom-top{justify-content:flex-start}
+@media(max-width:767px){.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-intro{display:block}.pes-site :is(.pes-services-cinema,.pes-difference-intro) .collection-intro h2{font-size:clamp(32px,9.8vw,54px)}}
+@media(prefers-reduced-motion:reduce){.pes-site :is(.pes-services-cinema,.pes-difference-intro) .pes-services-title-line,.pes-site :is(.pes-services-cinema,.pes-difference-intro) [data-pes-services-pending]{opacity:1!important}.pes-site :is(.pes-services-cinema,.pes-difference-intro) .pes-services-title-overlay{display:none!important}}

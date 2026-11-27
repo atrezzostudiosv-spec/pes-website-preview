@@ -8,6 +8,8 @@ def blob(p):
     b=p.read_bytes();return hashlib.sha1(('blob '+str(len(b))+'\0').encode()+b).hexdigest()
 assert blob(ROOT/'assets/atz-sec-015/engine.original.js')=='d81debdcc6448ec37aee08b71bde0a9fa0e000c1'
 assert blob(ROOT/'assets/atz-sec-015/component.css')=='835956afd7c453774bd4bd06712a1d14ccff7595'
+assert blob(ROOT/'assets/vendor/ats2-engine.js')=='dbc50858a0e026a0941587b1885a99eaa6ab2111'
+assert blob(ROOT/'assets/vendor/ATZ-SEC-004.js')=='b8cd6629e23e528a16363b61d9f31730124b1786'
 pages=[p for p in ROOT.rglob('index.html') if 'assets' not in p.relative_to(ROOT).parts]
 assert len(pages)==16
 for p in pages:assert not re.search(r'launching\s+soon',p.read_text(),re.I),p
@@ -76,6 +78,45 @@ def test(b,name,w,h,mode='animated'):
             if mode in ['nojs','reduced']:assert sec.locator('.pes-services-title-line').evaluate_all("els=>els.every(e=>getComputedStyle(e).opacity==='1')")
             assert sec.locator('[data-collection-panel][aria-hidden=false]').count()==5
             assert all(x>0 for x in sec.locator('[data-collection-panel]').evaluate_all("els=>els.map(e=>e.getBoundingClientRect().height)"))
+        # Home 05: shared two-column introduction, independent one-shot motion, original Handoff.
+        diff=p.locator('#pes-difference')
+        assert diff.count()==1
+        assert diff.locator('h2').get_attribute('aria-label')=='Beyond what you see.'
+        assert diff.evaluate("e=>getComputedStyle(e).backgroundColor")=='rgb(0, 0, 0)'
+        assert diff.evaluate("e=>e.previousElementSibling.id==='pes-services'&&e.nextElementSibling.dataset.atzId==='ATZ-SEC-004'")
+        layout=diff.locator('.collection-intro').evaluate("""e=>{const b=e.getBoundingClientRect(),h=e.querySelector('h2').getBoundingClientRect(),p=e.querySelector(':scope>p').getBoundingClientRect();return {heading:[h.left-b.left,h.top-b.top,h.width,h.height],copy:[p.left-b.left,p.top-b.top,p.width,p.height],display:getComputedStyle(e).display,font:getComputedStyle(e.querySelector('h2')).fontSize}}""")
+        assert layout['display']==('grid' if w>767 else 'block'),layout
+        assert layout['copy'][0]>layout['heading'][0] if w>767 else layout['copy'][1]>layout['heading'][1],layout
+        if mode=='animated':
+            diff.evaluate("e=>window.scrollTo({top:e.getBoundingClientRect().top+scrollY-70,behavior:'instant'})")
+            diff_intro=diff.locator('[data-pes-services-intro]')
+            p.wait_for_function("document.querySelector('#pes-difference [data-pes-services-intro]').dataset.pesServicesMotion==='playing'")
+            p.wait_for_function("document.querySelectorAll('#pes-difference .pes-services-title-overlay .am-char').length>0")
+            geom=lambda:diff_intro.evaluate("""e=>{const h=e.querySelector('h2'),b=h.getBoundingClientRect();return [...h.querySelectorAll('.pes-services-title-line')].map(l=>{const r=l.getBoundingClientRect();return [r.left-b.left,r.top-b.top,r.width,r.height]})}""")
+            before=geom()
+            if w in [390,1440]:p.screenshot(path=str(OUT/f'{name}-{w}-difference-motion.jpg'),type='jpeg',quality=80)
+            p.wait_for_function("document.querySelector('#pes-difference [data-pes-services-intro]').dataset.pesServicesMotion==='complete'")
+            after=geom()
+            assert all(abs(a-b)<1 for l1,l2 in zip(before,after) for a,b in zip(l1,l2)),(before,after)
+            assert diff.locator('.pes-services-title-overlay,[data-pes-services-pending]').count()==0
+            assert diff.locator('.pes-services-title-line').evaluate_all("els=>els.every(e=>getComputedStyle(e).opacity==='1'&&e.scrollWidth<=e.clientWidth+1)")
+            if w in [390,1440]:p.screenshot(path=str(OUT/f'{name}-{w}-difference-final.jpg'),type='jpeg',quality=80)
+            handoff=p.locator('#ats2-handoff')
+            if w>820:
+                p.wait_for_function("document.querySelector('[data-atz-id=\\\"ATZ-SEC-004\\\"]').classList.contains('ats2-enhanced')")
+                for progress in [0,.5,1,.25]:
+                    handoff.evaluate("(e,p)=>window.scrollTo({top:e.getBoundingClientRect().top+scrollY+(e.offsetHeight-innerHeight)*p,behavior:'instant'})",progress)
+                    p.wait_for_timeout(300)
+                    data=handoff.evaluate("""e=>({p:+e.dataset.ats2Progress,wipe:parseFloat(e.style.getPropertyValue('--ats2-wipe')),first:+e.style.getPropertyValue('--ats2-first-copy'),second:+e.style.getPropertyValue('--ats2-second-copy')})""")
+                    assert abs(data['p']-progress)<.025,data
+                    if progress==0:assert data['wipe']>99 and data['first']>.99,data
+                    if progress==.5:assert 0<data['wipe']<100,data
+                    if progress==1:assert data['wipe']<1 and data['second']>.99,data
+                    if w==1440:p.screenshot(path=str(OUT/f'{name}-{w}-handoff-{progress}.jpg'),type='jpeg',quality=80)
+            else:assert handoff.locator('.ats2-handoff-pane').count()==2
+        elif mode in ['nojs','reduced']:
+            assert diff.locator('.pes-services-title-line').evaluate_all("els=>els.every(e=>getComputedStyle(e).opacity==='1')")
+        assert not p.evaluate('document.documentElement.scrollWidth>innerWidth')
         assert not errors,errors
         results.append({'browser':name,'width':w,'height':h,'mode':mode})
     finally:p.close()
