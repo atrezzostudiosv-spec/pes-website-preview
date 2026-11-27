@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['about/index.html','assets/pes-why-us.css','qa/why-us.py','.github/workflows/pes-why-us.yml']
+    paths: ['about/index.html','assets/pes-why-us.css','assets/why-us/**','assets/media/why-us/**','qa/why-us.py','.github/workflows/pes-why-us.yml']
 permissions:
   contents: read
 jobs:
