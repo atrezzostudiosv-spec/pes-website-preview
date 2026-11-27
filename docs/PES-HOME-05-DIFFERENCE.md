@@ -4,3 +4,6 @@ Reuse the existing CSS selectors via :is and the same source-position-measured M
 
 ## V1.1 — Original mobile Handoff
 Removed the destination-only <=820px manual reduced-motion override for the Home Handoff. Original ATZ-SEC-004 engine and CSS are byte-identical to the library; preserve their responsive scroll motion and prefers-reduced-motion / no-JS fallback. Other mount behavior unchanged. Extend forward/reverse wipe assertions to 375, 390 and 768 widths, WebKit mobile, and short-height mobile enhancement. No text, media, typography or layout redesign.
+
+## Handoff contrast refinement
+User requested a more visible black left gradient in both photos and removal of the standalone Lighting Design CTA below. Apply scoped neutral black 88% left-edge alpha on desktop and 78% on small screens, retaining the original bottom gradient. Remove the whole standalone CTA container to avoid empty padding. Individual service links, contact CTA, animation engines, mobile viewport behavior and all images are unchanged. CSS choice made to improve text contrast without darkening the right side.

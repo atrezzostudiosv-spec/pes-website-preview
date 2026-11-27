@@ -10,7 +10,7 @@ threading.Thread(target=server.serve_forever,daemon=True).start()
 url=f'http://127.0.0.1:{server.server_port}/'
 results=[]
 source=(ROOT/'assets/vendor/ats1-engine.js').read_bytes()
-assert hashlib.sha1(('blob '+str(len(source))+'\\0').encode()+source).hexdigest()=='3022616065b5101710865b66673f439216d97560'
+assert hashlib.sha1(('blob '+str(len(source))+'\0').encode()+source).hexdigest()=='3022616065b5101710865b66673f439216d97560'
 def check(browser,name,w,h,mobile,reduced=False):
     page=browser.new_page(viewport={'width':w,'height':h},has_touch=mobile,is_mobile=mobile,reduced_motion='reduce' if reduced else 'no-preference')
     errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
@@ -41,7 +41,7 @@ def check(browser,name,w,h,mobile,reduced=False):
                 page.wait_for_timeout(750)
                 state=scene.evaluate("""e=>{const s=e.querySelector('.ats-stage').getBoundingClientRect(),c=e.querySelector('.ats-split-copy');return {p:+e.dataset.atsProgress,alpha:+getComputedStyle(c).opacity,top:s.top,travel:e.offsetHeight-innerHeight,clip:parseFloat(e.style.getPropertyValue('--ats-image-clip'))}}""")
                 assert abs(state['p']-q)<.005 and state['alpha']>.99 and abs(state['top'])<3,state
-                assert state['travel']>=innerHeight*1.25 and state['clip']>41.9,state
+                assert state['travel']>=h*1.25 and state['clip']>41.9,state
                 hold.append(state)
             page.screenshot(path=str(OUT/f'{name}-{w}-hold.png'))
             scene.evaluate("e=>window.scrollTo({top:e.getBoundingClientRect().top+scrollY+(e.offsetHeight-innerHeight)*.35,behavior:'instant'})")
