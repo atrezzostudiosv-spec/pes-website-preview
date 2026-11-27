@@ -1,0 +1,5 @@
+# Home 06 — Featured Brands V1.0
+Approved direction: white, compact, Montserrat 300, six marks in original order in one desktop row and two mobile rows of three. No marquee, carousel, extra sticky pin or large green stripe. Fine PES-green rule beneath heading. Existing black Let's Connect follows directly; footer redesign is separate.
+Motion: original ATZ-MOT-013 (opacity 0→1, translateY 20px→0, 700ms, 120ms stagger; once when grid enters viewport). Accessible static fallback without JS / reduced motion.
+Assets: six marks cropped from the user's 2026-11-27 screenshot of the original PES Featured Brands. Combined WebP preview atlas (180×492, six 180×82 cells) retains order, proportions and existing colours; not brand master files. Replace with individual original high-resolution brand files before final production approval. Second mark is a power-symbol graphic; company name not yet verified; no invented partnership claims.
+No changes to Hillside, mosaic, Services, Handoff, Let's Connect or footer code. Updated only Handoff adjacency assertion to acknowledge new section.

@@ -1,0 +1,29 @@
+/* Home 06 — white editorial interlude, compact, native ATREZZO motion. */
+.pes-site.home .pes-featured-brands{
+ background:#fff;color:#000;padding:clamp(58px,5.6vw,90px) clamp(24px,6vw,100px) clamp(62px,6vw,96px);
+ text-align:center;scroll-margin-top:var(--pes-header-height,88px);
+}
+.pes-site.home .pes-featured-brands h2{
+ margin:0;font-family:var(--pes-font);font-size:clamp(30px,3.05vw,44px);font-weight:300;line-height:1.2;letter-spacing:-.035em;color:#111;
+}
+.pes-site.home .pes-featured-brands h2::after{
+ content:"";display:block;width:36px;height:2px;margin:19px auto 0;background:var(--pes-green);
+}
+.pes-site.home .pes-brand-grid{
+ list-style:none;margin:clamp(28px,3.1vw,48px) auto 0;padding:0;max-width:1160px;
+ display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:clamp(12px,2.1vw,30px);align-items:center;
+}
+.pes-site.home .pes-brand-grid li{display:grid;place-items:center;min-width:0;margin:0;padding:0;}
+.pes-site.home .pes-brand-mark{
+ display:block;width:100%;max-width:156px;aspect-ratio:180 / 82;background-image:url("brand/pes-featured-brands-preview.webp");
+ background-size:100% 600%;background-repeat:no-repeat;background-position:50% 0%;
+}
+.pes-site.home .pes-brand-grid li:nth-child(2) .pes-brand-mark{background-position:50% 20%}
+.pes-site.home .pes-brand-grid li:nth-child(3) .pes-brand-mark{background-position:50% 40%}
+.pes-site.home .pes-brand-grid li:nth-child(4) .pes-brand-mark{background-position:50% 60%}
+.pes-site.home .pes-brand-grid li:nth-child(5) .pes-brand-mark{background-position:50% 80%}
+.pes-site.home .pes-brand-grid li:nth-child(6) .pes-brand-mark{background-position:50% 100%}
+@media(max-width:767px){
+ .pes-site.home .pes-featured-brands{padding:52px 24px 56px}
+ .pes-site.home .pes-brand-grid{grid-template-columns:repeat(3,minmax(0,1fr));max-width:470px;gap:22px 12px;margin-top:30px}
+}

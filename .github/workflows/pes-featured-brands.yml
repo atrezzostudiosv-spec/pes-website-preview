@@ -1,0 +1,25 @@
+name: PES Home 06 Featured Brands QA
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['index.html','assets/pes-featured-brands.*','assets/brand/pes-featured-brands-preview.webp','qa/featured-brands.py','.github/workflows/pes-featured-brands.yml']
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install playwright==1.56.0
+      - run: python -m playwright install --with-deps chromium webkit
+      - run: python qa/featured-brands.py
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: featured-brands-evidence
+          path: featured-brands-qa/

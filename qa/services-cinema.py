@@ -106,7 +106,7 @@ def test(b,name,w,h,mode='animated'):
             if w in [390,1440]:p.screenshot(path=str(OUT/f'{name}-{w}-difference-final.jpg'),type='jpeg',quality=80)
             handoff=p.locator('#ats2-handoff')
             assert p.locator('.handoff-followup').count()==0
-            assert handoff.evaluate("e=>e.closest('.ats2-scope').nextElementSibling.matches('.ui.close.dark')")
+            assert handoff.evaluate("e=>e.closest('.ats2-scope').nextElementSibling.matches('#pes-featured-brands') && e.closest('.ats2-scope').nextElementSibling.nextElementSibling.matches('.ui.close.dark')")
             gradients=handoff.locator('.ats2-handoff-pane').evaluate_all("es=>es.map(e=>getComputedStyle(e,'::after').backgroundImage)")
             assert len(gradients)==2 and gradients[0]==gradients[1] and all('90deg' in g and '0, 0, 0, 0.' in g for g in gradients),gradients
             p.wait_for_function("document.querySelector('[data-atz-id=\\\"ATZ-SEC-004\\\"]').classList.contains('ats2-enhanced')")
