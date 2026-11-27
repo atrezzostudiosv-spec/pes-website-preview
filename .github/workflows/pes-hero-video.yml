@@ -1,0 +1,26 @@
+name: PES Hero video QA
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['index.html','assets/media/pes-hero-desktop.mp4','qa/hero-video.py','.github/workflows/pes-hero-video.yml']
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - run: pip install playwright==1.56.0
+      - run: python -m playwright install --with-deps chromium webkit
+      - run: python qa/hero-video.py
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hero-video-evidence
+          path: hero-video-qa/
