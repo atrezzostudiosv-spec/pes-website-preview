@@ -34,3 +34,16 @@
 .pes-site .pes-cinematic-interlude .pes-cinematic-entry-veil{position:absolute;inset:0;z-index:3;pointer-events:none;opacity:0;background:linear-gradient(180deg,#000 0%,rgba(0,0,0,.99) 30%,rgba(0,0,0,.95) 68%,rgba(0,0,0,.88) 100%)}
 .pes-site .pes-cinematic-interlude.pes-cinematic-animated .pes-cinematic-entry-veil{opacity:1;will-change:opacity}
 @media(prefers-reduced-motion:reduce){.pes-site .pes-cinematic-interlude .pes-cinematic-entry-veil{display:none!important}}
+
+/* V1.5 — mobile Safari: keep the canvas behind the fixed pin black.
+ * The small-viewport geometry remains stable; no dynamic height writes or
+ * extra ScrollTrigger refreshes when Safari's toolbar moves.
+ * Explicit white editorial sections retain their own backgrounds.
+ */
+@media(max-width:820px){
+ html:has(body.pes-site.home),body.pes-site.home,
+ body.pes-site.home #main-content,body.pes-site.home .pes-home-content,
+ body.pes-site.home .pin-spacer:has(>.pes-cinematic-interlude){
+   background-color:#000;
+ }
+}

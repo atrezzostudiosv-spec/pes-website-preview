@@ -98,6 +98,39 @@ def fallback(b,w,reduce):
         results.append({'fallback':reduce,'width':w})
     except Exception as e:failures.append({'fallback':reduce,'width':w,'error':str(e)})
     finally:p.close()
+def mobile_viewport_edges(b,w,h):
+    # Resize emulation checks the page canvas and pin during height changes.
+    # It does not simulate Safari's native browser chrome / compositor.
+    ctx=b.new_context(viewport={'width':w,'height':h},is_mobile=True,has_touch=True,device_scale_factor=1)
+    p=ctx.new_page();errors=[];p.on('pageerror',lambda e:errors.append(str(e)))
+    tag=f'mobile-edges-{w}'
+    try:
+        go(p,BASE)
+        p.wait_for_function("window.ScrollTrigger && ScrollTrigger.getAll().some(t=>t.pin===document.querySelector('.pes-cinematic-interlude'))")
+        snapshots=[]
+        for height in [h,h-100,h-60,h]:
+            p.set_viewport_size({'width':w,'height':height})
+            p.wait_for_timeout(1000)
+            pin=state(p)['pin']
+            scroll_to(p,pin['start']+.55*(pin['end']-pin['start']))
+            p.wait_for_timeout(850)
+            s=state(p)
+            assert s['triggerCount']==1 and .50<s['pin']['rendered']<.60 and not s['overflow'],s
+            backgrounds=p.evaluate("""()=>{const r=document.querySelector('.pes-cinematic-interlude');return [document.documentElement,document.body,document.querySelector('#main-content'),document.querySelector('.pes-home-content'),r.parentElement,r].map(e=>getComputedStyle(e).backgroundColor)}""")
+            assert all(c=='rgb(0, 0, 0)' for c in backgrounds),backgrounds
+            assert p.locator('.pes-specialty').evaluate("e=>getComputedStyle(e).backgroundColor")=='rgb(255, 255, 255)'
+            shot=OUT/f'{tag}-{height}.png';p.screenshot(path=str(shot))
+            # Identify uniform, full-width near-white rows at either viewport edge.
+            im=Image.open(shot).convert('RGB');iw,ih=im.size
+            for y in [*range(min(24,ih)),*range(max(0,ih-24),ih)]:
+                samples=[im.getpixel((x,y)) for x in range(0,iw,max(1,iw//40))]
+                assert not all(min(px)>230 and max(px)-min(px)<12 for px in samples),(tag,height,y)
+            snapshots.append({'height':height,'state':s,'backgrounds':backgrounds})
+        results.append({'name':tag,'height_changes':snapshots})
+    except Exception as e:
+        failures.append({'name':tag,'error':str(e)});print('FAIL',tag,str(e)[:3000],flush=True)
+        p.screenshot(path=str(OUT/f'{tag}-failure.png'))
+    finally:ctx.close()
 def git_blob_sha(path):
     b=path.read_bytes();return hashlib.sha1(('blob '+str(len(b))+'\0').encode()+b).hexdigest()
 assert git_blob_sha(ROOT/'assets/vendor/atz-scr-007-original/scroll/ATZ-SCR-007.js')=='41080680948f71885059cbf40a217e2b86a38fa8'
@@ -113,6 +146,7 @@ with sync_playwright() as pw:
     b.close()
     b=pw.webkit.launch(headless=True)
     for w,h in [(375,844),(390,844),(1440,900)]:record(b,'webkit',w,h)
+    for w,h in [(375,812),(390,844)]:mobile_viewport_edges(b,w,h)
     b.close()
 (OUT/'results.json').write_text(json.dumps({'results':results,'failures':failures},indent=2))
 files=[OUT/f'{tag}-{phase}.jpg' for tag in ['v12-chromium-1440','v14-chromium-1440','v14-chromium-390','v14-webkit-390'] for phase in ['approach','entry','middle','hold','exit','services']]
