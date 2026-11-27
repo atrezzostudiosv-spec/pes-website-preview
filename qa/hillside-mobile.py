@@ -1,4 +1,4 @@
-import json,threading
+import json,threading,hashlib
 from pathlib import Path
 from http.server import ThreadingHTTPServer,SimpleHTTPRequestHandler
 from playwright.sync_api import sync_playwright
@@ -9,6 +9,8 @@ server=ThreadingHTTPServer(('127.0.0.1',0),lambda *a,**kw:Quiet(*a,directory=str
 threading.Thread(target=server.serve_forever,daemon=True).start()
 url=f'http://127.0.0.1:{server.server_port}/'
 results=[]
+source=(ROOT/'assets/vendor/ats1-engine.js').read_bytes()
+assert hashlib.sha1(('blob '+str(len(source))+'\\0').encode()+source).hexdigest()=='3022616065b5101710865b66673f439216d97560'
 def check(browser,name,w,h,mobile,reduced=False):
     page=browser.new_page(viewport={'width':w,'height':h},has_touch=mobile,is_mobile=mobile,reduced_motion='reduce' if reduced else 'no-preference')
     errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
@@ -24,7 +26,7 @@ def check(browser,name,w,h,mobile,reduced=False):
             scene.evaluate("e=>window.scrollTo({top:e.getBoundingClientRect().top+scrollY,behavior:'instant'})")
             page.wait_for_timeout(800)
             assert float(copy.evaluate("e=>getComputedStyle(e).opacity"))<.02
-            scene.evaluate("e=>window.scrollTo({top:e.getBoundingClientRect().top+scrollY+(e.offsetHeight-innerHeight)*.76,behavior:'instant'})")
+            scene.evaluate("e=>window.scrollTo({top:e.getBoundingClientRect().top+scrollY+(e.offsetHeight-innerHeight)*.65,behavior:'instant'})")
             page.wait_for_function("Number(document.querySelector('#pes-featured-project').style.getPropertyValue('--ats-copy-alpha'))>.95")
             a=float(copy.evaluate("e=>getComputedStyle(e).opacity"))
             page.wait_for_timeout(220)
@@ -33,6 +35,19 @@ def check(browser,name,w,h,mobile,reduced=False):
             c=float(copy.evaluate("e=>getComputedStyle(e).opacity"))
             assert 0<=a<b<.99 and c>.99,(a,b,c)
             page.screenshot(path=str(OUT/f'{name}-{w}-end.png'))
+            hold=[]
+            for q in [.65,.8,.95,.70]:
+                scene.evaluate("(e,q)=>window.scrollTo({top:e.getBoundingClientRect().top+scrollY+(e.offsetHeight-innerHeight)*q,behavior:'instant'})",q)
+                page.wait_for_timeout(750)
+                state=scene.evaluate("""e=>{const s=e.querySelector('.ats-stage').getBoundingClientRect(),c=e.querySelector('.ats-split-copy');return {p:+e.dataset.atsProgress,alpha:+getComputedStyle(c).opacity,top:s.top,travel:e.offsetHeight-innerHeight,clip:parseFloat(e.style.getPropertyValue('--ats-image-clip'))}}""")
+                assert abs(state['p']-q)<.005 and state['alpha']>.99 and abs(state['top'])<3,state
+                assert state['travel']>=innerHeight*1.25 and state['clip']>41.9,state
+                hold.append(state)
+            page.screenshot(path=str(OUT/f'{name}-{w}-hold.png'))
+            scene.evaluate("e=>window.scrollTo({top:e.getBoundingClientRect().top+scrollY+(e.offsetHeight-innerHeight)*.35,behavior:'instant'})")
+            page.wait_for_timeout(750)
+            assert float(copy.evaluate("e=>getComputedStyle(e).opacity"))<.02
+            results.append({'hold':hold,'browser':name,'width':w})
             results.append({'browser':name,'width':w,'height':h,'opacity':[a,b,c]})
         else:
             assert '0.62s' not in duration,duration

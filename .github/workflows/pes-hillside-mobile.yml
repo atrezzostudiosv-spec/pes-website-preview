@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['assets/pes-featured-split.css','qa/hillside-mobile.py','.github/workflows/pes-hillside-mobile.yml']
+    paths: ['assets/pes-featured-split.css','assets/ats1-hillside.pes.js','assets/pes-hillside-mount.js','assets/mount-component.js','qa/hillside-mobile.py','.github/workflows/pes-hillside-mobile.yml']
 permissions:
   contents: read
 jobs:

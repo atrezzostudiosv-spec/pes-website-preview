@@ -1,7 +1,7 @@
 /* PES V1.4 — original ATZ-SCR-007, unchanged.
  * Only readiness, geometry refresh and independent transition layers are client code.
  */
-import {nativeComponentsReady} from './mount-component.js?v=responsive-1';
+import {nativeComponentsReady} from './mount-component.js?v=hillside-hold-1';
 import {mount as mountOriginal} from './vendor/atz-scr-007-original/scroll/ATZ-SCR-007.js';
 const root=document.querySelector('[data-pes-cinematic="ATZ-SCR-007"]');
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');

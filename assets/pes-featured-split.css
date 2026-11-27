@@ -29,3 +29,9 @@
  .pes-site .pes-featured-split.ats-enhanced .ats-split-copy{transition:opacity 620ms cubic-bezier(.35,0,.25,1),transform 620ms cubic-bezier(.35,0,.25,1)}
  .pes-site .pes-featured-split.ats-enhanced .ats-split-copy:focus-within{transition:none}
 }
+
+/* Mobile Hillside V1.2: extend the pinned reading interval. No scroll lock.
+ * Text completes at 65% of travel; last 35% is a fully composed scene. */
+@media(max-width:780px) and (pointer:coarse) and (prefers-reduced-motion:no-preference){
+ .pes-site .pes-featured-split.ats-enhanced #pes-featured-project{height:230svh;min-height:1200px}
+}
