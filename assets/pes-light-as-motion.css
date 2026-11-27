@@ -1,0 +1,33 @@
+/* PES Light as Motion V1.0 — Home photo-only edge dissolves.
+ * Original components, sticky geometry, text, controls and scrims are untouched. */
+.pes-site.home [data-pes-light-ready] {
+ --pes-light-gradient:linear-gradient(180deg,
+  rgba(0,0,0,var(--pes-light-in,0)) 0%,
+  rgba(0,0,0,calc(var(--pes-light-in,0)*.86)) 12%,
+  rgba(0,0,0,calc(var(--pes-light-in,0)*.50)) 28%,
+  rgba(0,0,0,calc(var(--pes-light-in,0)*.15)) 42%,transparent 52%),
+ linear-gradient(0deg,
+  rgba(0,0,0,var(--pes-light-out,0)) 0%,
+  rgba(0,0,0,calc(var(--pes-light-out,0)*.80)) 15%,
+  rgba(0,0,0,calc(var(--pes-light-out,0)*.42)) 36%,
+  rgba(0,0,0,calc(var(--pes-light-out,0)*.12)) 65%,transparent 92%);
+}
+.pes-site.home #pes-featured-project .ats-stage[data-pes-light-ready] .ats-split-image::before,
+.pes-site.home #pes-services .collection-stage[data-pes-light-ready] .collection-image-wrap::after,
+.pes-site.home #ats2-handoff .ats2-stage[data-pes-light-ready] .ats2-handoff-pane::before,
+.pes-site.home #pes-connect .pes-connect-stage[data-pes-light-ready] .pes-connect-image::after {
+ content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+ background:var(--pes-light-gradient);
+}
+/* Handoff's native copy is z-index 2+, and Services scrim is above the image wrap.
+   Keep both original contrast scrims. Replace only the static upper Contact fade
+   while enhanced, rather than stacking two upper gradients. */
+.pes-site.home #pes-connect .pes-connect-stage[data-pes-light-ready] .pes-connect-shade {
+ --pes-connect-top-fade:linear-gradient(180deg,transparent 0%,transparent 52%);
+}
+@media(prefers-reduced-motion:reduce){
+ .pes-site.home [data-pes-light-ready]{--pes-light-gradient:none!important}
+ .pes-site.home #pes-connect .pes-connect-stage[data-pes-light-ready] .pes-connect-shade{
+  --pes-connect-top-fade:linear-gradient(180deg,#000 0%,rgba(0,0,0,.86) 12%,rgba(0,0,0,.50) 28%,rgba(0,0,0,.15) 42%,transparent 52%);
+ }
+}

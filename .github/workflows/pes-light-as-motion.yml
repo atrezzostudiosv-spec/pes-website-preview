@@ -1,0 +1,25 @@
+name: PES Light as Motion QA
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['index.html','assets/pes-light-as-motion.*','qa/light-as-motion.py','.github/workflows/pes-light-as-motion.yml']
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install playwright==1.56.0
+      - run: python -m playwright install --with-deps chromium webkit
+      - run: python qa/light-as-motion.py
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: light-as-motion-evidence
+          path: light-as-motion-qa/

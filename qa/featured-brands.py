@@ -35,7 +35,10 @@ with sync_playwright() as p:
    page.screenshot(path=str(OUT/f'{name}-{w}-{mode}.png'))
    shade=page.locator('#pes-connect .pes-connect-shade')
    fade=shade.evaluate("e=>getComputedStyle(e).getPropertyValue('--pes-connect-top-fade').trim()")
-   assert fade.startswith('linear-gradient(180deg,#000 0%') and fade.endswith('transparent 52%)'),fade
+   if shade.locator('..').get_attribute('data-pes-light-ready') is not None:
+    assert fade=='linear-gradient(180deg,transparent 0%,transparent 52%)',fade
+   else:
+    assert fade.startswith('linear-gradient(180deg,#000 0%') and fade.endswith('transparent 52%)'),fade
    layers=shade.evaluate("e=>getComputedStyle(e).backgroundImage")
    assert layers.count('linear-gradient(')==3 and '52%' in layers.split('), linear-gradient(')[0],layers
    padding=section.evaluate("e=>parseFloat(getComputedStyle(e).paddingBottom)")
