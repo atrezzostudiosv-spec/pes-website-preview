@@ -1,7 +1,7 @@
 @font-face{font-family:Montserrat;src:url("fonts/montserrat-variable.ttf") format("truetype");font-style:normal;font-weight:100 900;font-display:swap}
 @font-face{font-family:Montserrat;src:url("fonts/montserrat-italic-variable.ttf") format("truetype");font-style:italic;font-weight:100 900;font-display:swap}
 /* PES Design System Global V1.1 — client overrides only. Load after original component styles. */
-:root{--pes-green:#A2FD02;--pes-black:#000000;--pes-white:#FFFFFF;--pes-light:#F5F5F5;--pes-line:#d4d4d4;--pes-muted:#555555;--pes-font:"Montserrat",sans-serif;--pes-h1:clamp(40px,6.1vw,88px);--pes-h2:clamp(32px,4.2vw,64px);--pes-h3:clamp(24px,2.2vw,32px);--pes-body:clamp(16px,1.2vw,18px);--pes-logo-width:180px;--pes-header-height:88px}
+:root{--pes-green:#A2FD02;--pes-black:#000000;--pes-white:#FFFFFF;--pes-light:#F5F5F5;--pes-line:#d4d4d4;--pes-muted:#555555;--pes-font:"Montserrat",sans-serif;--pes-h1:clamp(40px,6.1vw,88px);--pes-h2:clamp(32px,4.2vw,64px);--pes-h3:clamp(24px,2.2vw,32px);--pes-body:clamp(16px,1.2vw,18px);--pes-logo-width:160px;--pes-header-height:88px}
 html:has(body.pes-site){--gold:var(--pes-green);--sans:var(--pes-font);--display:var(--pes-font);--paper:var(--pes-white);--white:var(--pes-white);--ink:var(--pes-black);--muted:var(--pes-muted);--dark:var(--pes-black)}
 body{background: var(--pes-light);color: var(--pes-black);font-family:var(--pes-font);}
 .ui{--ink: var(--pes-black);--paper: var(--pes-light);--accent: var(--pes-green);--line: var(--pes-line);}
@@ -137,9 +137,9 @@ body.pes-site .site-header .site-nav{font-size:13px;font-weight:500}
 .pes-site .hero-film .video-toggle:hover{border-color:var(--pes-green)}
 .pes-site .hero-film .eyebrow{font-weight:600}
 .pes-site .skip-link:focus{z-index:1000}
-@media(max-width:1180px){:root{--pes-logo-width:155px}}
+@media(max-width:1180px){:root{--pes-logo-width:140px}}
 @media(max-width:1023px){:root{--pes-header-height:76px}}
-@media(max-width:767px){:root{--pes-logo-width:135px}.pes-site .header-phone{font-size:11px}}
+@media(max-width:767px){:root{--pes-logo-width:120px}.pes-site .header-phone{font-size:11px}}
 @media(prefers-reduced-motion:reduce){html:has(body.pes-site){scroll-behavior:auto}}
 
 /* Brand adaptations for approved motion components: colour and type only, no sizes, transforms or pinning. */
@@ -259,3 +259,38 @@ body.pes-site{font-weight:var(--pes-weight-regular)}
 }
 
 @media(max-width:520px){.pes-site .pes-specialty h2{font-size:clamp(23px,5.46vw,28.5px)}}
+
+/* PES Flat Logo V1 — center brand in the actual viewport, not the nav group.
+   Preserve original header show/hide, heights, dropdown, links and menu. */
+body.pes-site .site-header>.brand{
+ position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;
+}
+body.pes-site .site-header .brand .logo-light{width:var(--pes-logo-width);height:auto;display:block;filter:none;mix-blend-mode:normal}
+body.pes-site .site-header>.header-actions{margin-left:auto;position:relative;z-index:3}
+@media(min-width:1024px){
+ body.pes-site .site-header .site-nav{
+  position:absolute;inset-inline:clamp(24px,3.5vw,64px);top:50%;transform:translateY(-50%);
+  display:grid;grid-template-columns:minmax(0,1fr) var(--pes-logo-width) minmax(0,1fr);
+  gap:0;pointer-events:none;
+ }
+ body.pes-site .site-header .site-nav :is(.pes-nav-left,.pes-nav-right){
+  display:flex;align-items:center;gap:clamp(18px,2vw,34px);pointer-events:auto;min-width:0;
+ }
+ body.pes-site .site-header .pes-nav-left{grid-column:1;justify-content:flex-end;padding-right:clamp(22px,3vw,50px)}
+ body.pes-site .site-header .pes-nav-right{grid-column:3;justify-content:flex-start;padding-left:clamp(22px,3vw,50px);padding-right:86px}
+}
+@media(max-width:1023px){
+ body.pes-site .site-header>.header-actions{position:static;display:contents}
+ body.pes-site .site-header>.header-actions>.header-phone{position:absolute;left:24px;top:50%;transform:translateY(-50%)}
+ body.pes-site .site-header>.header-actions>.menu-trigger{position:absolute;right:24px;top:50%;transform:translateY(-50%)}
+}
+@media(max-width:360px){
+ body.pes-site .site-header>.header-actions>.header-phone{left:16px}
+ body.pes-site .site-header>.header-actions>.menu-trigger{right:16px}
+}
+/* Interior footers: same green mark requires a dark surface for legibility. */
+body.pes-site:not(.home) .ui.footer{background:var(--pes-black);color:var(--pes-white)}
+body.pes-site:not(.home) .ui.footer .footlinks a{color:var(--pes-white)}
+body.pes-site:not(.home) .ui.footer .footlinks a:hover{color:var(--pes-green)}
+body.pes-site:not(.home) .ui.footer small{color:#aaa;border-top-color:#282828}
+body.pes-site .ui.footer .logo{filter:none;mix-blend-mode:normal}
