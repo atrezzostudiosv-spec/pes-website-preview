@@ -30,8 +30,7 @@
  .pes-site .pes-featured-split.ats-enhanced .ats-split-copy:focus-within{transition:none}
 }
 
-/* Mobile Hillside V1.2: extend the pinned reading interval. No scroll lock.
- * Text completes at 65% of travel; last 35% is a fully composed scene. */
+/* Mobile Hillside V1.3: keep entrance distance near V1.2, then extend the fully composed reading interval. No scroll lock. */
 @media(max-width:780px) and (pointer:coarse) and (prefers-reduced-motion:no-preference){
- .pes-site .pes-featured-split.ats-enhanced #pes-featured-project{height:230svh;min-height:1200px}
+ .pes-site .pes-featured-split.ats-enhanced #pes-featured-project{height:350svh;min-height:1600px}
 }

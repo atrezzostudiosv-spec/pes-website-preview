@@ -25,9 +25,10 @@ const AtrezzoScrollSections = (function (global) {
       set(scene, '--ats-copy-alpha', round(copy));
       set(scene, '--ats-copy-shift', `${round(28 * (1 - copy))}px`);
     } else if (effect === 'split') {
-      const collapse = range(p, .1, .64);
       const mobileHold = scene.id === 'pes-featured-project' && global.matchMedia('(max-width:780px) and (pointer:coarse) and (prefers-reduced-motion:no-preference)').matches;
-      const copy = mobileHold ? range(p, .40, .65) : range(p, .43, .74);
+      const motionProgress = mobileHold ? clamp(p / .52) : p;
+      const collapse = range(motionProgress, .1, .64);
+      const copy = mobileHold ? range(motionProgress, .40, .65) : range(p, .43, .74);
       set(scene, '--ats-image-clip', `${round(42 * collapse)}%`);
       set(scene, '--ats-copy-alpha', round(copy));
       set(scene, '--ats-copy-x', `${round(-32 * (1 - copy))}px`);

@@ -6,7 +6,7 @@ export const nativeComponentsReady = (async () => {
     const id = root.dataset.atzId;
     try {
       const { mount } = id === 'ATZ-SEC-002' && root.classList.contains('pes-featured-split')
-        ? await import('./pes-hillside-mount.js?v=hold-1')
+        ? await import('./pes-hillside-mount.js?v=hold-2')
         : await import(`./vendor/${id}.js`);
       const instance = mount(root);
       // Preserve the original mobile scroll effect in the Home Handoff.

@@ -26,7 +26,7 @@ def check(browser,name,w,h,mobile,reduced=False):
             scene.evaluate("e=>window.scrollTo({top:e.getBoundingClientRect().top+scrollY,behavior:'instant'})")
             page.wait_for_timeout(800)
             assert float(copy.evaluate("e=>getComputedStyle(e).opacity"))<.02
-            scene.evaluate("e=>window.scrollTo({top:e.getBoundingClientRect().top+scrollY+(e.offsetHeight-innerHeight)*.65,behavior:'instant'})")
+            scene.evaluate("e=>window.scrollTo({top:e.getBoundingClientRect().top+scrollY+(e.offsetHeight-innerHeight)*.36,behavior:'instant'})")
             page.wait_for_function("Number(document.querySelector('#pes-featured-project').style.getPropertyValue('--ats-copy-alpha'))>.95")
             a=float(copy.evaluate("e=>getComputedStyle(e).opacity"))
             page.wait_for_timeout(220)
@@ -36,15 +36,21 @@ def check(browser,name,w,h,mobile,reduced=False):
             assert 0<=a<b<.99 and c>.99,(a,b,c)
             page.screenshot(path=str(OUT/f'{name}-{w}-end.png'))
             hold=[]
-            for q in [.65,.8,.95,.70]:
+            for q in [.36,.55,.75,.95,.42]:
                 scene.evaluate("(e,q)=>window.scrollTo({top:e.getBoundingClientRect().top+scrollY+(e.offsetHeight-innerHeight)*q,behavior:'instant'})",q)
                 page.wait_for_timeout(750)
                 state=scene.evaluate("""e=>{const s=e.querySelector('.ats-stage').getBoundingClientRect(),c=e.querySelector('.ats-split-copy');return {p:+e.dataset.atsProgress,alpha:+getComputedStyle(c).opacity,top:s.top,travel:e.offsetHeight-innerHeight,clip:parseFloat(e.style.getPropertyValue('--ats-image-clip'))}}""")
                 assert abs(state['p']-q)<.005 and state['alpha']>.99 and abs(state['top'])<3,state
-                assert state['travel']>=h*1.25 and state['clip']>41.9,state
+                assert state['travel']*.64>=h*1.50 and state['clip']>41.9,state
                 hold.append(state)
+            # A rapid 1-viewport native scroll step from the complete frame
+            # must still leave the scene pinned and fully legible.
+            scene.evaluate("e=>window.scrollTo({top:e.getBoundingClientRect().top+scrollY+(e.offsetHeight-innerHeight)*.36+innerHeight,behavior:'instant'})")
+            page.wait_for_timeout(750)
+            fast=scene.evaluate("""e=>({p:+e.dataset.atsProgress,alpha:+getComputedStyle(e.querySelector('.ats-split-copy')).opacity,top:e.querySelector('.ats-stage').getBoundingClientRect().top})""")
+            assert fast['p']<.99 and fast['alpha']>.99 and abs(fast['top'])<3,fast
             page.screenshot(path=str(OUT/f'{name}-{w}-hold.png'))
-            scene.evaluate("e=>window.scrollTo({top:e.getBoundingClientRect().top+scrollY+(e.offsetHeight-innerHeight)*.35,behavior:'instant'})")
+            scene.evaluate("e=>window.scrollTo({top:e.getBoundingClientRect().top+scrollY+(e.offsetHeight-innerHeight)*.15,behavior:'instant'})")
             page.wait_for_timeout(750)
             assert float(copy.evaluate("e=>getComputedStyle(e).opacity"))<.02
             results.append({'hold':hold,'browser':name,'width':w})
