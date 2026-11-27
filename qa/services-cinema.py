@@ -102,20 +102,23 @@ def test(b,name,w,h,mode='animated'):
             assert diff.locator('.pes-services-title-line').evaluate_all("els=>els.every(e=>getComputedStyle(e).opacity==='1'&&e.scrollWidth<=e.clientWidth+1)")
             if w in [390,1440]:p.screenshot(path=str(OUT/f'{name}-{w}-difference-final.jpg'),type='jpeg',quality=80)
             handoff=p.locator('#ats2-handoff')
-            if w>820:
-                p.wait_for_function("document.querySelector('[data-atz-id=\\\"ATZ-SEC-004\\\"]').classList.contains('ats2-enhanced')")
-                for progress in [0,.5,1,.25]:
-                    handoff.evaluate("(e,p)=>window.scrollTo({top:e.getBoundingClientRect().top+scrollY+(e.offsetHeight-innerHeight)*p,behavior:'instant'})",progress)
-                    p.wait_for_timeout(300)
-                    data=handoff.evaluate("""e=>({p:+e.dataset.ats2Progress,wipe:parseFloat(e.style.getPropertyValue('--ats2-wipe')),first:+e.style.getPropertyValue('--ats2-first-copy'),second:+e.style.getPropertyValue('--ats2-second-copy')})""")
-                    assert abs(data['p']-progress)<.025,data
-                    if progress==0:assert data['wipe']>99 and data['first']>.99,data
-                    if progress==.5:assert 0<data['wipe']<100,data
-                    if progress==1:assert data['wipe']<1 and data['second']>.99,data
-                    if w==1440:p.screenshot(path=str(OUT/f'{name}-{w}-handoff-{progress}.jpg'),type='jpeg',quality=80)
-            else:assert handoff.locator('.ats2-handoff-pane').count()==2
+            p.wait_for_function("document.querySelector('[data-atz-id=\\\"ATZ-SEC-004\\\"]').classList.contains('ats2-enhanced')")
+            for progress in [0,.5,1,.25]:
+                handoff.evaluate("(e,p)=>window.scrollTo({top:e.getBoundingClientRect().top+scrollY+(e.offsetHeight-innerHeight)*p,behavior:'instant'})",progress)
+                p.wait_for_timeout(300)
+                data=handoff.evaluate("""e=>({p:+e.dataset.ats2Progress,wipe:parseFloat(e.style.getPropertyValue('--ats2-wipe')),first:+e.style.getPropertyValue('--ats2-first-copy'),second:+e.style.getPropertyValue('--ats2-second-copy')})""")
+                assert abs(data['p']-progress)<.025,data
+                if progress==0:assert data['wipe']>99 and data['first']>.99,data
+                if progress==.5:assert 0<data['wipe']<100,data
+                if progress==1:assert data['wipe']<1 and data['second']>.99,data
+                if w in [390,1440]:p.screenshot(path=str(OUT/f'{name}-{w}-handoff-{progress}.jpg'),type='jpeg',quality=80)
         elif mode in ['nojs','reduced']:
             assert diff.locator('.pes-services-title-line').evaluate_all("els=>els.every(e=>getComputedStyle(e).opacity==='1')")
+        if mode in ['nojs','reduced']:
+            assert p.locator('#ats2-handoff').evaluate("e=>!e.closest('.ats2-scope').classList.contains('ats2-enhanced')")
+            assert p.locator('#ats2-handoff .ats2-handoff-pane').count()==2
+        if mode=='short':
+            p.wait_for_function("document.querySelector('#ats2-handoff').closest('.ats2-scope').classList.contains('ats2-enhanced')")
         assert not p.evaluate('document.documentElement.scrollWidth>innerWidth')
         assert not errors,errors
         results.append({'browser':name,'width':w,'height':h,'mode':mode})

@@ -3,10 +3,10 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['index.html','**/index.html','assets/atz-sec-015/**','assets/pes-services-cinema.css','assets/pes-services-intro.js','assets/pes-motion-global.js','qa/services-cinema.py','.github/workflows/pes-services-cinema.yml']
+    paths: ['index.html','**/index.html','assets/atz-sec-015/**','assets/pes-services-cinema.css','assets/pes-services-intro.js','assets/pes-motion-global.js','assets/mount-component.js','qa/services-cinema.py','.github/workflows/pes-services-cinema.yml']
   pull_request:
     branches: [main]
-    paths: ['index.html','**/index.html','assets/atz-sec-015/**','assets/pes-services-cinema.css','assets/pes-services-intro.js','assets/pes-motion-global.js','qa/services-cinema.py','.github/workflows/pes-services-cinema.yml']
+    paths: ['index.html','**/index.html','assets/atz-sec-015/**','assets/pes-services-cinema.css','assets/pes-services-intro.js','assets/pes-motion-global.js','assets/mount-component.js','qa/services-cinema.py','.github/workflows/pes-services-cinema.yml']
 permissions:
   contents: read
 jobs:

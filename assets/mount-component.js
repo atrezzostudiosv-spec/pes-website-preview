@@ -7,7 +7,8 @@ export const nativeComponentsReady = (async () => {
     try {
       const { mount } = await import(`./vendor/${id}.js`);
       const instance = mount(root);
-      if (id === "ATZ-SEC-004") {
+      // Preserve the original mobile scroll effect in the Home Handoff.
+      if (id === "ATZ-SEC-004" && !root.querySelector("#ats2-handoff")) {
         const viewport = matchMedia("(max-width: 820px)");
         const syncViewport = () => instance.setReduced(viewport.matches);
         syncViewport();
