@@ -78,3 +78,27 @@
  .pes-site .pes-services-cinema.is-cinema-active .collection-overlay h3{font-size:clamp(20px,6vw,29px)}
  .pes-site .pes-services-cinema.is-cinema-active .collection-meta{font-size:10px}
 }
+
+/* Responsive V1.1 — iOS Safari visible viewport. The stage covers the current
+ * viewport; the travel distance remains based on stable svh, not dvh.
+ * Desktop and reduced-motion/static compositions retain original geometry. */
+.pes-handoff-mobile-labels{display:none}
+@media(max-width:767px) and (orientation:portrait){
+ @supports(height:100dvh){
+  body.pes-site.home{--pes-stable-viewport:100svh;--pes-visible-viewport:100dvh}
+  .pes-site .pes-services-cinema.is-cinema-active .collection-stage{height:var(--pes-visible-viewport)}
+  .pes-site .pes-services-cinema.is-cinema-active .collection-scroll-track{height:calc(4.4 * var(--pes-stable-viewport) + var(--pes-visible-viewport))}
+  .pes-site .ats2-enhanced #ats2-handoff{height:calc(1.05 * var(--pes-stable-viewport) + var(--pes-visible-viewport))}
+  .pes-site .ats2-enhanced #ats2-handoff .ats2-stage{height:var(--pes-visible-viewport)}
+ }
+ .pes-site .ats2-enhanced #ats2-handoff .ats2-handoff-pane .ats2-handoff-meta{opacity:0}
+ .pes-site .ats2-enhanced #ats2-handoff .pes-handoff-mobile-labels{display:grid;position:absolute;z-index:5;left:var(--ats2-gutter);right:calc(var(--ats2-gutter) + 64px);top:clamp(20px,4svh,60px);pointer-events:none;color:#fff}
+ .pes-site .ats2-enhanced #ats2-handoff .pes-handoff-mobile-labels>span{grid-area:1/1;line-height:1.4}
+ .pes-site .ats2-enhanced #ats2-handoff .pes-handoff-label-first{opacity:var(--ats2-first-copy,1)}
+ .pes-site .ats2-enhanced #ats2-handoff .pes-handoff-label-second{opacity:var(--ats2-second-copy,0)}
+}
+@media(max-width:520px) and (orientation:portrait){
+ @supports(height:100dvh){
+  .pes-site .ats2-enhanced #ats2-handoff{height:calc(.95 * var(--pes-stable-viewport) + var(--pes-visible-viewport))}
+ }
+}

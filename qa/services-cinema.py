@@ -140,6 +140,11 @@ def dynamic_mobile(b,w,h):
         p.set_viewport_size({'width':w,'height':h-60})
         assert intro.get_attribute('data-pes-services-motion')=='playing'
         p.wait_for_function("document.querySelector('#pes-services [data-pes-services-intro]').dataset.pesServicesMotion==='complete'")
+        # In a headless browser svh and dvh normally coincide. Keep a fixed
+        # small-viewport unit while resizing the visible viewport to model
+        # collapsing browser bars and verify the track distance is invariant.
+        stable=h-160
+        p.add_style_tag(content=f'body.pes-site.home{{--pes-stable-viewport:{stable}px}}')
         observations=[]
         for height in [h,h-100,h-160,h-60,h]:
             p.set_viewport_size({'width':w,'height':height});p.wait_for_timeout(400)
@@ -148,16 +153,25 @@ def dynamic_mobile(b,w,h):
             track=p.locator('#pes-services [data-collection-track]')
             track.evaluate("e=>window.scrollTo({top:e.getBoundingClientRect().top+scrollY+(e.offsetHeight-e.querySelector('[data-collection-stage]').offsetHeight)*.47,behavior:'instant'})")
             p.wait_for_timeout(450)
-            data=sec.evaluate("""e=>{const p=e.querySelector('[data-collection-panel][aria-hidden=false]'),c=e.querySelector('.collection-bottom'),r=p.querySelector('.collection-overlay').getBoundingClientRect(),b=c.getBoundingClientRect(),s=e.querySelector('[data-collection-stage]').getBoundingClientRect();return {counter:e.querySelector('[data-collection-counter]').textContent,top:s.top,copyTop:r.top,copyBottom:r.bottom,controlsTop:b.top,controlsBottom:b.bottom,stageBottom:s.bottom}}""")
+            data=sec.evaluate("""e=>{const p=e.querySelector('[data-collection-panel][aria-hidden=false]'),c=e.querySelector('.collection-bottom'),r=p.querySelector('.collection-overlay').getBoundingClientRect(),b=c.getBoundingClientRect(),s=e.querySelector('[data-collection-stage]').getBoundingClientRect();return {counter:e.querySelector('[data-collection-counter]').textContent,top:s.top,copyTop:r.top,copyBottom:r.bottom,controlsTop:b.top,controlsBottom:b.bottom,stageBottom:s.bottom,stageHeight:s.height,viewport:visualViewport.height,travel:e.querySelector('[data-collection-track]').offsetHeight-e.querySelector('[data-collection-stage]').offsetHeight}}""")
             assert data['counter']=='03 / 05' and abs(data['top'])<5 and data['copyTop']>=0 and data['copyBottom']<=data['controlsTop']+1 and data['controlsBottom']<=data['stageBottom']+1,data
+            assert abs(data['stageBottom']-data['viewport'])<3 and abs(data['stageHeight']-data['viewport'])<3,data
+            assert abs(data['travel']-4.4*stable)<3,data
             p.screenshot(path=str(OUT/f'dynamic-{w}-{height}-services.jpg'),type='jpeg',quality=80)
             scene=p.locator('#ats2-handoff')
-            for progress in [.5,1,.2]:
+            for progress in [0,.25,.5,.8,1,.2]:
                 scene.evaluate("(e,p)=>window.scrollTo({top:e.getBoundingClientRect().top+scrollY+(e.offsetHeight-innerHeight)*p,behavior:'instant'})",progress)
                 p.wait_for_timeout(260)
-                a=scene.evaluate("""e=>({active:e.closest('.ats2-scope').classList.contains('ats2-enhanced'),p:+e.dataset.ats2Progress,wipe:parseFloat(e.style.getPropertyValue('--ats2-wipe'))})""")
+                a=scene.evaluate("""e=>{const s=e.querySelector('.ats2-stage').getBoundingClientRect(),first=e.querySelector('.pes-handoff-label-first'),second=e.querySelector('.pes-handoff-label-second');return {active:e.closest('.ats2-scope').classList.contains('ats2-enhanced'),p:+e.dataset.ats2Progress,wipe:parseFloat(e.style.getPropertyValue('--ats2-wipe')),top:s.top,bottom:s.bottom,height:s.height,viewport:visualViewport.height,travel:e.offsetHeight-e.querySelector('.ats2-stage').offsetHeight,labels:[+getComputedStyle(first).opacity,+getComputedStyle(second).opacity],original:[...e.querySelectorAll('.ats2-handoff-meta')].map(x=>+getComputedStyle(x).opacity)}}""")
                 assert a['active'] and abs(a['p']-progress)<.04,a
-                if progress==.5:assert 0<a['wipe']<100,a
+                assert abs(a['top'])<3 and abs(a['bottom']-a['viewport'])<3 and abs(a['height']-a['viewport'])<3,a
+                assert abs(a['travel']-(.95 if w<=520 else 1.05)*stable)<3,a
+                assert min(a['labels'])<.01 and a['original']==[0,0],a
+                if progress==0:assert a['labels'][0]>.99,a
+                if progress==1:assert a['labels'][1]>.99,a
+                if progress==.5:assert 0<a['wipe']<100 and max(a['labels'])<.01,a
+                if w in [375,390] and height==h and progress in [.25,.5,1]:
+                    p.screenshot(path=str(OUT/f'dynamic-{w}-{h}-handoff-{progress}.jpg'),type='jpeg',quality=80)
             observations.append({'height':height,'services':data,'handoff':a})
         p.emulate_media(reduced_motion='reduce')
         p.wait_for_function("!document.querySelector('#pes-services').classList.contains('is-cinema-active')&&!document.querySelector('#ats2-handoff').closest('.ats2-scope').classList.contains('ats2-enhanced')")
