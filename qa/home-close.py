@@ -11,7 +11,7 @@ url=f'http://127.0.0.1:{server.server_port}/';results=[]
 with sync_playwright() as p:
  for name in ['chromium','webkit']:
   b=getattr(p,name).launch()
-  for w,h,mode in [(1440,900,'normal'),(768,1024,'normal'),(390,844,'normal'),(375,812,'normal'),(390,844,'reduced'),(390,844,'no-js'),(844,390,'normal')]:
+  for w,h,mode in [(1728,1080,'normal'),(1440,900,'normal'),(1024,768,'normal'),(768,1024,'normal'),(390,844,'normal'),(375,812,'normal'),(390,844,'reduced'),(390,844,'no-js'),(844,390,'normal')]:
    page=b.new_page(viewport={'width':w,'height':h},has_touch=w<768,is_mobile=w<768,reduced_motion='reduce' if mode=='reduced' else 'no-preference',java_script_enabled=mode!='no-js')
    assert page.goto(url,wait_until='load',timeout=45000).ok
    scene=page.locator('#pes-connect');footer=page.locator('#pes-footer')

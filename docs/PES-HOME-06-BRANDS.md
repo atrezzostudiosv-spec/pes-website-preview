@@ -6,3 +6,6 @@ No changes to Hillside, mosaic, Services, Handoff, Let's Connect or footer code.
 
 ## V1.1 — Black closing continuity
 User changed the approved palette to pure black background and white title/marks, retaining the green rule, original six-brand layout, dimensions and ATZ-MOT-013 stagger. Use grayscale + inversion + brightness/contrast on the existing opaque white-background preview atlas, so white backgrounds become black and dark marks become white. The source atlas is unchanged. These are provisional monochrome treatments, not verified official reversed brand assets. Home closing and footer untouched.
+
+## V1.2 — Brands / contact dissolve (2026-11-27)
+Only bottom padding grows: desktop/tablet clamp(78px, 7.5vw, 120px), mobile 72px (previously clamp(62px, 6vw, 96px) / 56px). No full-screen interlude, logo/layout/title/rule or ATZ-MOT-013 changes. The contact frame starts pure black and dissolves into PES-030.jpg. See closing V1.1. Added 1728 and 1024 viewport coverage and transition evidence to existing QA; visual acceptance remains pending.

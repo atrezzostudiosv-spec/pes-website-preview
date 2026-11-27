@@ -12,7 +12,7 @@ results=[]
 with sync_playwright() as p:
  for name in ['chromium','webkit']:
   b=getattr(p,name).launch()
-  for w,h,mode in [(1440,900,'normal'),(768,1024,'normal'),(390,844,'normal'),(375,812,'normal'),(390,844,'reduced'),(390,844,'no-js')]:
+  for w,h,mode in [(1728,1080,'normal'),(1440,900,'normal'),(1024,768,'normal'),(768,1024,'normal'),(390,844,'normal'),(375,812,'normal'),(390,844,'reduced'),(390,844,'no-js')]:
    page=b.new_page(viewport={'width':w,'height':h},has_touch=w<768,is_mobile=w<768,reduced_motion='reduce' if mode=='reduced' else 'no-preference',java_script_enabled=mode!='no-js')
    assert page.goto(url,wait_until='load',timeout=45000).ok
    section=page.locator('#pes-featured-brands');grid=section.locator('[data-group]')
@@ -33,6 +33,19 @@ with sync_playwright() as p:
    assert grid.evaluate("e=>[...e.children].every(x=>Number(getComputedStyle(x).opacity)>.99)")
    assert page.evaluate("document.documentElement.scrollWidth<=innerWidth+1")
    page.screenshot(path=str(OUT/f'{name}-{w}-{mode}.png'))
+   shade=page.locator('#pes-connect .pes-connect-shade')
+   fade=shade.evaluate("e=>getComputedStyle(e).getPropertyValue('--pes-connect-top-fade').trim()")
+   assert fade.startswith('linear-gradient(180deg,#000 0%') and fade.endswith('transparent 52%)'),fade
+   layers=shade.evaluate("e=>getComputedStyle(e).backgroundImage")
+   assert layers.count('linear-gradient(')==3 and '52%' in layers.split('), linear-gradient(')[0],layers
+   padding=section.evaluate("e=>parseFloat(getComputedStyle(e).paddingBottom)")
+   assert abs(padding-(72 if w<768 else min(120,max(78,w*.075))))<1,(w,padding)
+   assert section.evaluate("e=>Math.abs(e.getBoundingClientRect().bottom-e.nextElementSibling.getBoundingClientRect().top)<2")
+   if mode!='no-js':
+    page.locator('#pes-connect img').evaluate('e=>e.decode()')
+    page.locator('#pes-connect').evaluate("e=>window.scrollTo({top:e.getBoundingClientRect().top+scrollY-innerHeight*.42,behavior:'instant'})")
+    page.wait_for_timeout(400)
+    page.screenshot(path=str(OUT/f'{name}-{w}-{mode}-seam.png'))
    results.append({'browser':name,'width':w,'mode':mode,**data})
    page.close()
   b.close()

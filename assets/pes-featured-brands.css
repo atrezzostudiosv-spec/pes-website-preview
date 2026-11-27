@@ -1,6 +1,6 @@
 /* Home 06 — black editorial interlude, compact, native ATREZZO motion. */
 .pes-site.home .pes-featured-brands{
- background:#000;color:#fff;padding:clamp(58px,5.6vw,90px) clamp(24px,6vw,100px) clamp(62px,6vw,96px);
+ background:#000;color:#fff;padding:clamp(58px,5.6vw,90px) clamp(24px,6vw,100px) clamp(78px,7.5vw,120px);
  text-align:center;scroll-margin-top:var(--pes-header-height,88px);
 }
 .pes-site.home .pes-featured-brands h2{
@@ -26,6 +26,6 @@
 .pes-site.home .pes-brand-grid li:nth-child(5) .pes-brand-mark{background-position:50% 80%}
 .pes-site.home .pes-brand-grid li:nth-child(6) .pes-brand-mark{background-position:50% 100%}
 @media(max-width:767px){
- .pes-site.home .pes-featured-brands{padding:52px 24px 56px}
+ .pes-site.home .pes-featured-brands{padding:52px 24px 72px}
  .pes-site.home .pes-brand-grid{grid-template-columns:repeat(3,minmax(0,1fr));max-width:470px;gap:22px 12px;margin-top:30px}
 }
