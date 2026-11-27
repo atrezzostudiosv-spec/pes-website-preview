@@ -11,3 +11,6 @@ Replace the weak desktop upper gradient (missing on mobile) with a common frame-
 - Hillside mobile text QA run 46002969078: opacity progression assertion failed (0.857479, 0.998926, 1.0); no Hillside change.
 - Our Services cinematic QA run 46019886349: timeout waiting for pesServicesMotion='playing'; no Services change.
 - Previous closing QA run 46019886435 cancelled before completion; do not treat as a pass.
+
+## V1.2 — Approved Los Angeles night photograph (2026-11-27)
+User-uploaded `assets/media/pes-connect-los-angeles.webp` (2048 × 1366, 659936 bytes, blob d458fc72f3c9cbb3cac0d2e8a62a360c079efe39) replaces PES-030.jpg in the Home contact scene only. Preserve previous source image, all existing frame crop settings, permanent top gradient, native zoom, text, links and current flat-logo footer. QA checks image decoding and current approved flat footer logo (prior assertion was stale). Hero remains unchanged because the new video was not present on main at inspection. Visual review pending.
