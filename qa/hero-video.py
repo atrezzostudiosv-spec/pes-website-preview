@@ -28,7 +28,13 @@ with sync_playwright() as p:
    assert video.locator('source').get_attribute('src')=='assets/media/pes-hero-desktop.mp4'
    assert video.get_attribute('poster')=='assets/media/PES-002.jpg'
    assert video.evaluate('e=>e.muted&&e.loop&&e.playsInline')
-   assert page.locator('.hero-film .line-link').get_attribute('href')=='portfolio/'
+   assert page.locator('.hero-film .hero-content .line-link').count()==0
+   assert page.locator('.hero-film .scroll-cue').get_attribute('href')=='#pes-specialty'
+   page.evaluate('document.fonts.ready')
+   title=page.locator('.hero-film h1').evaluate("""e=>{const s=getComputedStyle(e),b=getComputedStyle(e.querySelector('strong')),r=e.getBoundingClientRect(),c=e.closest('.hero-content').getBoundingClientRect();return {size:parseFloat(s.fontSize),light:s.fontWeight,bold:b.fontWeight,left:r.left,right:r.right,contentRight:c.right,scroll:e.scrollWidth,width:e.clientWidth}}""")
+   expected=min(54,max(34,w*.088)) if w<=767 else min(76,max(46,w*.066)) if w<=1100 else min(96,max(54,w*.059))
+   assert abs(title['size']-expected)<.5 and title['light']=='300' and title['bold']=='700',title
+   assert title['scroll']<=title['width']+1 and title['right']<=title['contentRight']+1,title
    if mode=='normal':
     page.wait_for_function("document.querySelector('[data-hero-video]').readyState>=2 && !document.querySelector('[data-hero-video]').paused && document.querySelector('[data-hero-video]').currentTime>0",timeout=45000)
     state=video.evaluate("e=>({src:e.currentSrc,width:e.videoWidth,height:e.videoHeight,time:e.currentTime,fit:getComputedStyle(e).objectFit})")
