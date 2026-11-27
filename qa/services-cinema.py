@@ -169,7 +169,7 @@ def dynamic_mobile(b,w,h):
                 a=scene.evaluate("""e=>{const s=e.querySelector('.ats2-stage').getBoundingClientRect(),first=e.querySelector('.pes-handoff-label-first'),second=e.querySelector('.pes-handoff-label-second');return {active:e.closest('.ats2-scope').classList.contains('ats2-enhanced'),p:+e.dataset.ats2Progress,wipe:parseFloat(e.style.getPropertyValue('--ats2-wipe')),top:s.top,bottom:s.bottom,height:s.height,viewport:visualViewport.height,travel:e.offsetHeight-e.querySelector('.ats2-stage').offsetHeight,labels:[+getComputedStyle(first).opacity,+getComputedStyle(second).opacity],original:[...e.querySelectorAll('.ats2-handoff-meta')].map(x=>+getComputedStyle(x).opacity)}}""")
                 assert a['active'] and abs(a['p']-progress)<.04,a
                 assert abs(a['top'])<3 and abs(a['bottom']-a['viewport'])<3 and abs(a['height']-a['viewport'])<3,a
-                assert abs(a['travel']-3.4*stable)<3,a
+                assert abs(a['travel']-2.2*stable)<3,a
                 assert min(a['labels'])<.01 and a['original']==[0,0],a
                 if progress==0:assert a['labels'][0]>.99,a
                 if progress==1:assert a['labels'][1]>.99,a

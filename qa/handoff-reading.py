@@ -33,7 +33,7 @@ with sync_playwright() as p:
      scene.evaluate("""(e,q)=>window.scrollTo({top:e.getBoundingClientRect().top+scrollY+(e.offsetHeight-innerHeight)*q,behavior:'instant'})""",q)
      page.wait_for_function("""q=>Math.abs(Number(document.querySelector('#ats2-handoff').dataset.ats2Progress)-q)<.025""",arg=q)
      data=scene.evaluate("""e=>{const s=e.querySelector('.ats2-stage').getBoundingClientRect();return {p:+e.dataset.ats2Progress,wipe:parseFloat(e.style.getPropertyValue('--ats2-wipe')),first:+e.style.getPropertyValue('--ats2-first-copy'),second:+e.style.getPropertyValue('--ats2-second-copy'),top:s.top,travel:e.offsetHeight-s.height,h:s.height}}""")
-     assert abs(data['top'])<5 and abs(data['travel']/data['h']-3.4)<.05,(w,h,q,data)
+     assert abs(data['top'])<5 and abs(data['travel']/data['h']-2.2)<.05,(w,h,q,data)
      if q<=.30:assert data['first']>.99 and data['wipe']>99.9 and data['second']<.01,(w,h,q,data)
      if q==.50:assert 0<data['wipe']<100 and max(data['first'],data['second'])<.01,(w,h,q,data)
      if q>=.70:assert data['second']>.99 and data['wipe']<.01 and data['first']<.01,(w,h,q,data)

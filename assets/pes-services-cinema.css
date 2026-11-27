@@ -115,12 +115,12 @@
 }
 
 /* Home 05 — reading holds across desktop, tablet and mobile.
- * 3.4 stable viewport heights of native travel, no scroll locking.
+ * 2.2 stable viewport heights of native travel, no scroll locking.
  * The original sticky stage height and dynamic iOS viewport remain intact. */
-.pes-site.home .ats2-enhanced #ats2-handoff{height:440svh}
+.pes-site.home .ats2-enhanced #ats2-handoff{height:320svh}
 @media(max-width:767px) and (orientation:portrait){
  @supports(height:100dvh){
-  .pes-site.home .ats2-enhanced #ats2-handoff{height:calc(3.4 * var(--pes-stable-viewport) + var(--pes-visible-viewport))}
+  .pes-site.home .ats2-enhanced #ats2-handoff{height:calc(2.2 * var(--pes-stable-viewport) + var(--pes-visible-viewport))}
  }
 }
 
