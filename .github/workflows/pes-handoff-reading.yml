@@ -1,0 +1,25 @@
+name: PES Handoff reading QA
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['index.html','assets/pes-handoff-*.js','assets/pes-services-cinema.css','qa/handoff-reading.py','.github/workflows/pes-handoff-reading.yml']
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install playwright==1.56.0
+      - run: python -m playwright install --with-deps chromium webkit
+      - run: python qa/handoff-reading.py
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: handoff-reading-evidence
+          path: handoff-reading-qa/

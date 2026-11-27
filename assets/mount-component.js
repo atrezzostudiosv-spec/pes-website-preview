@@ -7,7 +7,9 @@ export const nativeComponentsReady = (async () => {
     try {
       const { mount } = id === 'ATZ-SEC-002' && root.classList.contains('pes-featured-split')
         ? await import('./pes-hillside-mount.js?v=hold-2')
-        : await import(`./vendor/${id}.js`);
+        : id === 'ATZ-SEC-004' && root.querySelector('#ats2-handoff')
+          ? await import('./pes-handoff-mount.js?v=reading-1')
+          : await import(`./vendor/${id}.js`);
       const instance = mount(root);
       // Preserve the original mobile scroll effect in the Home Handoff.
       if (id === "ATZ-SEC-004" && !root.querySelector("#ats2-handoff")) {
