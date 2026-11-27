@@ -20,6 +20,7 @@ with sync_playwright() as pw:
     url=base+"/"+str(path.relative_to(ROOT))
     page.goto(url,wait_until="domcontentloaded")
     page.evaluate("document.fonts.ready")
+    page.evaluate("document.querySelectorAll(\'.ui.footer img.logo\').forEach(i=>i.loading=\'eager\')")
     page.wait_for_function("Array.from(document.querySelectorAll('.site-header .brand img, .ui.footer img.logo, .menu-dialog .brand img')).every(i=>i.complete&&i.naturalWidth>0)")
     brand=page.locator(".site-header>.brand").bounding_box()
     header=page.locator(".site-header").bounding_box()
