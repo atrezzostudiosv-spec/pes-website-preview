@@ -20,6 +20,10 @@ with sync_playwright() as p:
    scene=page.locator('#ats2-handoff');stage=scene.locator('.ats2-stage')
    assert scene.locator('.ats2-handoff-pane').count()==2
    assert scene.locator('.ats2-handoff-copy h2').all_text_contents()==['Precision.Built in.','Light.Considered.']
+   await_fonts=page.evaluate("document.fonts.ready.then(()=>true)")
+   assert scene.locator('.ats2-handoff-copy h2 strong').all_text_contents()==['Built in.','Considered.']
+   typography=scene.locator('.ats2-handoff-copy h2').evaluate_all("""es=>es.map(e=>{const s=e.querySelector('strong'),a=getComputedStyle(e),b=getComputedStyle(s),r=s.getBoundingClientRect(),c=e.closest('.ats2-handoff-copy').getBoundingClientRect();return {first:a.fontWeight,second:b.fontWeight,font:a.fontFamily,right:r.right,limit:c.right}})""")
+   assert all(x['first']=='300' and x['second']=='700' and 'Montserrat' in x['font'] for x in typography),typography
    if mode=='normal':
     page.wait_for_function("document.querySelector('#ats2-handoff').closest('.ats2-scope').classList.contains('ats2-enhanced')")
     page.evaluate('document.fonts.ready')

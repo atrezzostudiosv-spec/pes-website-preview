@@ -123,3 +123,7 @@
   .pes-site.home .ats2-enhanced #ats2-handoff{height:calc(3.4 * var(--pes-stable-viewport) + var(--pes-visible-viewport))}
  }
 }
+
+/* Home 05 — approved Montserrat Light/Bold title pairing, both slides. */
+.pes-site.home #ats2-handoff .ats2-handoff-copy .ats2-scene-title{font-weight:var(--pes-weight-light);max-width:100%}
+.pes-site.home #ats2-handoff .ats2-handoff-copy .ats2-scene-title strong{font-weight:var(--pes-weight-bold);white-space:nowrap}
