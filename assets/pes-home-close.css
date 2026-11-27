@@ -1,5 +1,5 @@
 /* PES Home 07–08: photographic closing scene and dark footer.
- * Scoped to Home. Native sticky travel; no scroll interception. */
+ * Contact scene scoped to Home; footer shared across all PES pages. */
 .pes-site.home #pes-connect{
  --pes-connect-scale:1;--pes-connect-dark:0;
  --pes-connect-height:max(560px,100svh);
@@ -37,31 +37,31 @@
 .pes-site.home #pes-connect .button:hover{background:#fff}
 .pes-site.home #pes-connect .phone{font-size:clamp(20px,2vw,26px);font-weight:400;color:#fff;text-decoration:underline;text-underline-offset:7px}
 .pes-site.home #pes-connect .phone:hover{color:var(--pes-green)}
-.pes-site.home #pes-footer{
+.pes-site #pes-footer{
  position:relative;background:#000;color:#eee;padding:clamp(60px,6vw,88px) 0 28px;isolation:isolate;
 }
-.pes-site.home .pes-footer-light{
+.pes-site .pes-footer-light{
  position:absolute;top:0;left:0;right:0;height:2px;pointer-events:none;
  background:var(--pes-green);box-shadow:0 0 6px rgba(162,253,2,.46),0 0 16px rgba(162,253,2,.20);
 }
-.pes-site.home .pes-footer-light::after{
+.pes-site .pes-footer-light::after{
  content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(230,255,186,.95) 49%,transparent 100%);width:28%;opacity:0;box-shadow:0 0 9px rgba(162,253,2,.38);
 }
-.pes-site.home #pes-footer.is-neon-lit .pes-footer-light::after{animation:pesNeonTravel 1.9s cubic-bezier(.22,.61,.36,1) both}
+.pes-site #pes-footer.is-neon-lit .pes-footer-light::after{animation:pesNeonTravel 1.9s cubic-bezier(.22,.61,.36,1) both}
 @keyframes pesNeonTravel{0%{transform:translateX(0);opacity:0}18%{opacity:.85}80%{opacity:.85}100%{transform:translateX(257.14%);opacity:0}}
-.pes-site.home #pes-footer .pes-footer-grid{
+.pes-site #pes-footer .pes-footer-grid{
  width:min(calc(100% - 2 * clamp(24px,6vw,100px)),1440px);display:grid;
  grid-template-columns:minmax(180px,1.2fr) minmax(200px,1fr) minmax(155px,.7fr);
  gap:44px clamp(28px,5vw,80px);align-items:start;
 }
-.pes-site.home #pes-footer .logo{width:clamp(144px,13vw,192px);height:auto;object-fit:contain}
-.pes-site.home .pes-footer-identity p{font-size:13px;line-height:1.65;color:#aaa;margin-top:24px}
-.pes-site.home .pes-footer-label{display:block;color:var(--pes-green);font-size:11px;font-weight:600;letter-spacing:.18em;margin-bottom:23px}
-.pes-site.home .pes-footer-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 22px}
-.pes-site.home .pes-footer-contact>a{display:block;margin-bottom:14px}
-.pes-site.home .pes-footer-nav a,.pes-site.home .pes-footer-contact a{color:#eee;font-size:14px;line-height:1.6;text-decoration:none;transition:color .2s ease}
-.pes-site.home .pes-footer-nav a:hover,.pes-site.home .pes-footer-contact a:hover,.pes-site.home .pes-footer-nav a[aria-current=page]{color:var(--pes-green)}
-.pes-site.home #pes-footer small{grid-column:1/-1;border-top:1px solid #282828;padding-top:24px;color:#999;font-size:11px;line-height:1.6}
+.pes-site #pes-footer .logo{width:clamp(144px,13vw,192px);height:auto;object-fit:contain}
+.pes-site .pes-footer-identity p{font-size:13px;line-height:1.65;color:#aaa;margin-top:24px}
+.pes-site .pes-footer-label{display:block;color:var(--pes-green);font-size:11px;font-weight:600;letter-spacing:.18em;margin-bottom:23px}
+.pes-site .pes-footer-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 22px}
+.pes-site .pes-footer-contact>a{display:block;margin-bottom:14px}
+.pes-site .pes-footer-nav a,.pes-site .pes-footer-contact a{color:#eee;font-size:14px;line-height:1.6;text-decoration:none;transition:color .2s ease}
+.pes-site .pes-footer-nav a:hover,.pes-site .pes-footer-contact a:hover,.pes-site .pes-footer-nav a[aria-current=page]{color:var(--pes-green)}
+.pes-site #pes-footer small{grid-column:1/-1;border-top:1px solid #282828;padding-top:24px;color:#999;font-size:11px;line-height:1.6}
 @media(max-width:820px){
  .pes-site.home #pes-connect{--pes-connect-height:max(560px,100svh)}
  .pes-site.home #pes-connect.is-pes-connect-active{height:calc(var(--pes-connect-height) + 65svh)}
@@ -70,14 +70,14 @@
  .pes-site.home #pes-connect .right{justify-self:start;gap:18px}
  .pes-site.home .pes-connect-image img{object-position:66% 60%;transform-origin:60% 63%}
  .pes-site.home .pes-connect-shade{background:var(--pes-connect-top-fade),linear-gradient(90deg,rgba(0,0,0,.90),rgba(0,0,0,.57) 55%,rgba(0,0,0,.26)),linear-gradient(0deg,#000,rgba(0,0,0,.57) 20%,transparent 56%)}
- .pes-site.home #pes-footer .pes-footer-grid{grid-template-columns:1fr 1fr;gap:34px 18px}
- .pes-site.home .pes-footer-identity{grid-column:1/-1}
- .pes-site.home .pes-footer-links{grid-template-columns:1fr}
+ .pes-site #pes-footer .pes-footer-grid{grid-template-columns:1fr 1fr;gap:34px 18px}
+ .pes-site .pes-footer-identity{grid-column:1/-1}
+ .pes-site .pes-footer-links{grid-template-columns:1fr}
 }
-@media(max-width:360px){.pes-site.home #pes-connect .button{gap:16px}.pes-site.home #pes-footer .pes-footer-contact a{font-size:13px}}
+@media(max-width:360px){.pes-site.home #pes-connect .button{gap:16px}.pes-site #pes-footer .pes-footer-contact a{font-size:13px}}
 @media(prefers-reduced-motion:reduce){
  .pes-site.home #pes-connect.is-pes-connect-active{height:auto}
  .pes-site.home #pes-connect.is-pes-connect-active .pes-connect-stage{position:relative;height:auto}
  .pes-site.home .pes-connect-image img{transform:none}
- .pes-site.home #pes-footer.is-neon-lit .pes-footer-light::after{animation:none}
+ .pes-site #pes-footer.is-neon-lit .pes-footer-light::after{animation:none}
 }

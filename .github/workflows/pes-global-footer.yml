@@ -1,0 +1,25 @@
+name: PES Global Footer QA
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['**/index.html','index.html','assets/pes-home-close.*','qa/global-footer.py','.github/workflows/pes-global-footer.yml']
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install playwright==1.56.0
+      - run: python -m playwright install --with-deps chromium webkit
+      - run: python qa/global-footer.py
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: global-footer-evidence
+          path: global-footer-qa/

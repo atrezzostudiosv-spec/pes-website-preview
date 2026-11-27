@@ -1,4 +1,4 @@
-/* PES home close: continuous native scroll with stable sticky geometry.
+/* PES home close and global footer: native scroll with stable sticky geometry.
  * No GSAP global refresh, wheel/touch handlers, scroll snap or timers. */
 const scene=document.querySelector('#pes-connect');
 const stage=scene?.querySelector('.pes-connect-stage');
