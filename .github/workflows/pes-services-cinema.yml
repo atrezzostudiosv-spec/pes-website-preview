@@ -1,0 +1,28 @@
+name: PES Home 04 services cinematic QA
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['index.html','**/index.html','assets/atz-sec-015/**','assets/pes-services-cinema.css','qa/services-cinema.py','.github/workflows/pes-services-cinema.yml']
+  pull_request:
+    branches: [main]
+    paths: ['index.html','**/index.html','assets/atz-sec-015/**','assets/pes-services-cinema.css','qa/services-cinema.py','.github/workflows/pes-services-cinema.yml']
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install playwright==1.56.0
+      - run: python -m playwright install --with-deps chromium webkit
+      - run: python qa/services-cinema.py
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pes-services-cinematic-evidence
+          path: services-qa/

@@ -42,6 +42,15 @@ def test(b,path,w):
             feature=old.locator('.project-feature').evaluate("e=>e.outerHTML")
             static.locator('.pes-featured-split').evaluate("(e,html)=>e.outerHTML=html",feature)
             static.locator('.pes-cinematic-interlude').evaluate_all('els=>els.forEach(e=>e.remove())')
+        # Reconstruct intentionally changed service regions only for historic static baseline comparison.
+        old.locator('main noscript').evaluate_all("els=>els.forEach(e=>e.innerHTML=e.innerHTML.replace(/\\s*—\\s*Launching Soon/gi,''))")
+        if path=='' and static.locator('.pes-services-cinema').count():
+            static.locator('.pes-services-cinema').evaluate("(e,html)=>e.outerHTML=html",old.locator('.art-atlas').evaluate("e=>e.outerHTML"))
+        if path=='capabilities/':
+            static.locator('.cap-index').evaluate("(e,html)=>e.outerHTML=html",old.locator('.cap-index').evaluate("e=>e.outerHTML"))
+            static.add_style_tag(content=".cap-index .wrap{grid-template-columns:repeat(4,minmax(0,1fr))}@media(max-width:820px){.cap-index .wrap{grid-template-columns:1fr 1fr}}")
+        if path=='capabilities/power-quality-and-energy-management/':
+            static.locator('main').evaluate("(e,html)=>e.innerHTML=html",old.locator('main').evaluate("e=>e.innerHTML"))
         check(snap(old),snap(static))
         load(p,BASE+path)
         p.wait_for_function("document.querySelector('[data-pes-editorial]')?.dataset.pesEditorialReady==='true'")
