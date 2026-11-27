@@ -28,6 +28,7 @@ def test(b,name,w,h,mode='animated'):
         sec=p.locator(SEL);assert sec.count()==1
         assert sec.locator('[data-collection-panel]').count()==5
         assert sec.locator('[data-collection-tab]').count()==5
+        assert sec.locator('.collection-all-homes,.collection-fallback-link').count()==0
         assert sec.evaluate("e=>getComputedStyle(e).backgroundColor")=='rgb(0, 0, 0)'
         assert not p.evaluate('document.documentElement.scrollWidth>innerWidth')
         for i,slug in enumerate(slugs):
@@ -36,6 +37,22 @@ def test(b,name,w,h,mode='animated'):
             image=sec.locator('.collection-photo').nth(i).get_attribute('src')
             assert p.request.get(BASE+image).ok
         if mode=='animated':
+            p.wait_for_function("document.querySelector('[data-pes-services-intro]').dataset.pesServicesMotion")
+            intro=sec.locator('[data-pes-services-intro]')
+            intro.evaluate("e=>window.scrollTo({top:e.getBoundingClientRect().top+scrollY-100,behavior:'instant'})")
+            p.wait_for_function("document.querySelector('[data-pes-services-intro]').dataset.pesServicesMotion==='playing'")
+            p.wait_for_function("document.querySelectorAll('.pes-services-title-overlay .am-char').length>0")
+            def title_geometry():
+                return intro.evaluate("""e=>{const h=e.querySelector('h2'),b=h.getBoundingClientRect();return [...h.querySelectorAll('.pes-services-title-line')].map(l=>{const r=l.getBoundingClientRect();return [r.left-b.left,r.top-b.top,r.width,r.height]})}""")
+            during=title_geometry()
+            assert intro.locator('.pes-services-title-overlay .am-char').evaluate_all("els=>els.every(e=>getComputedStyle(e).position==='absolute'&&e.style.left!=='')"),during
+            if w in [390,1440]:p.screenshot(path=str(OUT/f'{name}-{w}-intro-motion.jpg'),type='jpeg',quality=80)
+            p.wait_for_function("document.querySelector('[data-pes-services-intro]').dataset.pesServicesMotion==='complete'")
+            after=title_geometry()
+            assert all(abs(a-b)<1 for l1,l2 in zip(during,after) for a,b in zip(l1,l2)),(during,after)
+            assert intro.locator('.pes-services-title-overlay,[data-pes-services-pending]').count()==0
+            assert intro.locator('h2').evaluate("e=>[...e.querySelectorAll('.pes-services-title-line')].every(l=>getComputedStyle(l).opacity==='1'&&l.scrollWidth<=l.clientWidth+1)")
+            if w in [390,1440]:p.screenshot(path=str(OUT/f'{name}-{w}-intro-final.jpg'),type='jpeg',quality=80)
             p.wait_for_function("document.querySelector('.pes-services-cinema').classList.contains('is-cinema-active')")
             p.wait_for_function("ScrollTrigger.getAll().some(t=>t.pin===document.querySelector('.pes-cinematic-interlude'))")
             p.evaluate("()=>{const t=document.querySelector('[data-collection-track]');window.scrollTo({top:t.getBoundingClientRect().top+scrollY+10,behavior:'instant'})}")
@@ -56,6 +73,7 @@ def test(b,name,w,h,mode='animated'):
             p.wait_for_function("document.querySelector('[data-collection-counter]').textContent==='01 / 05'")
         else:
             assert not sec.evaluate("e=>e.classList.contains('is-cinema-active')")
+            if mode in ['nojs','reduced']:assert sec.locator('.pes-services-title-line').evaluate_all("els=>els.every(e=>getComputedStyle(e).opacity==='1')")
             assert sec.locator('[data-collection-panel][aria-hidden=false]').count()==5
             assert all(x>0 for x in sec.locator('[data-collection-panel]').evaluate_all("els=>els.map(e=>e.getBoundingClientRect().height)"))
         assert not errors,errors

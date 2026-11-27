@@ -1,5 +1,6 @@
 /* PES global editorial opt-in. Only coordination; vendor animation formulas stay intact. */
 import {mountEditorialMotion} from './pes-editorial-motion.js';
+import {mountServicesIntro} from './pes-services-intro.js';
 import {mount as textReveal} from './vendor/pes-motion/motion/ATZ-MOT-001.js';
 import {mount as groupStagger} from './vendor/pes-motion/typography/ATZ-MOT-013.js';
 const media=matchMedia('(prefers-reduced-motion: reduce)');
@@ -85,6 +86,7 @@ function stopAll(){[...active].forEach(f=>f());}
 function start(){
  if(media.matches||!('IntersectionObserver' in window)||!Element.prototype.animate)return;
  const special=document.querySelector('.pes-specialty');if(special)mountEditorialMotion(special);
+ const services=document.querySelector('[data-pes-services-intro]');if(services)mountServicesIntro(services);
  document.querySelectorAll('[data-pes-editorial]').forEach(mountRegion);
 }
 document.addEventListener('focusin',e=>{const region=e.target.closest('[data-pes-editorial]');if(region)[...(regionTasks.get(region)||[])].forEach(f=>f());});
