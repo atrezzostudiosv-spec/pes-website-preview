@@ -12,13 +12,12 @@ URL=f'http://127.0.0.1:{server.server_port}/'
 SCENES=[
  ('hillside','#pes-featured-project','.ats-stage','.ats-split-image','::before'),
  ('services','#pes-services [data-collection-track]','.collection-stage','.collection-image-wrap','::after'),
- ('difference','#ats2-handoff','.ats2-stage','.ats2-handoff-pane','::before'),
- ('connect','#pes-connect','.pes-connect-stage','.pes-connect-image','::after')]
+ ('difference','#ats2-handoff','.ats2-stage','.ats2-handoff-pane','::before')]
 results=[]
 def position(page,track,kind):
  track.evaluate("""(e,k)=>{const r=e.getBoundingClientRect(), h=innerHeight, y=scrollY;
  const top=r.top+y, bottom=r.bottom+y;
- const target=k==='entry'?top-.92*h:k==='middle'?(top+Math.max(0,r.height-h)*.5):bottom-.52*h;
+ const target=k==='entry'?top-.92*h:k==='approach'?top-.65*h:k==='arrival'?top:k==='reveal'?top+.16*h:k==='middle'?(top+Math.max(0,r.height-h)*.5):bottom-.52*h;
  window.scrollTo({top:target,behavior:'instant'});}""",kind)
  page.wait_for_timeout(150)
 def state(stage):
@@ -32,15 +31,18 @@ with sync_playwright() as p:
    if mode=='normal' and h>=600:
     page.evaluate('document.fonts.ready')
     page.wait_for_function("window.ScrollTrigger && ScrollTrigger.getAll().some(t=>t.pin===document.querySelector('.pes-cinematic-interlude'))")
-    page.wait_for_function("document.querySelectorAll('[data-pes-light-ready]').length===4")
+    page.wait_for_function("document.querySelectorAll('[data-pes-light-ready]').length===3")
     for name,track_sel,stage_sel,photo_sel,pseudo in SCENES:
      track=page.locator(track_sel);stage=track.locator(stage_sel)
      assert stage.locator(photo_sel).first.evaluate("(e,p)=>getComputedStyle(e,p).pointerEvents",pseudo)=='none'
      states={}
-     for phase in ['entry','middle','exit','middle','entry']:
+     phases=['entry','approach','arrival','reveal','middle','exit','middle','reveal','arrival','approach','entry'] if name!='hillside' else ['entry','middle','exit','middle','entry']
+     for phase in phases:
       position(page,track,phase)
       data=state(stage); states.setdefault(phase,[]).append(data)
       if phase=='entry':assert data['entry']>.85 and data['exit']<.05,(name,phase,data)
+      elif phase in ['approach','arrival']:assert data['entry']>.99 and data['exit']<.05,(name,phase,data)
+      elif phase=='reveal':assert .25<data['entry']<.75 and data['exit']<.05 and abs(data['top'])<5,(name,phase,data)
       elif phase=='middle':assert data['entry']<.02 and data['exit']<.02 and abs(data['top'])<5,(name,phase,data)
       else:assert data['exit']>.65 and data['entry']<.05,(name,phase,data)
       if w in [1440,390] and len(states[phase])==1:
@@ -54,6 +56,14 @@ with sync_playwright() as p:
    assert page.locator('.pes-cinematic-interlude [data-pes-light-ready]').count()==0
    assert page.locator('#pes-featured-project .pes-split-link').get_attribute('href')=='hillside/'
    assert page.locator('#pes-services [data-collection-tab]').count()==5
+   assert page.locator('#pes-connect [data-pes-light-ready]').count()==0
+   fade=page.locator('#pes-connect .pes-connect-shade').evaluate("e=>getComputedStyle(e).getPropertyValue('--pes-connect-top-fade').trim()")
+   assert fade.startswith('linear-gradient(180deg,#000 0%') and fade.endswith('transparent 52%)'),fade
+   if mode=='normal' and h>=600:
+    connect=page.locator('#pes-connect')
+    for phase in ['approach','arrival','middle']:
+     position(page,connect,phase)
+     assert page.locator('#pes-connect .pes-connect-shade').evaluate("e=>getComputedStyle(e).getPropertyValue('--pes-connect-top-fade').trim()")==fade
    assert page.locator('#pes-connect .button').get_attribute('href')=='contact/'
    assert page.locator('#pes-connect .phone').get_attribute('href')=='tel:+12135873257'
    assert page.locator('#pes-footer .pes-footer-light').evaluate("e=>e.offsetHeight")==2

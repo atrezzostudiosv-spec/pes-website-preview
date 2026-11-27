@@ -1,12 +1,11 @@
-/* PES Light as Motion V1.0. Frame geometry only; no pin, transform, timer,
+/* PES Light as Motion V1.1. Frame geometry only; no pin, transform, timer,
    ScrollTrigger refresh, scroll interception, or vendor animation changes. */
 const clamp=n=>Math.max(0,Math.min(1,n));
 const smooth=n=>{const x=clamp(n);return x*x*(3-2*x);};
 const configs=[
  {track:'#pes-featured-project',stage:'.ats-stage',enter:.88,clear:.12,exit:1.12,end:.42,enabled:t=>!!t.closest('.ats-enhanced')&&!t.closest('.ats-manual-reduced')},
- {track:'#pes-services [data-collection-track]',stage:'.collection-stage',enter:.95,clear:.08,exit:1.12,end:.40,enabled:t=>!!t.closest('.is-cinema-active')},
- {track:'#ats2-handoff',stage:'.ats2-stage',enter:.90,clear:.10,exit:1.14,end:.40,enabled:t=>!!t.closest('.ats2-enhanced')},
- {track:'#pes-connect',stage:'.pes-connect-stage',enter:.96,clear:.10,exit:1.10,end:.38,enabled:t=>t.classList.contains('is-pes-connect-active')}
+ {track:'#pes-services [data-collection-track]',stage:'.collection-stage',enter:.95,clear:.08,pinReveal:.32,exit:1.12,end:.40,enabled:t=>!!t.closest('.is-cinema-active')},
+ {track:'#ats2-handoff',stage:'.ats2-stage',enter:.90,clear:.10,pinReveal:.32,exit:1.14,end:.40,enabled:t=>!!t.closest('.ats2-enhanced')}
 ];
 const scenes=configs.map(c=>{const track=document.querySelector(c.track);return {...c,track,stage:track?.querySelector(c.stage)};}).filter(c=>c.stage);
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
@@ -23,7 +22,11 @@ function draw(){
  const updates=scenes.map(c=>{
   if(reduced.matches||short.matches||!c.enabled(c.track))return {stage:c.stage,active:false};
   const track=c.track.getBoundingClientRect(),stage=c.stage.getBoundingClientRect();
-  const enter=smooth((stage.top/vh-c.clear)/(c.enter-c.clear));
+  // Keep a fully black upper edge until sticky arrival. Reveal over the
+  // first 0.32 viewport of existing pinned travel, never before it.
+  const enter=c.pinReveal
+   ? 1-smooth(-track.top/(vh*c.pinReveal))
+   : smooth((stage.top/vh-c.clear)/(c.enter-c.clear));
   const exit=smooth((c.exit-track.bottom/vh)/(c.exit-c.end));
   return {stage:c.stage,active:true,enter,exit};
  });
