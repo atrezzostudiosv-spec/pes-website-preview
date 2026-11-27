@@ -3,3 +3,6 @@ User approved original Selected Homes motion and black introduction. Byte-identi
 
 ## V1.1 — typography entry and CTA
 The global split overlay could reflow the bold line because inline character widths differ from native text. Scoped service introduction uses fixed source lines and Range-measured glyph positions; original MOT-001 and MOT-013 are mounted without changing their formulas. Label 0ms, title 120ms, independent green rule 320ms, description 440ms. Static heading is preserved and revealed unchanged after entry; resize/reduced-motion fail open. The global generic adapter skips this region; the dedicated adapter is invoked through the same global entry point. Removed the redundant Explore All Services CTA from the stage and fallback; all five individual service links and navigation remain. QA compares actual source line geometry during/after reveal and checks original engine hashes and CTA absence.
+
+## V1.2 — left scrim
+Strengthen the existing shared horizontal gradient to 85% black at left, 55% at 32%, 18% at 52%, transparent at 72%. Retain existing vertical scrim and original motion; all five panels share this visual adjustment. Pending user visual review.
