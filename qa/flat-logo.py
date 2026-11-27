@@ -24,12 +24,14 @@ with sync_playwright() as pw:
     page.wait_for_function("Array.from(document.querySelectorAll('.site-header .brand img, .ui.footer img.logo, .menu-dialog .brand img')).every(i=>i.complete&&i.naturalWidth>0)")
     brand=page.locator(".site-header>.brand").bounding_box()
     header=page.locator(".site-header").bounding_box()
-    assert brand and header and abs(brand["x"]+brand["width"]/2-w/2)<2,(engine.name,w,path,brand)
+    padding=page.locator(".site-header").evaluate("e=>parseFloat(getComputedStyle(e).paddingLeft)")
+    assert brand and header and abs(brand["x"]-header["x"]-padding)<2,(engine.name,w,path,brand,padding)
+    assert brand["width"]>brand["height"],(engine.name,w,path,brand)
     assert abs(brand["y"]+brand["height"]/2-(header["y"]+header["height"]/2))<2,(engine.name,w,path,brand,header)
     for item in page.locator(".site-header .pes-nav-left>a, .site-header .pes-nav-right>details, .site-header .pes-nav-right>a, .site-header .header-phone, .site-header .menu-trigger").all():
      if not item.is_visible(): continue
      b=item.bounding_box()
-     assert b and (b["x"]+b["width"]<=brand["x"]+1 or b["x"]>=brand["x"]+brand["width"]-1),(engine.name,w,path,item.inner_text(),b,brand)
+     assert b and (b["x"]>=brand["x"]+brand["width"]-1),(engine.name,w,path,item.inner_text(),b,brand)
     assert page.locator(".ui.footer img.logo").get_attribute("src").endswith("pes-logo-flat.svg")
     if path==ROOT/"index.html":
      page.screenshot(path=f"flat-logo-qa/{engine.name}-{w}.png")
