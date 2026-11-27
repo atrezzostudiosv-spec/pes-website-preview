@@ -16,7 +16,9 @@ with sync_playwright() as p:
    assert page.goto(url,wait_until='load',timeout=45000).ok
    scene=page.locator('#pes-connect');footer=page.locator('#pes-footer')
    assert page.locator('#pes-featured-brands + #pes-connect').count()==1
-   assert footer.locator('nav a').count()==6 and footer.locator('.logo').get_attribute('src')=='assets/brand/pes-neon-logo.webp'
+   assert footer.locator('nav a').count()==6 and footer.locator('.logo').get_attribute('src')=='assets/brand/pes-logo-flat.svg'
+   assert scene.locator('img').get_attribute('src')=='assets/media/pes-connect-los-angeles.webp'
+   assert scene.locator('img').evaluate("async e=>{await e.decode();return e.naturalWidth===2048&&e.naturalHeight===1366}"),'New contact image did not decode at expected dimensions'
    assert scene.locator('a.button').get_attribute('href')=='contact/'
    assert scene.locator('a.phone').get_attribute('href')=='tel:+12135873257'
    assert footer.evaluate("e=>getComputedStyle(e).backgroundColor")=='rgb(0, 0, 0)'
