@@ -28,4 +28,12 @@
 @media(max-width:767px){
  .pes-site.home .pes-featured-brands{padding:52px 24px 72px}
  .pes-site.home .pes-brand-grid{grid-template-columns:repeat(3,minmax(0,1fr));max-width:470px;gap:22px 12px;margin-top:30px}
+ /* Mobile only: horizontal marks first; compact marks second.
+    Keep source order and atlas cell selectors unchanged. */
+ .pes-site.home .pes-brand-grid li:nth-child(1){order:1}
+ .pes-site.home .pes-brand-grid li:nth-child(5){order:2}
+ .pes-site.home .pes-brand-grid li:nth-child(6){order:3}
+ .pes-site.home .pes-brand-grid li:nth-child(4){order:4}
+ .pes-site.home .pes-brand-grid li:nth-child(2){order:5}
+ .pes-site.home .pes-brand-grid li:nth-child(3){order:6}
 }

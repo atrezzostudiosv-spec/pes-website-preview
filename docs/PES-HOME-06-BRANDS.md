@@ -9,3 +9,6 @@ User changed the approved palette to pure black background and white title/marks
 
 ## V1.2 — Brands / contact dissolve (2026-11-27)
 Only bottom padding grows: desktop/tablet clamp(78px, 7.5vw, 120px), mobile 72px (previously clamp(62px, 6vw, 96px) / 56px). No full-screen interlude, logo/layout/title/rule or ATZ-MOT-013 changes. The contact frame starts pure black and dissolves into PES-030.jpg. See closing V1.1. Added 1728 and 1024 viewport coverage and transition evidence to existing QA; visual acceptance remains pending.
+
+## V1.3 — Mobile logo arrangement (2026-11-27)
+User approved mobile-only arrangement below 768px: Lutron / Kohler / Infratech Comfort, then TRUFIG / power-symbol mark / Cummins. CSS grid order only; original DOM, atlas cells, mark dimensions, desktop/tablet layout, ATZ-MOT-013 timing and closing transition unchanged. QA checks actual visual order from rendered positions at all existing widths, including no-JS and reduced-motion fallback. The power-symbol brand name remains unverified.

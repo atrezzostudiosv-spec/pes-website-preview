@@ -31,6 +31,10 @@ with sync_playwright() as p:
     assert delays==[0,120,240,360,480,600],delays
    section.scroll_into_view_if_needed();page.wait_for_timeout(1650)
    assert grid.evaluate("e=>[...e.children].every(x=>Number(getComputedStyle(x).opacity)>.99)")
+   visual_order=grid.evaluate("""e=>[...e.children].map(x=>{const r=x.getBoundingClientRect();return {label:x.querySelector('[role=img]').getAttribute('aria-label'),x:r.left,y:r.top}}).sort((a,b)=>Math.abs(a.y-b.y)>2?a.y-b.y:a.x-b.x).map(x=>x.label)""")
+   expected=['Lutron','Kohler','Infratech Comfort','TRUFIG','Power-symbol brand mark','Cummins'] if w<768 else ['Lutron','Power-symbol brand mark','Cummins','TRUFIG','Kohler','Infratech Comfort']
+   assert visual_order==expected,(w,visual_order)
+   data['visual_order']=visual_order
    assert page.evaluate("document.documentElement.scrollWidth<=innerWidth+1")
    page.screenshot(path=str(OUT/f'{name}-{w}-{mode}.png'))
    shade=page.locator('#pes-connect .pes-connect-shade')
