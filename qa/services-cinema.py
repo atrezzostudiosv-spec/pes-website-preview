@@ -178,6 +178,38 @@ def dynamic_mobile(b,w,h):
         assert not errors,errors
         results.append({'browser':'webkit','width':w,'height':h,'dynamic':observations})
     finally:ctx.close()
+def paced_touch(b,w,h):
+    ctx=b.new_context(viewport={'width':w,'height':h},is_mobile=True,has_touch=True,device_scale_factor=1)
+    p=ctx.new_page()
+    errors=[];p.on('pageerror',lambda e:errors.append(str(e)))
+    try:
+        assert p.goto(BASE,wait_until='load',timeout=45000).ok
+        p.wait_for_function("window.ScrollTrigger && ScrollTrigger.getAll().some(t=>t.pin===document.querySelector('.pes-cinematic-interlude'))")
+        sec=p.locator('#pes-services')
+        stage=sec.locator('[data-collection-stage]')
+        def chapter(i):
+            sec.locator('[data-collection-tab]').nth(i).click()
+            p.wait_for_function("i=>document.querySelectorAll('#pes-services [data-collection-tab]')[i].getAttribute('aria-selected')==='true'",arg=i)
+        def swipe(dy):
+            return stage.evaluate("""(s,dy)=>{const x=100,y=dy>0?innerHeight-25:25;const point=(v)=>({identifier:1,clientX:x,clientY:v});const fire=(type,points)=>{const e=new Event(type,{bubbles:true,cancelable:true});Object.defineProperty(e,'touches',{value:points});s.dispatchEvent(e);return e.defaultPrevented};fire('touchstart',[point(y)]);const captured=fire('touchmove',[point(y-dy)]);fire('touchend',[]);return captured}""",dy)
+        def active():
+            return sec.locator('[data-collection-counter]').inner_text()
+        chapter(0)
+        assert swipe(h*3)
+        p.wait_for_timeout(500);assert active()=='02 / 05',active()
+        assert swipe(h*3)
+        p.wait_for_timeout(500);assert active()=='03 / 05',active()
+        assert swipe(-h*3)
+        p.wait_for_timeout(500);assert active()=='02 / 05',active()
+        chapter(4);assert not swipe(h*3)
+        chapter(0);assert not swipe(-h*3)
+        chapter(3);assert active()=='04 / 05'
+        p.emulate_media(reduced_motion='reduce')
+        p.wait_for_function("!document.querySelector('#pes-services').classList.contains('is-cinema-active')")
+        assert not swipe(h*3)
+        assert not errors,errors
+        results.append({'browser':'webkit','width':w,'height':h,'paced_touch':'synthetic pass'})
+    finally:ctx.close()
 with sync_playwright() as pw:
     for name in ['chromium','webkit']:
         b=getattr(pw,name).launch(headless=True)
@@ -187,6 +219,7 @@ with sync_playwright() as pw:
             test(b,name,390,650 if mode=='short' else 844,mode)
         if name=='webkit':
             for w,h in [(375,667),(375,812),(390,844),(430,932)]:dynamic_mobile(b,w,h)
+            for w,h in [(375,812),(390,844)]:paced_touch(b,w,h)
         b.close()
 (OUT/'results.json').write_text(json.dumps(results,indent=2))
 print('TOTAL',len(results),'FAILURES 0',flush=True)
