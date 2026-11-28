@@ -6,7 +6,7 @@ from playwright.sync_api import sync_playwright
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'global-footer-qa'; OUT.mkdir(exist_ok=True)
 PAGES=sorted(p for p in ROOT.rglob('index.html') if not any(x in ('assets','.git') for x in p.relative_to(ROOT).parts))
-assert len(PAGES)==16
+assert len(PAGES)==18
 class Quiet(SimpleHTTPRequestHandler):
  def log_message(self,*a): pass
 server=ThreadingHTTPServer(('127.0.0.1',0),lambda *a,**kw:Quiet(*a,directory=str(ROOT),**kw))

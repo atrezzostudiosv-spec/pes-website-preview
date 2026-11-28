@@ -14,7 +14,7 @@ original=(ROOT/'assets/atz-sec-015/engine.original.js').read_text()
 adapted=(ROOT/'assets/atz-sec-015/engine.pes.js').read_text()
 assert adapted==original.replace("const media=matchMedia('(min-height:700px) and (prefers-reduced-motion:no-preference)');","const media=matchMedia('(min-height:700px) and (prefers-reduced-motion:no-preference), (max-width:767px) and (orientation:portrait) and (prefers-reduced-motion:no-preference)');")
 pages=[p for p in ROOT.rglob('index.html') if 'assets' not in p.relative_to(ROOT).parts]
-assert len(pages)==16
+assert len(pages)==18
 for p in pages:assert not re.search(r'launching\s+soon',p.read_text(),re.I),p
 class Quiet(SimpleHTTPRequestHandler):
     def log_message(self,*a):pass

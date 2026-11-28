@@ -9,7 +9,7 @@ server=ThreadingHTTPServer(("127.0.0.1",0),SimpleHTTPRequestHandler)
 Thread(target=server.serve_forever,daemon=True).start()
 base=f"http://127.0.0.1:{server.server_port}"
 pages=sorted(p for p in ROOT.rglob("index.html") if "assets" not in p.relative_to(ROOT).parts and ".git" not in p.relative_to(ROOT).parts)
-assert len(pages)==16
+assert len(pages)==18
 os.makedirs("flat-logo-qa",exist_ok=True)
 with sync_playwright() as pw:
  for engine in (pw.chromium,pw.webkit):
