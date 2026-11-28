@@ -45,7 +45,11 @@ def test(b,name,w,h,mode='animated'):
             p.wait_for_function("document.querySelector('[data-pes-services-intro]').dataset.pesServicesMotion")
             intro=sec.locator('[data-pes-services-intro]')
             intro.evaluate("e=>window.scrollTo({top:e.getBoundingClientRect().top+scrollY-100,behavior:'instant'})")
-            p.wait_for_function("document.querySelector('[data-pes-services-intro]').dataset.pesServicesMotion==='playing'")
+            try:
+                p.wait_for_function("document.querySelector('[data-pes-services-intro]').dataset.pesServicesMotion==='playing'")
+            except Exception as exc:
+                state=p.evaluate("document.querySelector('[data-pes-services-intro]').dataset.pesServicesMotion")
+                raise AssertionError((name,w,h,mode,'services intro motion state',state)) from exc
             p.wait_for_function("document.querySelectorAll('.pes-services-title-overlay .am-char').length>0")
             def title_geometry():
                 return intro.evaluate("""e=>{const h=e.querySelector('h2'),b=h.getBoundingClientRect();return [...h.querySelectorAll('.pes-services-title-line')].map(l=>{const r=l.getBoundingClientRect();return [r.left-b.left,r.top-b.top,r.width,r.height]})}""")
