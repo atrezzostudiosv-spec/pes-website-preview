@@ -229,9 +229,9 @@ def main() -> None:
     for route in SERVICE_MEDIA:
         service_page(route)
     power_quality()
-    for project in PROJECTS:
-        project_page(project)
-    portfolio()
+    # Projects V4 owns these routes; never overwrite its master template.
+    import subprocess
+    subprocess.run(['node', str(ROOT / 'scripts/build_projects_v4.mjs')], check=True)
     existing_pages()
     # Archived role descriptions remain intact; only add search descriptions.
     for route, data in EDITORIAL.items():

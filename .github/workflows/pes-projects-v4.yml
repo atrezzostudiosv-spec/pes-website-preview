@@ -1,0 +1,28 @@
+name: PES Projects V4 QA
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['portfolio/**','hillside/**','laurel-way/**','st-cloud/**','assets/pes-projects-v4.css','assets/projects-v4/**','scripts/build_projects_v4.mjs','data/projects-v3.json','qa/projects-v4.py','.github/workflows/pes-projects-v4.yml']
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install playwright==1.56.0
+      - run: python -m playwright install --with-deps chromium webkit
+      - run: python qa/projects-v4.py
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: projects-v4-evidence
+          path: projects-v4-qa/

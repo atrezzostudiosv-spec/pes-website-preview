@@ -1,6 +1,6 @@
 {
-  "schema_version": 1,
-  "presentation": "review_preview",
+  "schema_version": 2,
+  "presentation": "design_review_candidate",
   "projects": [
     {
       "slug": "hillside",
@@ -8,7 +8,7 @@
       "location": "Hollywood, California",
       "property_type": "Single-family residence",
       "completion": "2019",
-      "project_area": null,
+      "project_area": "1,687 m² (architect's published project area)",
       "overview": "Hillside is a residential project in the Premium Energy Solutions portfolio, completed in 2019. Its architectural photography offers a closer look at the home and its relationship with the Los Angeles landscape.",
       "pes_scope": "Premium Energy Solutions carried out the complete electrical installation throughout the residence. Our work provided the electrical foundation for this custom home.",
       "scope_details": [],
@@ -17,22 +17,140 @@
       "installation_details": null,
       "project_coordination": null,
       "final_result": null,
-      "hero": {"src": "assets/media/PES-017.jpg", "alt": "Illuminated Hillside exterior and courtyard at night", "source": "PES original website, Hillside Finish 2-47.jpg", "authorization": "review_preview"},
+      "hero": {
+        "src": "assets/media/PES-017.jpg",
+        "alt": "Illuminated Hillside exterior and courtyard at night",
+        "source": "PES original website, Hillside Finish 2-47.jpg",
+        "authorization": "review_preview",
+        "width": 1500,
+        "height": 1001,
+        "photographer": null
+      },
       "gallery": [
-        {"src": "assets/media/PES-007.jpg", "alt": "Hillside living area opening to an evening terrace", "source": "PES original website, Hillside-JesterJungco-8.jpg", "authorization": "review_preview"},
-        {"src": "assets/media/PES-003.jpg", "alt": "Sculptural ceiling luminaires in the Hillside living area", "source": "PES original website, Hillside Finish 2-31.jpg", "authorization": "review_preview"},
-        {"src": "assets/media/PES-011.jpg", "alt": "Linear interior lighting beside the Hillside terrace", "source": "PES original website, Hillside-JesterJungco-33.jpg", "authorization": "review_preview"}
+        {
+          "src": "assets/media/PES-007.jpg",
+          "alt": "Integrated lighting around covered terrace",
+          "source": "https://images.squarespace-cdn.com/content/v1/5c7f909090f904a653a294e1/1652958662639-WBMW7KPIEXZ8XWQ26N9U/Hillside-JesterJungco-8.jpg",
+          "width": 1500,
+          "height": 1001,
+          "authorization": "review_preview",
+          "photographer": null
+        },
+        {
+          "src": "assets/media/PES-003.jpg",
+          "alt": "Sculptural ceiling luminaires in living space",
+          "source": "https://images.squarespace-cdn.com/content/v1/5c7f909090f904a653a294e1/1652958580653-81BQOT9S2RC07DTMJAZF/Hillside+Finish+2-31.jpg",
+          "width": 1500,
+          "height": 1001,
+          "authorization": "review_preview",
+          "photographer": null
+        },
+        {
+          "src": "assets/media/PES-011.jpg",
+          "alt": "Linear lighting and terrace outlook",
+          "source": "https://images.squarespace-cdn.com/content/v1/5c7f909090f904a653a294e1/1652958733723-15Q7TBGOB959EC67ZQ9S/Hillside-JesterJungco-33.jpg",
+          "width": 1500,
+          "height": 1001,
+          "authorization": "review_preview",
+          "photographer": null
+        },
+        {
+          "src": "assets/media/PES-008.jpg",
+          "alt": "Geometric linear lighting in private cinema",
+          "source": "https://images.squarespace-cdn.com/content/v1/5c7f909090f904a653a294e1/1652958700336-ZCR2D9VDRG3U2MOVQKW4/Hillside-JesterJungco-37.jpg",
+          "width": 1500,
+          "height": 1001,
+          "authorization": "review_preview",
+          "photographer": null
+        },
+        {
+          "src": "assets/media/PES-012.jpg",
+          "alt": "Illuminated bedroom cabinetry and timber ceiling",
+          "source": "https://images.squarespace-cdn.com/content/v1/5c7f909090f904a653a294e1/1652958806856-8L1JMTB2AZNSINDFNAQS/Hillside-JesterJungco-26.jpg",
+          "width": 1500,
+          "height": 1001,
+          "authorization": "review_preview",
+          "photographer": null
+        },
+        {
+          "src": "assets/media/PES-014.jpg",
+          "alt": "Integrated bathroom and mirror lighting",
+          "source": "https://images.squarespace-cdn.com/content/v1/5c7f909090f904a653a294e1/1652958754742-TYPMY23RWGKNWFKD307F/Hillside-JesterJungco-21.jpg",
+          "width": 1500,
+          "height": 1001,
+          "authorization": "review_preview",
+          "photographer": null
+        },
+        {
+          "src": "assets/media/PES-016.jpg",
+          "alt": "Hillside home office with integrated linear ceiling lighting",
+          "source": "https://images.squarespace-cdn.com/content/v1/5c7f909090f904a653a294e1/1652958785585-AP7QZQGDHIL3YKS2S93R/Hillside+Finish+2-40.jpg",
+          "width": 1500,
+          "height": 1001,
+          "authorization": "review_preview",
+          "photographer": null
+        }
       ],
       "credits": [
-        {"role": "Electrical installation", "name": "Premium Energy Solutions, Inc.", "source": "PES project director", "verified": true},
-        {"role": "Design architect", "name": "SAOTA", "source": "https://www.saota.com/hillside/", "verified": true},
-        {"role": "Architect of record", "name": "Woods + Dangaran", "source": "https://www.saota.com/hillside/", "verified": true},
-        {"role": "Lighting design", "name": "Lux Populi", "source": "https://www.saota.com/hillside/", "verified": true},
-        {"role": "Project management", "name": "Park Lane Projects", "source": "PES V3 brief", "verified": true},
-        {"role": "General contractor", "name": "Fortis Development", "source": "PES V3 brief", "verified": true},
-        {"role": "Interior design", "name": "MASS Beverly", "source": "PES V3 brief", "verified": true},
-        {"role": "Landscaping", "name": "Chris Sosa", "source": "PES V3 brief", "verified": true}
-      ]
+        {
+          "role": "Electrical installation",
+          "name": "Premium Energy Solutions, Inc.",
+          "source": "PES project director",
+          "verified": true
+        },
+        {
+          "role": "Design architect",
+          "name": "SAOTA",
+          "source": "https://www.saota.com/hillside/",
+          "verified": true
+        },
+        {
+          "role": "Architect of record",
+          "name": "Woods + Dangaran",
+          "source": "https://www.saota.com/hillside/",
+          "verified": true
+        },
+        {
+          "role": "Lighting design",
+          "name": "Lux Populi",
+          "source": "https://www.saota.com/hillside/",
+          "verified": true
+        },
+        {
+          "role": "Project management",
+          "name": "Park Lane Projects",
+          "source": "https://www.saota.com/hillside/",
+          "verified": true
+        },
+        {
+          "role": "General contractor",
+          "name": "Fortis Development",
+          "source": "https://www.saota.com/hillside/",
+          "verified": true
+        },
+        {
+          "role": "Interior design",
+          "name": "MASS Beverly",
+          "source": "https://www.saota.com/hillside/",
+          "verified": true
+        },
+        {
+          "role": "Landscaping",
+          "name": "Chris Sosa",
+          "source": "https://www.saota.com/hillside/",
+          "verified": true
+        }
+      ],
+      "field_sources": {
+        "location": "PES portfolio / content master",
+        "property_type": "SAOTA / PES portfolio",
+        "completion": "https://www.saota.com/hillside/",
+        "project_area": "https://www.saota.com/hillside/",
+        "pes_scope": "PES project director / content master"
+      },
+      "media_status": "review_preview_only",
+      "publication_approval": null,
+      "technical_media": []
     },
     {
       "slug": "laurel-way",
@@ -49,9 +167,22 @@
       "installation_details": null,
       "project_coordination": null,
       "final_result": null,
-      "hero": {"src": "assets/media/projects/laurel-way-electrical-installation-1600.webp", "src_small": "assets/media/projects/laurel-way-electrical-installation-800.webp", "alt": "PES electrician working among conduit and wiring at the Laurel Way project", "source": "Google Drive PES_1000+Laurel+90210-156.webp", "authorization": "review_preview"},
+      "hero": {
+        "src": "assets/media/projects/laurel-way-electrical-installation-1600.webp",
+        "src_small": "assets/media/projects/laurel-way-electrical-installation-800.webp",
+        "alt": "PES electrician working among conduit and wiring at the Laurel Way project",
+        "source": "Google Drive PES_1000+Laurel+90210-156.webp",
+        "authorization": "review_preview"
+      },
       "gallery": [],
-      "credits": []
+      "credits": [],
+      "field_sources": {
+        "location": "PES portfolio / content master",
+        "property_type": "PES portfolio / content master"
+      },
+      "media_status": "review_preview_only",
+      "publication_approval": null,
+      "technical_media": []
     },
     {
       "slug": "st-cloud",
@@ -70,7 +201,14 @@
       "final_result": null,
       "hero": null,
       "gallery": [],
-      "credits": []
+      "credits": [],
+      "field_sources": {
+        "location": "PES portfolio / content master",
+        "property_type": "PES portfolio / content master"
+      },
+      "media_status": "review_preview_only",
+      "publication_approval": null,
+      "technical_media": []
     }
   ]
 }
