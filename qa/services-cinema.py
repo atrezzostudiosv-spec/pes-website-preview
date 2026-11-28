@@ -203,6 +203,10 @@ def paced_touch(b,w,h):
         def active():
             return sec.locator('[data-collection-counter]').inner_text()
         chapter(0)
+        # Direct tab clicks can leave WebKit outside the pinned track. Enter it
+        # explicitly before sending synthetic touch events to the stage.
+        p.evaluate("() => { const t=document.querySelector('#pes-services [data-collection-track]'); window.scrollTo({top:t.getBoundingClientRect().top+scrollY+16,behavior:'instant'}) }")
+        p.wait_for_function("() => {const r=document.querySelector('#pes-services [data-collection-stage]').getBoundingClientRect();return r.top<=innerHeight*.6&&r.bottom>=innerHeight*.4}")
         assert swipe(h*3)
         p.wait_for_timeout(500);assert active()=='02 / 05',active()
         assert swipe(h*3)
