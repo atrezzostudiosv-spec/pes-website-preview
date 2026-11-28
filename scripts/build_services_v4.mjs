@@ -10,7 +10,7 @@ function renderServices(files){
  const config=[
  ["lighting-systems","System lighting","upgrade.","Electrical distribution and control equipment","034","037","Electrical installation detail","technical"],
  ["automated-window-coverings","Automated window","coverings.","Automated window coverings in a residence","039",null,null,"shade"],
- ["lighting-design","Lighting design","and installation.","Interior and terrace with architectural lighting","007",null,null,"light"],
+ ["lighting-design","Lighting design","and installation.","Integrated ceiling and architectural lighting in a residence with an open terrace","010",null,null,"light"],
  ["power-quality-and-energy-management","Power quality","and energy management.","Electrical distribution equipment","035",null,null,"technical"],
  ["ev-charging","EV charger","installations.","Electric vehicle connected to charging equipment","048","022","Wall-mounted electric vehicle charging equipment","ev"]
  ];
@@ -23,7 +23,7 @@ function renderServices(files){
  if(hb.length!==6)throw Error("Unexpected master hub blocks");
  const hubItems=hb.slice(1).map(([title,body],i)=>{const c=config[i];return `<li><a href="${c[0]}/"><span class="sv4-no">0${i+1}</span><span><strong>${E(title)}</strong><small>${E(body)}</small></span><span class="sv4-arrow" aria-hidden="true">↗</span></a></li>`;}).join("");
  const hubScene=extractScene(files[hub],"ATZ-SEC-008");
- const hubMarkup=`<section class="ui sv4-hero sv4-hero--hub" data-pes-editorial>${image("017","Contemporary residential exterior with architectural lighting at night","../",true)}<div class="wrap sv4-hero-copy"><p class="eyebrow">PES / OUR SERVICES</p><h1>Electrical<br><strong>services.</strong></h1><span class="sv4-rule"></span><p>${E(hb[0][1])}</p><a class="sv4-link" href="#service-index">Explore our services ↓</a></div></section>
+ const hubMarkup=`<section class="ui sv4-hero sv4-hero--hub" data-pes-editorial>${image("009","Illuminated terrace overlooking Los Angeles at night","../",true)}<div class="wrap sv4-hero-copy"><p class="eyebrow">PES / OUR SERVICES</p><h1>Electrical<br><strong>services.</strong></h1><span class="sv4-rule"></span><p>${E(hb[0][1])}</p><a class="sv4-link" href="#service-index">Explore our services ↓</a></div></section>
 <section class="ui sv4-index" id="service-index" data-pes-editorial><div class="wrap"><p class="eyebrow">PES / FIVE SERVICE AREAS</p><h2>Explore our<br><strong>capabilities.</strong></h2><span class="sv4-rule"></span><ol>${hubItems}</ol></div></section>
 ${hubScene}
 <section class="ui sv4-duo"><div class="wrap">${[3,4].map(i=>`<article data-pes-editorial><a class="sv4-media" href="${config[i][0]}/">${image(config[i][4],config[i][3],"../")}</a><p class="eyebrow">0${i+1} / PES</p><h2>${E(hb[i+1][0])}</h2><p>${E(hb[i+1][1])}</p><a class="sv4-link" href="${config[i][0]}/">Explore service ↗</a></article>`).join("")}</div></section>

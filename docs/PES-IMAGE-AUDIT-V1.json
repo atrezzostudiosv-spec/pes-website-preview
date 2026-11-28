@@ -1,0 +1,159 @@
+{
+  "scope": "PES review preview; not production rights clearance",
+  "base": "1f9f3dea1fe6bc54bbb6b47461225ed3296386dd",
+  "source_repository": "atrezzostudiosv-spec/client-premiumenergysolutionsinc-com-4ef9893178",
+  "source_branch": "atrezzo-production-readiness",
+  "drive_matches": [
+    {
+      "file": "Hillside-JesterJungco-45.jpg",
+      "drive_id": "1Af1N45z93mhCF9ub1iucQcHbG5iWwI01",
+      "imported_optimized_variant": "PES-005.jpg"
+    },
+    {
+      "file": "Hillside-JesterJungco-23.jpg",
+      "drive_id": "1iAcwHSNFppaONq_w5PajdR__QXlztpIR",
+      "imported_optimized_variant": "PES-013.jpg"
+    }
+  ],
+  "new_assets": [
+    {
+      "path": "assets/media/PES-004.jpg",
+      "original_name": "Hillside-JesterJungco-2.jpg",
+      "source": "https://images.squarespace-cdn.com/content/v1/5c7f909090f904a653a294e1/1652958618146-27S56QMA6FT1GEX8ROS5/Hillside-JesterJungco-2.jpg",
+      "git_blob": "a21fe1fa65b01ae27c50051a1c4fff21119f5dab"
+    },
+    {
+      "path": "assets/media/PES-005.jpg",
+      "original_name": "Hillside-JesterJungco-45.jpg",
+      "source": "https://images.squarespace-cdn.com/content/v1/5c7f909090f904a653a294e1/1652958580651-7KKGIF9JG7UF3G4JTVCR/Hillside-JesterJungco-45.jpg",
+      "git_blob": "f81a06ad27a962db4abb31bff135e981cc8399e8"
+    },
+    {
+      "path": "assets/media/PES-006.jpg",
+      "original_name": "Hillside-JesterJungco-15.jpg",
+      "source": "https://images.squarespace-cdn.com/content/v1/5c7f909090f904a653a294e1/1652958616105-WK8USOB4B5VIM9AHLVMI/Hillside-JesterJungco-15.jpg",
+      "git_blob": "a12b95e1f7e5915fe472adf441a51a445bff7441"
+    },
+    {
+      "path": "assets/media/PES-009.jpg",
+      "original_name": "Hillside-JesterJungco-47.jpg",
+      "source": "https://images.squarespace-cdn.com/content/v1/5c7f909090f904a653a294e1/1652958707587-SUD5MBSEY3NGOCFBVF4Z/Hillside-JesterJungco-47.jpg",
+      "git_blob": "2f2fc71fc58c1176957370fd413fd190c3b1d2e8"
+    },
+    {
+      "path": "assets/media/PES-010.jpg",
+      "original_name": "Hillside-JesterJungco.jpg",
+      "source": "https://images.squarespace-cdn.com/content/v1/5c7f909090f904a653a294e1/1652958733717-2SDDSDBP3S2SZRZ176AD/Hillside-JesterJungco.jpg",
+      "git_blob": "fb621c34df0f0ab236144ad912c05a7c5188881f"
+    },
+    {
+      "path": "assets/media/PES-013.jpg",
+      "original_name": "Hillside-JesterJungco-23.jpg",
+      "source": "https://images.squarespace-cdn.com/content/v1/5c7f909090f904a653a294e1/1652958766340-0KV8ASXAY5YC83DAXBL0/Hillside-JesterJungco-23.jpg",
+      "git_blob": "f827fe0e91be506f31ec142dc38022cd31e7dc2e"
+    },
+    {
+      "path": "assets/media/PES-015.jpg",
+      "original_name": "Hillside-JesterJungco-14.jpg",
+      "source": "https://images.squarespace-cdn.com/content/v1/5c7f909090f904a653a294e1/1652958784723-GBWNT4O5ZB6JM3XNNIVA/Hillside-JesterJungco-14.jpg",
+      "git_blob": "bdc086259d1f9194acab3b262635729250aa0c81"
+    },
+    {
+      "path": "assets/media/PES-038.jpg",
+      "original_name": "Hillside Finish 2-16.jpg",
+      "source": "https://images.squarespace-cdn.com/content/v1/5c7f909090f904a653a294e1/1653319798988-LX2JLYYG4222YYSAS90Q/Hillside+Finish+2-16.jpg",
+      "git_blob": "21b0c95b768f92297f599b092ee5ab963a3d3b5b"
+    },
+    {
+      "path": "assets/media/PES-040.jpg",
+      "original_name": "banner ligthing pes.jpg",
+      "source": "https://images.squarespace-cdn.com/content/v1/5c7f909090f904a653a294e1/1653318849072-UOUR3SVED8UO8K2JATBP/banner+ligthing+pes.jpg",
+      "git_blob": "642df90b479be6f1b14c4a5ecd31bd83f158746a"
+    }
+  ],
+  "changes": [
+    {
+      "path": "index.html",
+      "from": "003",
+      "to": "005",
+      "alt": "Living and kitchen space with gold pendant luminaires"
+    },
+    {
+      "path": "index.html",
+      "from": "035",
+      "to": "036",
+      "alt": "Electrical distribution cabinets and conduit"
+    },
+    {
+      "path": "index.html",
+      "from": "008",
+      "to": "006",
+      "alt": "Linear sculptural ceiling light and integrated shelving illumination"
+    },
+    {
+      "path": "capabilities/index.html",
+      "from": "017",
+      "to": "009",
+      "alt": "Illuminated terrace overlooking Los Angeles at night"
+    },
+    {
+      "path": "capabilities/index.html",
+      "from": "035",
+      "to": "038",
+      "alt": "Electrical distribution and control cabinets viewed along the installation"
+    },
+    {
+      "path": "capabilities/index.html",
+      "from": "003",
+      "to": "040",
+      "alt": "Living area with geometric suspended luminaires"
+    },
+    {
+      "path": "capabilities/lighting-design/index.html",
+      "from": "007",
+      "to": "010",
+      "alt": "Integrated ceiling and architectural lighting in a residence with an open terrace"
+    },
+    {
+      "path": "capabilities/lighting-design/index.html",
+      "from": "003",
+      "to": "015",
+      "alt": "Sculptural linear pendant and wall lighting in a residential lounge"
+    },
+    {
+      "path": "contact/index.html",
+      "from": "049",
+      "to": "030",
+      "alt": "Illuminated Hillside residence and Los Angeles skyline at night"
+    },
+    {
+      "path": "hillside/index.html",
+      "from": "012",
+      "to": "004",
+      "alt": "Hillside bedroom with integrated timber ceiling lighting and balcony"
+    },
+    {
+      "path": "hillside/index.html",
+      "from": "014",
+      "to": "013",
+      "alt": "Hillside bathroom with illuminated mirror and recessed ceiling lighting"
+    },
+    {
+      "path": "hillside/index.html",
+      "change": "Remove redundant next-project cover; retain typographic navigation"
+    },
+    {
+      "path": "st-cloud/index.html",
+      "change": "Remove redundant next-project cover; retain typographic navigation"
+    }
+  ],
+  "exceptions": [
+    "Home approved 9-photo mosaic kept intact; its video poster and common menu image are not independent editorial uses.",
+    "Responsive Why Us desktop/mobile frames share an image but only one representation is displayed per layout.",
+    "Project index cover identifies destination; keep same cover as case-study hero.",
+    "Only one verified shade photo (PES-039; PES-020 is byte-identical) and two EV photos; preserve subject accuracy rather than use unrelated media.",
+    "Several Hillside photos still appear in both Home mosaic and case study or service scenes; further diversification requires additional optimized Drive files.",
+    "Three additional Drive photos inspected: Hillside-JesterJungco-28, -36, -44. Original file transfer to GitHub failed with transport error; not deployed."
+  ],
+  "limitations": "Exact reference audit, source manifest comparison and visual inspection of selected alternatives. Browser screenshots and perceptual hash across all files not yet verified."
+}
