@@ -192,6 +192,9 @@ def dynamic_mobile(b,w,h):
     finally:ctx.close()
 def paced_touch(b,w,h):
     ctx=b.new_context(viewport={'width':w,'height':h},is_mobile=True,has_touch=True,device_scale_factor=1)
+    # Playwright WebKit exposes maxTouchPoints=0 even with has_touch=True.
+    # Represent a real touch device for this synthetic gesture test.
+    ctx.add_init_script("Object.defineProperty(Navigator.prototype,'maxTouchPoints',{get:()=>1})")
     p=ctx.new_page()
     errors=[];p.on('pageerror',lambda e:errors.append(str(e)))
     try:
