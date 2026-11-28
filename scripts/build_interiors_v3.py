@@ -200,34 +200,12 @@ def add_editorial(route: str, content: str) -> None:
     target.write_text(current)
 
 
-def existing_pages() -> None:
-    # Services V4 owns the capabilities routes.
-    route = '/careers/'
-    blocks = split_copy(EDITORIAL[route]['editorial_approved'])
-    # Current positions are not verified; use the master to present PES culture and historical benefits.
-    content = ''.join(text_section(i, heading, body, dark=i == 2) for i,(heading,body) in enumerate(blocks[2:4],1))
-    content += '<p class="ui iv3-source wrap">Role profiles and benefits are retained for review. Current openings and terms require confirmation from PES.</p>'
-    add_editorial(route, content)
-    route = '/contact/'
-    content = '<section class="ui iv3-text" data-pes-editorial><div class="wrap iv3-text__grid"><p class="eyebrow">PES / LOS ANGELES</p><div><h2>Where we work.</h2><p>Serving Los Angeles, including Santa Monica, Pacific Palisades, Westwood and Beverly Hills. To discuss an electrical project or request an estimate, call <a href="tel:+12135873257">213-587-3257</a>.</p></div></div></section>'
-    add_editorial(route, content)
-
-
 def main() -> None:
     import subprocess
     subprocess.run(['node', str(ROOT / 'scripts/build_services_v4.mjs')], check=True)
     # Projects V4 owns these routes; never overwrite its master template.
     subprocess.run(['node', str(ROOT / 'scripts/build_projects_v4.mjs')], check=True)
-    existing_pages()
-    # Archived role descriptions remain intact; only add search descriptions.
-    for route, data in EDITORIAL.items():
-        if not route.startswith('/careers/') or route == '/careers/':
-            continue
-        target = path(route)
-        current = target.read_text()
-        if not re.search(r'<meta name="description"[^>]*>', current):
-            current = current.replace('</title>', f'</title><meta name="description" content="{E(data["seo_description"], quote=True)}">', 1)
-            target.write_text(current)
+    subprocess.run(['node', str(ROOT / 'scripts/build_people_v4.mjs')], check=True)
     print('Built PES Interiors V3: 16 internal routes; Home and Why Us untouched.')
 
 
