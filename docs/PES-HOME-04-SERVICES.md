@@ -11,3 +11,6 @@ Strengthen the existing shared horizontal gradient to 85% black at left, 55% at 
 User identified the repeated electrical room across Services and the following Handoff. System Lighting Upgrade now uses the existing real PES lighting installation photograph (why-us/lighting-installation.webp), with a 50% 48% focal point. Power Quality retains the single contextual electrical-room photograph PES-035. No engine, layout, copy or timing changes. The image is also used on Why Us; that cross-page repetition is tracked for future source-media diversification. Visual crop review pending.
 
 User requested swapping the two Home installation photographs. System Lighting Upgrade now uses behind-the-scenes.webp with a higher focal point to preserve the worker's hands and framing. Copy and engine unchanged.
+
+## Lighting controls — 2026-11-28
+User supplied and approved the AI-adapted illustrative lighting-control image for the first Home service slide. Optimized from the supplied 1672 × 941 PNG to WebP, 118210 bytes. Source is an illustrative product context, not a verified PES project photograph or verified exact Lutron model. Keep it exclusive to this Home slide. Focal point left/bottom to preserve the control under responsive cover; desktop and mobile visual crop pending. No copy, motion, layout or metadata changes.
