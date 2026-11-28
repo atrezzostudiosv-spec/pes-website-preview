@@ -1,0 +1,30 @@
+name: PES SEO V1 QA
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '**/index.html'
+      - 'index.html'
+      - 'data/seo-v1.json'
+      - 'scripts/pes-seo.mjs'
+      - 'scripts/build_*'
+      - 'assets/brand/pes-social-card.png'
+      - 'qa/seo-v1.py'
+      - 'robots.txt'
+      - '.github/workflows/pes-seo-v1.yml'
+permissions:
+  contents: read
+jobs:
+  metadata:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: node scripts/pes-seo.mjs --check
+      - run: python qa/seo-v1.py

@@ -1,3 +1,4 @@
+import {withSeo} from './pes-seo.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -40,4 +41,4 @@ function renderPeople(files){
 }
 const paths=["careers/index.html","careers/foreman/index.html","careers/journeyman/index.html","careers/electrician/index.html","careers/apprentice/index.html","contact/index.html","data/editorial-v3.json"];
 const files=Object.fromEntries(paths.map(p=>[p,fs.readFileSync(path.join(root,p),'utf8')]));
-for(const [p,c] of Object.entries(renderPeople(files)))fs.writeFileSync(path.join(root,p),c);
+for(const [p,c] of Object.entries(renderPeople(files)))fs.writeFileSync(path.join(root,p),withSeo(c,p));

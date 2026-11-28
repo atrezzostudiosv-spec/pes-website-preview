@@ -1,2 +1,10 @@
+# PES preview: search indexing stays blocked; permit social preview agents to fetch metadata.
+User-agent: facebookexternalhit
+User-agent: Facebot
+User-agent: Twitterbot
+User-agent: LinkedInBot
+User-agent: WhatsApp
+Allow: /
+
 User-agent: *
 Disallow: /

@@ -1,9 +1,10 @@
+import {withSeo} from './pes-seo.mjs';
 import fs from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const read=p=>fs.readFileSync(path.join(ROOT,p),'utf8');
-const write=(p,c)=>fs.writeFileSync(path.join(ROOT,p),c);
+const write=(p,c)=>fs.writeFileSync(path.join(ROOT,p),withSeo(c,p));
 function esc(v){return String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;")}
 function photo(m,priority=false){if(!m)return "";const dim=m.width&&m.height?` width="${m.width}" height="${m.height}"`:"";return `<img src="../${esc(m.src)}"${m.src_small?` srcset="../${esc(m.src_small)} 800w, ../${esc(m.src)} 1600w" sizes="100vw"`:""}${dim} alt="${esc(m.alt)}" ${priority?'fetchpriority="high"':'loading="lazy"'} decoding="async">`}
 function pending(label,desc){return `<div class="pv4-pending" data-review-only hidden><span class="pv4-pending-label">TO BE PROVIDED</span><strong>${esc(label)}</strong><p>${esc(desc)}</p></div>`}

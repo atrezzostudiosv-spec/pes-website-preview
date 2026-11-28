@@ -1,0 +1,259 @@
+{
+  "version": 1,
+  "preview_base": "https://atrezzostudiosv-spec.github.io/pes-website-preview/",
+  "production_base": "https://www.premiumenergysolutionsinc.com/",
+  "organization": "Premium Energy Solutions, Inc.",
+  "phone": "+1-213-587-3257",
+  "pages": [
+    {
+      "route": "",
+      "title": "High-End Electrical & Lighting in Los Angeles | PES",
+      "description": "Premium Energy Solutions provides high-end electrical installation, architectural lighting and lighting controls for luxury and custom homes in Los Angeles.",
+      "label": "Home",
+      "image": {
+        "path": "assets/brand/pes-social-card.png",
+        "width": 1200,
+        "height": 630,
+        "alt": "Premium Energy Solutions logo in corporate green on black"
+      },
+      "type": "WebPage"
+    },
+    {
+      "route": "about/",
+      "title": "About PES | Los Angeles Electrical Contractor Since 2007",
+      "description": "Meet Premium Energy Solutions, established in 2007 and specializing in electrical and lighting work for luxury and custom homes in Los Angeles.",
+      "label": "Why Us",
+      "image": {
+        "path": "assets/brand/pes-social-card.png",
+        "width": 1200,
+        "height": 630,
+        "alt": "Premium Energy Solutions logo in corporate green on black"
+      },
+      "type": "AboutPage"
+    },
+    {
+      "route": "portfolio/",
+      "title": "Luxury Residential Electrical Projects in Los Angeles | PES",
+      "description": "Explore the residential portfolio of Premium Energy Solutions, including Hillside, Laurel Way and St. Cloud in Los Angeles.",
+      "label": "Projects",
+      "image": {
+        "path": "assets/media/PES-017.jpg",
+        "width": 1500,
+        "height": 1001,
+        "alt": "Illuminated Hillside residence and courtyard at night"
+      },
+      "type": "CollectionPage"
+    },
+    {
+      "route": "hillside/",
+      "title": "Hillside Electrical Installation in Hollywood | PES",
+      "description": "Explore Hillside, a Hollywood residence completed in 2019 where PES carried out the complete electrical installation throughout the home.",
+      "label": "Hillside",
+      "image": {
+        "path": "assets/media/PES-017.jpg",
+        "width": 1500,
+        "height": 1001,
+        "alt": "Hillside exterior and courtyard illuminated at night"
+      },
+      "type": "WebPage",
+      "parent": "portfolio/"
+    },
+    {
+      "route": "laurel-way/",
+      "title": "Laurel Way Residence in Beverly Hills | PES",
+      "description": "Discover Laurel Way, a Beverly Hills residence featured in the Premium Energy Solutions residential portfolio.",
+      "label": "Laurel Way",
+      "image": {
+        "path": "assets/brand/pes-social-card.png",
+        "width": 1200,
+        "height": 630,
+        "alt": "Premium Energy Solutions logo in corporate green on black"
+      },
+      "type": "WebPage",
+      "parent": "portfolio/"
+    },
+    {
+      "route": "st-cloud/",
+      "title": "St. Cloud Residence in Bel-Air | PES",
+      "description": "Discover St. Cloud, a Bel-Air residence featured in the Premium Energy Solutions residential portfolio.",
+      "label": "St. Cloud",
+      "image": {
+        "path": "assets/brand/pes-social-card.png",
+        "width": 1200,
+        "height": 630,
+        "alt": "Premium Energy Solutions logo in corporate green on black"
+      },
+      "type": "WebPage",
+      "parent": "portfolio/"
+    },
+    {
+      "route": "capabilities/",
+      "title": "Electrical & Lighting Services in Los Angeles | PES",
+      "description": "Explore PES lighting system upgrades, architectural lighting, automated window coverings and EV charger installations in Los Angeles.",
+      "label": "Services",
+      "image": {
+        "path": "assets/media/PES-009.jpg",
+        "width": 1500,
+        "height": 1001,
+        "alt": "Architectural lighting on a residential terrace overlooking Los Angeles"
+      },
+      "type": "CollectionPage"
+    },
+    {
+      "route": "capabilities/lighting-systems/",
+      "title": "Lighting System Upgrades in Los Angeles | PES",
+      "description": "Discuss lighting control upgrades, electrical panel capacity and wiring upgrades for Los Angeles homes and businesses with Premium Energy Solutions.",
+      "label": "System Lighting Upgrade",
+      "image": {
+        "path": "assets/media/PES-034.jpg",
+        "width": 1500,
+        "height": 1001,
+        "alt": "Electrical distribution and control equipment"
+      },
+      "type": "WebPage",
+      "parent": "capabilities/",
+      "service": "Lighting system upgrades"
+    },
+    {
+      "route": "capabilities/automated-window-coverings/",
+      "title": "Automated Window Coverings in Los Angeles | PES",
+      "description": "Explore automated window treatments and Lutron shading solutions for daylight management and privacy in Los Angeles homes with PES.",
+      "label": "Automated Window Coverings",
+      "image": {
+        "path": "assets/media/PES-039.jpg",
+        "width": 1500,
+        "height": 1001,
+        "alt": "Residential interior with lowered window shades"
+      },
+      "type": "WebPage",
+      "parent": "capabilities/",
+      "service": "Automated window coverings"
+    },
+    {
+      "route": "capabilities/lighting-design/",
+      "title": "Lighting Design & Installation in Los Angeles | PES",
+      "description": "PES works with lighting designers on customized fixtures, architectural lighting installation and smart lighting controls in Los Angeles.",
+      "label": "Lighting Design and Installation",
+      "image": {
+        "path": "assets/media/PES-010.jpg",
+        "width": 1500,
+        "height": 1001,
+        "alt": "Residential interior with integrated ceiling lighting"
+      },
+      "type": "WebPage",
+      "parent": "capabilities/",
+      "service": "Lighting design and installation"
+    },
+    {
+      "route": "capabilities/power-quality-and-energy-management/",
+      "title": "Power Quality & Energy Management | PES",
+      "description": "Explore the fundamentals of power quality, electrical stability and energy management. Discuss your electrical project with PES in Los Angeles.",
+      "label": "Power Quality and Energy Management",
+      "image": {
+        "path": "assets/brand/pes-social-card.png",
+        "width": 1200,
+        "height": 630,
+        "alt": "Premium Energy Solutions logo in corporate green on black"
+      },
+      "type": "WebPage",
+      "parent": "capabilities/"
+    },
+    {
+      "route": "capabilities/ev-charging/",
+      "title": "EV Charger Installation in Los Angeles | PES",
+      "description": "Explore residential and commercial electric vehicle charging installation solutions from Premium Energy Solutions in Los Angeles.",
+      "label": "EV Charger Installations",
+      "image": {
+        "path": "assets/media/PES-048.jpg",
+        "width": 1500,
+        "height": 563,
+        "alt": "Electric vehicle connected to charging equipment"
+      },
+      "type": "WebPage",
+      "parent": "capabilities/",
+      "service": "EV charger installations"
+    },
+    {
+      "route": "careers/",
+      "title": "Electrical Careers & Role Profiles in Los Angeles | PES",
+      "description": "Explore electrical foreman, journeyman, electrician and apprentice role profiles at PES. Contact the team to confirm current opportunities.",
+      "label": "Careers",
+      "image": {
+        "path": "assets/brand/pes-social-card.png",
+        "width": 1200,
+        "height": 630,
+        "alt": "Premium Energy Solutions logo in corporate green on black"
+      },
+      "type": "CollectionPage"
+    },
+    {
+      "route": "careers/foreman/",
+      "title": "Residential Electrical Foreman | PES Careers",
+      "description": "Explore the residential electrical foreman role profile at Premium Energy Solutions in Los Angeles. Current openings and terms require confirmation.",
+      "label": "Electrical Foreman",
+      "image": {
+        "path": "assets/brand/pes-social-card.png",
+        "width": 1200,
+        "height": 630,
+        "alt": "Premium Energy Solutions logo in corporate green on black"
+      },
+      "type": "WebPage",
+      "parent": "careers/"
+    },
+    {
+      "route": "careers/journeyman/",
+      "title": "Journeyman Electrician | PES Careers Los Angeles",
+      "description": "Explore the journeyman electrician role profile at PES in Los Angeles, including responsibilities and qualifications. Current openings are unconfirmed.",
+      "label": "Journeyman Electrician",
+      "image": {
+        "path": "assets/brand/pes-social-card.png",
+        "width": 1200,
+        "height": 630,
+        "alt": "Premium Energy Solutions logo in corporate green on black"
+      },
+      "type": "WebPage",
+      "parent": "careers/"
+    },
+    {
+      "route": "careers/electrician/",
+      "title": "Electrician Technician | PES Careers Los Angeles",
+      "description": "Explore the electrician technician role profile at PES in Los Angeles, including electrical work and qualifications. Current openings are unconfirmed.",
+      "label": "Electrician Technician",
+      "image": {
+        "path": "assets/brand/pes-social-card.png",
+        "width": 1200,
+        "height": 630,
+        "alt": "Premium Energy Solutions logo in corporate green on black"
+      },
+      "type": "WebPage",
+      "parent": "careers/"
+    },
+    {
+      "route": "careers/apprentice/",
+      "title": "Electrical Apprentice & Helper | PES Careers Los Angeles",
+      "description": "Explore the electrical apprentice and helper role profile at PES in Los Angeles. Contact the team to confirm current opportunities.",
+      "label": "Electrical Apprentice / Helper",
+      "image": {
+        "path": "assets/brand/pes-social-card.png",
+        "width": 1200,
+        "height": 630,
+        "alt": "Premium Energy Solutions logo in corporate green on black"
+      },
+      "type": "WebPage",
+      "parent": "careers/"
+    },
+    {
+      "route": "contact/",
+      "title": "Contact Premium Energy Solutions | Los Angeles Electrical",
+      "description": "Contact PES to discuss custom home electrical work, architectural lighting, automated shades, system upgrades and EV charging. Call 213-587-3257.",
+      "label": "Contact",
+      "image": {
+        "path": "assets/media/PES-030.jpg",
+        "width": 1500,
+        "height": 1124,
+        "alt": "Illuminated Hillside residence overlooking Los Angeles at night"
+      },
+      "type": "ContactPage"
+    }
+  ]
+}
