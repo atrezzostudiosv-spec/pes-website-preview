@@ -127,3 +127,24 @@
 /* Home 05 — approved Montserrat Light/Bold title pairing, both slides. */
 .pes-site.home #ats2-handoff .ats2-handoff-copy .ats2-scene-title{font-weight:var(--pes-weight-light);max-width:100%}
 .pes-site.home #ats2-handoff .ats2-handoff-copy .ats2-scene-title strong{font-weight:var(--pes-weight-bold);white-space:nowrap}
+
+/* Home 05 — desktop-only portrait composition: retain the real workers and
+   their working posture rather than stretching the portrait across the stage.
+   Native wipe, scale variable, reading holds and all touch layouts stay intact. */
+@media (min-width:1024px) and (hover:hover) and (pointer:fine){
+ .pes-site.home .ats2-enhanced #ats2-handoff .ats2-handoff-pane--first{
+  --pes-handoff-photo-width:min(63%,100svh);
+  background:#000;
+ }
+ .pes-site.home .ats2-enhanced #ats2-handoff .ats2-handoff-pane--first>img{
+  inset:0 0 0 auto;
+  width:var(--pes-handoff-photo-width);
+  height:100%;
+  object-fit:cover;
+  object-position:50% 70%;
+  transform-origin:right center;
+ }
+ .pes-site.home .ats2-enhanced #ats2-handoff .ats2-handoff-pane--first::after{
+  background:linear-gradient(90deg,#000 0%,#000 calc(100% - var(--pes-handoff-photo-width)),rgba(0,0,0,.86) calc(100% - var(--pes-handoff-photo-width) * .83),rgba(0,0,0,.35) calc(100% - var(--pes-handoff-photo-width) * .60),transparent calc(100% - var(--pes-handoff-photo-width) * .28)),linear-gradient(0deg,rgba(0,0,0,.48),transparent 58%);
+ }
+}

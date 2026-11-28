@@ -21,3 +21,6 @@ User found the 3.4-viewport pinned travel too long and requested a midpoint betw
 Replace the first Handoff photograph of the same electrical room with the existing real PES construction photograph why-us/behind-the-scenes.webp (2500 × 1669). The sequence now contrasts hands-on infrastructure execution with finished lighting. Second scene, copy, timing, gradients and engine preserved. The source also appears on Why Us; review cross-page diversification separately. Desktop/mobile visual crop not yet approved.
 
 User requested swapping the two Home installation photographs. Precision. Built in. now uses lighting-installation.webp with native image dimensions; second pane and motion unchanged. Visual crop pending review.
+
+## Desktop portrait framing — 2026-11-28
+The screenshot showed a portrait source enlarged to fill a landscape stage, cropping the workers. Desktop enhanced layout only (min 1024px, fine pointer and hover): keep the photo at the right, maximum width 63% of stage and 100svh, object-position 50% 70%, original scale with right transform origin, black left field and seamless stronger black gradient. Original pixels, copy, second scene, wipe, timing, mobile/touch and static fallback preserved. Desktop framing is a design candidate; verify at wide and standard screens.

@@ -28,6 +28,13 @@ with sync_playwright() as p:
     page.wait_for_function("document.querySelector('#ats2-handoff').closest('.ats2-scope').classList.contains('ats2-enhanced')")
     page.evaluate('document.fonts.ready')
     page.wait_for_function("window.ScrollTrigger && ScrollTrigger.getAll().some(t=>t.pin===document.querySelector('.pes-cinematic-interlude'))")
+    composition=scene.locator('.ats2-handoff-pane--first>img').evaluate("""e=>{const s=getComputedStyle(e),p=e.parentElement,r=p.getBoundingClientRect();return {desktop:matchMedia('(min-width:1024px) and (hover:hover) and (pointer:fine)').matches,width:parseFloat(s.width),height:parseFloat(s.height),paneWidth:r.width,paneHeight:r.height,position:s.objectPosition,fit:s.objectFit,scrim:getComputedStyle(p,'::after').backgroundImage}}""")
+    if composition['desktop']:
+     assert abs(composition['width']-min(.63*composition['paneWidth'],composition['paneHeight']))<2,composition
+     assert composition['position']=='50% 70%' and composition['fit']=='cover',composition
+     assert '0, 0, 0' in composition['scrim'],composition
+    else:
+     assert abs(composition['width']-composition['paneWidth'])<2,composition
     states=[]
     for q in [0,.15,.30,.50,.70,.85,.99,.85,.50,.30,.15]:
      scene.evaluate("""(e,q)=>window.scrollTo({top:e.getBoundingClientRect().top+scrollY+(e.offsetHeight-innerHeight)*q,behavior:'instant'})""",q)
