@@ -6,3 +6,6 @@ Scope: /portfolio/, /hillside/, /laurel-way/, /st-cloud/. Home, Why Us, services
 - Motion: shared MOT-001 and MOT-013; exact ATZ-MOT-003 and runtime from library c97b06285ae9e6555cc67904cf2ce42f7d2ed23b in projects-v4; first gallery image only, native scroll, no pinned scene. Reduced motion/no JS static. Original engines untouched. No artificial photos.
 - V3 builder now delegates project generation to Node V4 script. Normal preview renders confirmed content; design review remains available for visual evaluation. All publication approvals pending.
 - Technical QA: check project routes, review mode, links, image decode, normal/reduced/no-JS, viewport geometry, reversible parallax and screenshot artifacts. Visual acceptance required before further rollout.
+
+## Clean project hero — 2026-11-28
+Removed all three visible hero links (All projects, Explore the project, View full design layout) and the corresponding review return link from the shared project hero and all three project detail pages. Retained query-based review access via ?review=1 and its review-only banner. Portfolio navigation, header, footer, next-project and contact actions unchanged. Added regression assertion for zero links/buttons inside the project hero. No changes to photography, copy or motion.

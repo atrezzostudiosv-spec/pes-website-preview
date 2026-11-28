@@ -32,6 +32,7 @@ with sync_playwright() as p:
       if im.is_visible():im.evaluate('e=>{e.loading="eager";return e.decode()}')
      assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),(route,w,mode,review)
      if route!='portfolio':
+      assert page.locator('.pv4-hero a,.pv4-hero button').count()==0
       chapters=page.locator('[data-pv4-chapter]')
       assert chapters.count()==8
       if review:assert all(x.is_visible() for x in chapters.all()),(route,w)
