@@ -1,0 +1,2 @@
+# PES favicon V1
+Derived from the approved pes-logo-flat.svg P silhouette and original counter. Optical simplification for 16–32 px: black filled P on PES green #A2FD02, no subtitle, cable or glow. This is a favicon-only variant; the official logo is unchanged. SVG and 32 px PNG fallback are declared on all 18 review pages with relative paths suitable for GitHub Pages. Existing page builders retain head tags. Browser tab visual confirmation pending.
