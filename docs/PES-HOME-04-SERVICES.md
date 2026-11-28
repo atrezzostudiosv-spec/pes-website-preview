@@ -14,3 +14,6 @@ User requested swapping the two Home installation photographs. System Lighting U
 
 ## Lighting controls — 2026-11-28
 User supplied and approved the AI-adapted illustrative lighting-control image for the first Home service slide. Optimized from the supplied 1672 × 941 PNG to WebP, 118210 bytes. Source is an illustrative product context, not a verified PES project photograph or verified exact Lutron model. Keep it exclusive to this Home slide. Focal point left/bottom to preserve the control under responsive cover; desktop and mobile visual crop pending. No copy, motion, layout or metadata changes.
+
+## Lighting controls image — 2026-11-28
+User-selected Drive asset pes-lighting-controls.webp, an AI-adapted illustrative image, used only in Home System Lighting Upgrade. Not evidence of a PES installation or verified product model. Left focal point retains keypad on narrower screens; no change to text or motion. Visual overlay/crop review and production approval pending.
