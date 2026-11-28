@@ -20,3 +20,6 @@ Every existing and future customer-facing page loads assets/pes-motion-global.cs
 - Native scroll entry once, keyboard focus and reduced motion fail open. Content and links work without JS. Test desktop/mobile, exact layout, reverse and fast scroll, focus, reduced motion, no-JS, console and component coexistence. Do not certify production without visual review.
 
 Current rollout: 16 navigable pages. Technical/visual QA tracked separately.
+
+## V1.1 — native glyph alignment
+The split-letter reveal previously rendered independent inline-block glyphs, then restored the original kerned text after 1200 ms plus stagger. The PES adapter now measures each original glyph with DOM Range and offsets each visual glyph to the native position before animation starts. The native heading remains the flow/accessibility source; the vendor engine, timing and easing remain unmodified. Applies to global editorial headings and Our Specialty; the existing Services intro geometry adapter is unchanged. On responsive geometry changes during entry, fail open to static text. New browser regression compares final-position glyph geometry before cleanup and tests cleanup, mobile/desktop, reduced motion. Visual review still required.

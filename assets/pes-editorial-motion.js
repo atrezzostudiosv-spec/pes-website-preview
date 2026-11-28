@@ -1,4 +1,5 @@
 /* PES Motion V1 — coordination only. Original motors are unmodified. */
+import {alignTitleGlyphs,titleLayoutSignature} from './pes-title-glyphs.js';
 import {mount as reveal} from './vendor/pes-motion/motion/ATZ-MOT-001.js';
 import {mount as stagger} from './vendor/pes-motion/typography/ATZ-MOT-013.js';
 
@@ -12,7 +13,8 @@ export function mountEditorialMotion(section) {
   const br=heading?.querySelector('br');
   if(!label || !heading || !copy || !bold || !br) return;
   const instances=[],timers=[],originalNodes=[...heading.childNodes];
-  let observer, titleObserver, finished=false, overlay, source, ruleRoot;
+  let observer, titleObserver, finished=false, overlay, source, ruleRoot, layoutSignature;
+  const onResize=()=>{if(layoutSignature&&titleLayoutSignature(heading)!==layoutSignature)finish();};
   const titleInstances=[];
   const oldLabel=heading.getAttribute('aria-label');
   const make=(tag,cls)=>{const e=document.createElement(tag);e.className=cls;return e;};
@@ -24,6 +26,7 @@ export function mountEditorialMotion(section) {
   };
   const showTitle=()=>{
     titleObserver?.disconnect();
+    window.removeEventListener('resize',onResize);
     titleInstances.splice(0).reverse().forEach(x=>{try{x.destroy();}catch{}});
     if(overlay){overlay.remove();overlay=null;}
     heading.classList.remove('pes-motion-title-active');
@@ -64,6 +67,9 @@ export function mountEditorialMotion(section) {
     const playTitle=()=>{
       const targets=lines.map(r=>r.querySelector('[data-am-text]'));
       lines.forEach(r=>titleInstances.push(reveal(r)));
+      alignTitleGlyphs(source,overlay);
+      layoutSignature=titleLayoutSignature(heading);
+      window.addEventListener('resize',onResize,{passive:true});
       delete overlay.dataset.pending;
       const complete=()=>{
         if(targets.every(t=>t.classList.contains('am-inview'))){

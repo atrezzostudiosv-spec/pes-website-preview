@@ -1,5 +1,6 @@
 /* PES global editorial opt-in. Only coordination; vendor animation formulas stay intact. */
 import {mountEditorialMotion} from './pes-editorial-motion.js';
+import {alignTitleGlyphs,titleLayoutSignature} from './pes-title-glyphs.js';
 import {mountServicesIntro} from './pes-services-intro.js?v=responsive-1';
 import {mount as textReveal} from './vendor/pes-motion/motion/ATZ-MOT-001.js';
 import {mount as groupStagger} from './vendor/pes-motion/typography/ATZ-MOT-013.js';
@@ -22,8 +23,9 @@ function revealHeading(h,region){
  const nodes=[...h.childNodes], source=make('span','pes-global-title-source'), overlay=make('span','pes-global-title-overlay');
  overlay.setAttribute('aria-hidden','true');
  const initialPosition=getComputedStyle(h).position, addedPosition=initialPosition==='static';
- const instances=[],targets=[];let closed=false,timer,mo,stop,delay;
- const finish=()=>{if(closed)return;closed=true;clearTimeout(timer);clearTimeout(delay);stop?.();mo?.disconnect();instances.reverse().forEach(i=>{try{i.destroy();}catch{}});overlay.remove();if(source.isConnected){h.prepend(...nodes);source.remove();}if(addedPosition)h.classList.remove('pes-global-title-active');h.dataset.pesMotionDone='true';unregister(region,finish);};
+ const instances=[],targets=[];let closed=false,timer,mo,stop,delay,layoutSignature;
+ const onResize=()=>{if(layoutSignature&&titleLayoutSignature(h)!==layoutSignature)finish();};
+ const finish=()=>{if(closed)return;closed=true;clearTimeout(timer);clearTimeout(delay);stop?.();mo?.disconnect();window.removeEventListener('resize',onResize);instances.reverse().forEach(i=>{try{i.destroy();}catch{}});overlay.remove();if(source.isConnected){h.prepend(...nodes);source.remove();}if(addedPosition)h.classList.remove('pes-global-title-active');h.dataset.pesMotionDone='true';unregister(region,finish);};
  function segment(value,parent){
   if(!value.trim()){parent.append(document.createTextNode(value));return;}
   const r=make('span','atz-motion-v1 pes-global-segment');r.dataset.atzId='ATZ-MOT-001';r.dataset.pesMotion='';
@@ -38,6 +40,9 @@ function revealHeading(h,region){
    if(addedPosition)h.classList.add('pes-global-title-active');
    source.append(...nodes);h.append(source,overlay);
    targets.forEach(t=>instances.push(textReveal(t.parentElement)));
+   alignTitleGlyphs(source,overlay);
+   layoutSignature=titleLayoutSignature(h);
+   window.addEventListener('resize',onResize,{passive:true});
    const done=()=>{if(targets.every(t=>t.classList.contains('am-inview'))){mo?.disconnect();clearTimeout(timer);timer=setTimeout(finish,1200+Math.max(...targets.map(t=>t.querySelectorAll('.am-char').length))*5+80);}};
    mo=new MutationObserver(done);targets.forEach(t=>mo.observe(t,{attributes:true,attributeFilter:['class']}));done();
    // Fail open on fast scroll, interrupted transitions or unavailable observer.
