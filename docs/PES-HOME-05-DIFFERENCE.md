@@ -19,3 +19,5 @@ User found the 3.4-viewport pinned travel too long and requested a midpoint betw
 
 ## Photographic refinement — 2026-11-28
 Replace the first Handoff photograph of the same electrical room with the existing real PES construction photograph why-us/behind-the-scenes.webp (2500 × 1669). The sequence now contrasts hands-on infrastructure execution with finished lighting. Second scene, copy, timing, gradients and engine preserved. The source also appears on Why Us; review cross-page diversification separately. Desktop/mobile visual crop not yet approved.
+
+User requested swapping the two Home installation photographs. Precision. Built in. now uses lighting-installation.webp with native image dimensions; second pane and motion unchanged. Visual crop pending review.

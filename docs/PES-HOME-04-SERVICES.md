@@ -9,3 +9,5 @@ Strengthen the existing shared horizontal gradient to 85% black at left, 55% at 
 
 ## Photographic refinement — 2026-11-28
 User identified the repeated electrical room across Services and the following Handoff. System Lighting Upgrade now uses the existing real PES lighting installation photograph (why-us/lighting-installation.webp), with a 50% 48% focal point. Power Quality retains the single contextual electrical-room photograph PES-035. No engine, layout, copy or timing changes. The image is also used on Why Us; that cross-page repetition is tracked for future source-media diversification. Visual crop review pending.
+
+User requested swapping the two Home installation photographs. System Lighting Upgrade now uses behind-the-scenes.webp with a higher focal point to preserve the worker's hands and framing. Copy and engine unchanged.
