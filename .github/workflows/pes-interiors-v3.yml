@@ -1,0 +1,21 @@
+name: PES Interiors V3 QA
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['**/index.html','index.html','assets/pes-interiors-v3.css','assets/media/projects/**','data/**','qa/interiors-v3.py','.github/workflows/pes-interiors-v3.yml']
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install playwright==1.56.0
+      - run: python -m playwright install --with-deps chromium webkit
+      - run: python qa/interiors-v3.py chromium
+      - run: python qa/interiors-v3.py webkit
