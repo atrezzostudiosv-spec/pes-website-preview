@@ -211,7 +211,8 @@ def paced_touch(b,w,h):
         # explicitly before sending synthetic touch events to the stage.
         p.evaluate("() => { const t=document.querySelector('#pes-services [data-collection-track]'); window.scrollTo({top:t.getBoundingClientRect().top+scrollY+16,behavior:'instant'}) }")
         p.wait_for_function("() => {const r=document.querySelector('#pes-services [data-collection-stage]').getBoundingClientRect();return r.top<=innerHeight*.6&&r.bottom>=innerHeight*.4}")
-        assert swipe(h*3)
+        p.wait_for_function("document.querySelector('#pes-services').classList.contains('is-cinema-active')")
+        assert swipe(h*3),p.evaluate("() => ({active:document.querySelector('#pes-services').classList.contains('is-cinema-active'),motion:matchMedia('(max-width:767px) and (orientation:portrait) and (prefers-reduced-motion:no-preference)').matches,touch:navigator.maxTouchPoints,selected:document.querySelector('#pes-services [data-collection-tab][aria-selected=true]')?.getAttribute('data-collection-tab'),scrollY,stage:document.querySelector('#pes-services [data-collection-stage]').getBoundingClientRect().top})")
         p.wait_for_timeout(500);assert active()=='02 / 05',active()
         assert swipe(h*3)
         p.wait_for_timeout(500);assert active()=='03 / 05',active()
