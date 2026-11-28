@@ -16,3 +16,6 @@ User approved bold second line in both Handoff scenes: Precision. / **Built in.*
 
 ## V1.4 — Intermediate reading distance (2026-11-27)
 User found the 3.4-viewport pinned travel too long and requested a midpoint between original and current. Use 2.2 stable viewport heights of travel across desktop, tablet and mobile (stage + 220svh), approximately the midpoint of the original 0.95–1.05 and previous 3.4. This is a 35.3% reduction from V1.2. Preserve the exact progress remapping (30% first hold / 40% transition / 30% second hold), original motion curves, reversible native scroll, stable iOS viewport, title weights, imagery and gradients. No changes to engine, vendor, other sections or reduced-motion fallback. Update geometry assertions and cache key; visual review pending.
+
+## Photographic refinement — 2026-11-28
+Replace the first Handoff photograph of the same electrical room with the existing real PES construction photograph why-us/behind-the-scenes.webp (2500 × 1669). The sequence now contrasts hands-on infrastructure execution with finished lighting. Second scene, copy, timing, gradients and engine preserved. The source also appears on Why Us; review cross-page diversification separately. Desktop/mobile visual crop not yet approved.

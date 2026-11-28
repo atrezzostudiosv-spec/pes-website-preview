@@ -6,3 +6,6 @@ The global split overlay could reflow the bold line because inline character wid
 
 ## V1.2 — left scrim
 Strengthen the existing shared horizontal gradient to 85% black at left, 55% at 32%, 18% at 52%, transparent at 72%. Retain existing vertical scrim and original motion; all five panels share this visual adjustment. Pending user visual review.
+
+## Photographic refinement — 2026-11-28
+User identified the repeated electrical room across Services and the following Handoff. System Lighting Upgrade now uses the existing real PES lighting installation photograph (why-us/lighting-installation.webp), with a 50% 48% focal point. Power Quality retains the single contextual electrical-room photograph PES-035. No engine, layout, copy or timing changes. The image is also used on Why Us; that cross-page repetition is tracked for future source-media diversification. Visual crop review pending.
