@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "presentation": "review_preview",
+  "projects": [
+    {
+      "slug": "hillside",
+      "title": "Hillside",
+      "location": "Hollywood, California",
+      "property_type": "Single-family residence",
+      "completion": "2019",
+      "project_area": null,
+      "overview": "Hillside is a residential project in the Premium Energy Solutions portfolio, completed in 2019. Its architectural photography offers a closer look at the home and its relationship with the Los Angeles landscape.",
+      "pes_scope": "Premium Energy Solutions carried out the complete electrical installation throughout the residence. Our work provided the electrical foundation for this custom home.",
+      "scope_details": [],
+      "technical_challenge": null,
+      "electrical_solution": null,
+      "installation_details": null,
+      "project_coordination": null,
+      "final_result": null,
+      "hero": {"src": "assets/media/PES-017.jpg", "alt": "Illuminated Hillside exterior and courtyard at night", "source": "PES original website, Hillside Finish 2-47.jpg", "authorization": "review_preview"},
+      "gallery": [
+        {"src": "assets/media/PES-007.jpg", "alt": "Hillside living area opening to an evening terrace", "source": "PES original website, Hillside-JesterJungco-8.jpg", "authorization": "review_preview"},
+        {"src": "assets/media/PES-003.jpg", "alt": "Sculptural ceiling luminaires in the Hillside living area", "source": "PES original website, Hillside Finish 2-31.jpg", "authorization": "review_preview"},
+        {"src": "assets/media/PES-011.jpg", "alt": "Linear interior lighting beside the Hillside terrace", "source": "PES original website, Hillside-JesterJungco-33.jpg", "authorization": "review_preview"}
+      ],
+      "credits": [
+        {"role": "Electrical installation", "name": "Premium Energy Solutions, Inc.", "source": "PES project director", "verified": true},
+        {"role": "Design architect", "name": "SAOTA", "source": "https://www.saota.com/hillside/", "verified": true},
+        {"role": "Architect of record", "name": "Woods + Dangaran", "source": "https://www.saota.com/hillside/", "verified": true},
+        {"role": "Lighting design", "name": "Lux Populi", "source": "https://www.saota.com/hillside/", "verified": true},
+        {"role": "Project management", "name": "Park Lane Projects", "source": "PES V3 brief", "verified": true},
+        {"role": "General contractor", "name": "Fortis Development", "source": "PES V3 brief", "verified": true},
+        {"role": "Interior design", "name": "MASS Beverly", "source": "PES V3 brief", "verified": true},
+        {"role": "Landscaping", "name": "Chris Sosa", "source": "PES V3 brief", "verified": true}
+      ]
+    },
+    {
+      "slug": "laurel-way",
+      "title": "Laurel Way",
+      "location": "Beverly Hills, California",
+      "property_type": "Single-family residence",
+      "completion": null,
+      "project_area": null,
+      "overview": "Laurel Way is featured in the residential portfolio of Premium Energy Solutions. Explore the home through the photographs collected for this project.",
+      "pes_scope": null,
+      "scope_details": [],
+      "technical_challenge": null,
+      "electrical_solution": null,
+      "installation_details": null,
+      "project_coordination": null,
+      "final_result": null,
+      "hero": {"src": "assets/media/projects/laurel-way-electrical-installation-1600.webp", "src_small": "assets/media/projects/laurel-way-electrical-installation-800.webp", "alt": "PES electrician working among conduit and wiring at the Laurel Way project", "source": "Google Drive PES_1000+Laurel+90210-156.webp", "authorization": "review_preview"},
+      "gallery": [],
+      "credits": []
+    },
+    {
+      "slug": "st-cloud",
+      "title": "St. Cloud",
+      "location": "Bel-Air, California",
+      "property_type": "Single-family residence",
+      "completion": null,
+      "project_area": null,
+      "overview": "St. Cloud is a residential property featured in the Premium Energy Solutions portfolio in Bel-Air.",
+      "pes_scope": null,
+      "scope_details": [],
+      "technical_challenge": null,
+      "electrical_solution": null,
+      "installation_details": null,
+      "project_coordination": null,
+      "final_result": null,
+      "hero": null,
+      "gallery": [],
+      "credits": []
+    }
+  ]
+}
