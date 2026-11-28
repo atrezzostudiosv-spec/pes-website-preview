@@ -159,7 +159,9 @@ def project_page(project: dict) -> None:
         parts += [f'<div><dt>{E(c["role"])}</dt><dd>{E(c["name"])}</dd></div>' for c in credits]
         parts.append('</dl></div></div></section>')
     next_project = PROJECTS[(PROJECTS.index(project) + 1) % len(PROJECTS)]
-    parts.append(f'<section class="ui iv3-next" data-pes-editorial><a href="../{E(next_project["slug"])}/"><span class="eyebrow">NEXT PROJECT</span><strong>{E(next_project["title"])}</strong><span aria-hidden="true">↗</span></a></section>')
+    next_hero = next_project['hero']
+    next_media = image(next_hero['src'], next_hero['alt'], route, small=next_hero.get('src_small')) if next_hero else ''
+    parts.append(f'<section class="ui iv3-next{" iv3-next--photo" if next_hero else ""}" data-pes-editorial>{next_media}<a href="../{E(next_project["slug"])}/"><span class="eyebrow">NEXT PROJECT</span><strong>{E(next_project["title"])}</strong><span aria-hidden="true">↗</span></a></section>')
     parts.append(close(route))
     description = f'Explore {project["title"]}, a {project["location"]} residence featured by Premium Energy Solutions.'
     write_page(route, '\n'.join(parts), title=f'{project["title"]} | Premium Energy Solutions', description=description, base='/hillside/')

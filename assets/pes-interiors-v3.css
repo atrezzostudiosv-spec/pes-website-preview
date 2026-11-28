@@ -63,6 +63,9 @@
 .pes-site .iv3-credits dt{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:#555}
 .pes-site .iv3-credits dd{margin:8px 0 0;font-size:1.05rem}
 .pes-site .iv3-next{background:#a2fd02;color:#000}
+.pes-site .iv3-next--photo{position:relative;isolation:isolate;background:#000;color:#fff;overflow:hidden}
+.pes-site .iv3-next--photo>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.pes-site .iv3-next--photo::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,.54);z-index:-1}
 .pes-site .iv3-next a{display:flex;align-items:center;gap:20px;max-width:1450px;margin:auto;padding:clamp(42px,8vw,110px) 24px;color:inherit;text-decoration:none}
 .pes-site .iv3-next strong{margin-left:auto;font-size:clamp(2.2rem,5vw,5.5rem);font-weight:300;letter-spacing:-.06em}
 .pes-site .iv3-next a>span:last-child{font-size:2rem}
