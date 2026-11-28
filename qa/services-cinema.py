@@ -44,7 +44,10 @@ def test(b,name,w,h,mode='animated'):
         if mode in ['animated','short']:
             p.wait_for_function("document.querySelector('[data-pes-services-intro]').dataset.pesServicesMotion")
             intro=sec.locator('[data-pes-services-intro]')
-            intro.evaluate("e=>window.scrollTo({top:e.getBoundingClientRect().top+scrollY-100,behavior:'instant'})")
+            # Observe the label itself: the animation's IntersectionObserver is
+            # attached there, and the intro container can exceed a phone viewport.
+            intro.locator('.eyebrow').scroll_into_view_if_needed()
+            p.mouse.wheel(0,1)
             try:
                 p.wait_for_function("document.querySelector('[data-pes-services-intro]').dataset.pesServicesMotion==='playing'")
             except Exception as exc:
@@ -95,7 +98,8 @@ def test(b,name,w,h,mode='animated'):
         assert layout['display']==('grid' if w>767 else 'block'),layout
         assert layout['copy'][0]>layout['heading'][0] if w>767 else layout['copy'][1]>layout['heading'][1],layout
         if mode=='animated':
-            diff.evaluate("e=>window.scrollTo({top:e.getBoundingClientRect().top+scrollY-70,behavior:'instant'})")
+            diff.locator('[data-pes-services-intro] .eyebrow').scroll_into_view_if_needed()
+            p.mouse.wheel(0,1)
             diff_intro=diff.locator('[data-pes-services-intro]')
             p.wait_for_function("document.querySelector('#pes-difference [data-pes-services-intro]').dataset.pesServicesMotion==='playing'")
             p.wait_for_function("document.querySelectorAll('#pes-difference .pes-services-title-overlay .am-char').length>0")
