@@ -110,3 +110,12 @@
 }
 @media(max-width:1100px){.pv4-page .pv4-parallax-frame>img{height:calc(100% + 40px);top:-20px}}
 @media(prefers-reduced-motion:reduce){.pv4-page .pv4-card-visual img{transition:none}.pv4-page .pv4-parallax-frame>img{transform:none!important;top:0;height:100%}}
+
+/* V4.1: constrain intrinsic grid and text widths in mobile Design Review; no desktop change. */
+@media(max-width:820px){
+ .pv4-page.pv4-review main>.ui .wrap{min-width:0}
+ .pv4-page.pv4-review :is(.pv4-two,.pv4-close-grid,.pv4-slot-grid,.pv4-gallery-grid,.pv4-portfolio-card){grid-template-columns:minmax(0,1fr)}
+ .pv4-page.pv4-review :is(.pv4-two,.pv4-close-grid,.pv4-slot-grid,.pv4-gallery-grid)>*{min-width:0;max-width:100%}
+ .pv4-page.pv4-review main>.ui :is(h1,h2,.pv4-pending,.pv4-image-slot,.pv4-review-banner,.pv4-next strong){overflow-wrap:anywhere}
+ .pv4-page.pv4-review .pv4-image-slot{box-sizing:border-box;min-width:0}
+}

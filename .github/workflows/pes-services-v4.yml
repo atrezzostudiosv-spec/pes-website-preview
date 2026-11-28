@@ -1,0 +1,30 @@
+name: PES Services V4 QA
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['capabilities/**','assets/pes-services-v4.css','scripts/build_services_v4.mjs','data/editorial-v3.json','qa/services-v4.py','.github/workflows/pes-services-v4.yml']
+  pull_request:
+    paths: ['capabilities/**','assets/pes-services-v4.css','scripts/build_services_v4.mjs','data/editorial-v3.json','qa/services-v4.py','.github/workflows/pes-services-v4.yml']
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install playwright==1.56.0
+      - run: python -m playwright install --with-deps chromium webkit
+      - run: python qa/services-v4.py
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: services-v4-evidence
+          path: services-v4-qa/

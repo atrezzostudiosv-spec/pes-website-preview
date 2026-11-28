@@ -201,19 +201,7 @@ def add_editorial(route: str, content: str) -> None:
 
 
 def existing_pages() -> None:
-    # Preserve the exact ATZ-SEC-007 and ATZ-SEC-008 DOM and their original engines.
-    route = '/capabilities/lighting-design/'
-    blocks = split_copy(EDITORIAL[route]['editorial_approved'])
-    content = ''.join(text_section(i, heading, body, dark=i == 2) for i,(heading,body) in enumerate(blocks[1:],1))
-    add_editorial(route, content)
-    route = '/capabilities/'
-    service_pages = [EDITORIAL[r] for r in ['/capabilities/lighting-systems/','/capabilities/automated-window-coverings/','/capabilities/lighting-design/','/capabilities/power-quality-and-energy-management/','/capabilities/ev-charging/']]
-    labels = ['System Lighting Upgrade','Automated Window Coverings','Lighting Design and Installation','Power Quality and Energy Management','EV Charger Installations']
-    content = '<section class="ui iv3-service-index" data-pes-editorial><div class="wrap"><p class="eyebrow">PES / FIVE SERVICE AREAS</p><h2>Explore our electrical services.</h2><div class="iv3-service-index__grid">'
-    for i,(p,label) in enumerate(zip(service_pages,labels),1):
-        content += f'<a href="{prefix(route)}{p["route"].strip("/")}/"><span>0{i}</span><strong>{E(label)}</strong><span aria-hidden="true">↗</span></a>'
-    content += '</div></div></section>'
-    add_editorial(route, content)
+    # Services V4 owns the capabilities routes.
     route = '/careers/'
     blocks = split_copy(EDITORIAL[route]['editorial_approved'])
     # Current positions are not verified; use the master to present PES culture and historical benefits.
@@ -226,11 +214,9 @@ def existing_pages() -> None:
 
 
 def main() -> None:
-    for route in SERVICE_MEDIA:
-        service_page(route)
-    power_quality()
-    # Projects V4 owns these routes; never overwrite its master template.
     import subprocess
+    subprocess.run(['node', str(ROOT / 'scripts/build_services_v4.mjs')], check=True)
+    # Projects V4 owns these routes; never overwrite its master template.
     subprocess.run(['node', str(ROOT / 'scripts/build_projects_v4.mjs')], check=True)
     existing_pages()
     # Archived role descriptions remain intact; only add search descriptions.
